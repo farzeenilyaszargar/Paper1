@@ -157,6 +157,13 @@ Generated corpora are ignored by Git because they can be large. Code, presets,
 tests, and small illustrative records under `datasets/example/` are committed.
 The examples are inspection samples, not an independently audited training corpus.
 
+The default seed-42 corpus has been generated and fully audited: 180,000 records,
+including 100,000 training records. `datasets/validation_summary.json` preserves
+the corpus fingerprint, code commit, per-split counts, label statistics, and
+maximum input lengths. All 16 unit/integration tests passed, including identical
+output from serial and parallel verification. These are data validation results,
+not model performance measurements.
+
 ## Research workflow
 
 First verify within-representation 2-hop learning with a very small transformer.
