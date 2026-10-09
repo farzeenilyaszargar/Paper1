@@ -1,0 +1,9 @@
+{
+  "name": "smoke",
+  "seed": 42,
+  "train_count": 300,
+  "evaluation_count": 30,
+  "familiar_symbols": 512,
+  "heldout_symbols": 256,
+  "max_attempts_per_example": 100
+}

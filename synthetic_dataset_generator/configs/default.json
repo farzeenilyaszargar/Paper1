@@ -1,0 +1,9 @@
+{
+  "name": "default",
+  "seed": 42,
+  "train_count": 100000,
+  "evaluation_count": 10000,
+  "familiar_symbols": 512,
+  "heldout_symbols": 256,
+  "max_attempts_per_example": 100
+}

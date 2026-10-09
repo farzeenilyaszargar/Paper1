@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paper1-reasoning-data"
+version = "0.1.0"
+description = "Reproducible, audited symbolic inference datasets"
+requires-python = ">=3.11"
+dependencies = ["z3-solver==4.15.4.0"]
+
+[project.scripts]
+reasoning-data = "synthetic_dataset_generator.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["synthetic_dataset_generator*"]
+
+[tool.setuptools.package-data]
+synthetic_dataset_generator = ["configs/*.json"]
