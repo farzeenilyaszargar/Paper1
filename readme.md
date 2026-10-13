@@ -32,6 +32,15 @@ Customize counts, seed, and output without editing code:
 .venv/bin/python -m synthetic_dataset_generator generate --train-count 1000000 --evaluation-count 10000 --seed 123 --output datasets/million-seed123
 ```
 
+Dataset size and model parameter count are independent. Use the same frozen
+corpus and evaluation splits for your 10K, 100K, and 500K parameter models so
+capacity comparisons do not also change the data. `--train-count` controls only
+training examples; `--evaluation-count` applies separately to validation and
+each of the seven test files. Total records are therefore
+`train_count + 8 * evaluation_count`. The command above creates 1,080,000 records.
+Choose corpus size based on available storage and training compute, not the
+model's parameter count alone.
+
 Output directories must not already exist. Choose a new directory for another
 run. An interrupted run is incomplete unless it has a manifest and a passing
 full audit. Generation never overwrites an existing corpus or relaxes constraints
@@ -85,7 +94,7 @@ as having a 2-, 3-, 4-, or 5-hop proof.
 | `test_depth_4.jsonl` | 10,000 | Familiar symbols/families; 4 hops |
 | `test_depth_5.jsonl` | 10,000 | Familiar symbols/families; 5 hops |
 
-Every split balances the three labels within one example. Familiar names are
+In every split, the three label counts differ by at most one example. Familiar names are
 `p000`–`p511`; held-out names are `p512`–`p767`. A fixed **character vocabulary**
 encodes all names. Every input character must occur in training. Do not replace
 this encoding with a tokenizer that assigns each complete name its own learned
