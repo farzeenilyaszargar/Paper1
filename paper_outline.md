@@ -21,6 +21,8 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
+The ten reviewed references are collected in `references.bib`; screening and
+additional relevant-paper review remain documented in `notes.md`.
 
 ## 3. Task and dataset
 

@@ -78,6 +78,7 @@ class ModelTests(unittest.TestCase):
         self.assertEqual(targets.tolist(), [0, 1])
         self.assertEqual(lengths.tolist(), [len(s[0]) for s in samples])
         self.assertTrue(torch.all(tokens[0, lengths[0]:] == PAD))
+        self.assertEqual(tokens.shape[1],128)
 
 
 if __name__ == "__main__":

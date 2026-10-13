@@ -35,7 +35,7 @@ def load(path, representation, limit=None, encoding="characters"):
     return samples
 
 
-def batches(samples, batch_size, rng=None):
+def batches(samples, batch_size, rng=None, padding_multiple=128):
     indices = list(range(len(samples)))
     if rng:
         rng.shuffle(indices)
@@ -49,7 +49,9 @@ def batches(samples, batch_size, rng=None):
     for group in groups:
         selected = [samples[i] for i in group]
         lengths = torch.tensor([len(s[0]) for s in selected])
-        tokens = torch.full((len(group), int(lengths.max())), PAD, dtype=torch.long)
+        maximum = int(lengths.max())
+        padded_length = ((maximum+padding_multiple-1)//padding_multiple)*padding_multiple
+        tokens = torch.full((len(group), padded_length), PAD, dtype=torch.long)
         for i, sample in enumerate(selected):
             tokens[i, :len(sample[0])] = torch.tensor(sample[0])
         yield tokens, lengths, torch.tensor([s[1] for s in selected]), [s[2] for s in selected]
@@ -135,6 +137,8 @@ def run(args):
     config.update(device=device, parameter_count=model.parameter_count, torch_version=torch.__version__,
                   dataset_name=manifest["config"]["name"],
                   effective_batch_size=args.batch_size * args.accumulation,
+                  padding_bucket_tokens=128,
+                  evaluation_batch_size=args.eval_batch_size or min(args.batch_size,4),
                   architecture={"width": SIZES[args.size][0], "layers": SIZES[args.size][1],
                                 "heads": SIZES[args.size][2], "ff_width": FF_WIDTH.get(args.size, 4 * SIZES[args.size][0])},
                   source_checksums={name: file_checksum(Path(__file__).parent / name)
@@ -179,7 +183,10 @@ def run(args):
                 step += 1
                 if step % 50 == 0:
                     print(f"epoch={epoch} step={step} train_loss={total_loss/count:.4f} train_accuracy={correct/count:.4f}", flush=True)
-            metrics = evaluate(model, validation, args.batch_size, device)
+            metrics = evaluate(model, validation, config["evaluation_batch_size"], device)
+            if device == "mps":
+                torch.mps.synchronize()
+                torch.mps.empty_cache()
             row = {"epoch": epoch, "step": step, "train_loss": total_loss / count,
                    "train_accuracy": correct / count, "validation": metrics,
                    "training_examples_seen": epoch * len(train), "nonpadding_training_tokens_seen": tokens_seen,
@@ -194,7 +201,7 @@ def run(args):
             write_json(args.output / "state.json", row)
             print(json.dumps(row), flush=True)
     model.load_state_dict(torch.load(args.output / "best.pt", map_location=device, weights_only=True))
-    selected_validation = evaluate(model,validation,args.batch_size,device)
+    selected_validation = evaluate(model,validation,config["evaluation_batch_size"],device)
     results = {"status": "completed", "config": config, "selection": "minimum source-representation validation loss",
                "scope": "memorization diagnostic" if args.purpose == "diagnostic" else "smoke" if manifest["config"]["name"] == "smoke" else "pilot subset" if args.train_limit or args.eval_limit else "full corpus", "evaluations": {}}
     results["selected_validation"] = selected_validation
@@ -211,13 +218,16 @@ def run(args):
                 continue
             split = filename.removesuffix(".jsonl")
             samples = load(args.data / filename, representation, args.eval_limit, args.encoding)
-            metrics = evaluate(model, samples, args.batch_size, device,
+            metrics = evaluate(model, samples, config["evaluation_batch_size"], device,
                                args.output / f"{representation}_{split}.predictions.jsonl")
             test_chars = set(c for sequence, _, _ in samples for c in sequence)
             metrics["unseen_source_token_ids"] = sorted(test_chars - training_chars)
             if args.encoding == "characters":
                 metrics["unseen_source_character_ids"] = metrics["unseen_source_token_ids"]
             results["evaluations"][representation][split] = metrics
+            if device == "mps":
+                torch.mps.synchronize()
+                torch.mps.empty_cache()
             write_json(args.output / "results.json", results | {"status": "evaluation_in_progress"})
             print(f"test {representation}/{split}: {metrics['accuracy']:.4f}", flush=True)
     write_json(args.output / "results.json", results)
@@ -241,9 +251,10 @@ def main():
     parser.add_argument("--purpose", choices=("experiment", "pilot", "diagnostic", "smoke"), default="experiment")
     parser.add_argument("--encoding", choices=("characters", "local_slots"), default="characters")
     parser.add_argument("--accumulation", type=int, default=1)
+    parser.add_argument("--eval-batch-size",type=int)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
-    if min(args.epochs, args.batch_size, args.threads, args.accumulation) < 1 or args.lr <= 0 or any(v is not None and v < 1 for v in (args.train_limit, args.eval_limit)):
+    if min(args.epochs, args.batch_size, args.threads, args.accumulation) < 1 or args.lr <= 0 or any(v is not None and v < 1 for v in (args.train_limit, args.eval_limit, args.eval_batch_size)):
         parser.error("Epochs, batch size, learning rate and optional limits must be positive")
     run(args)
 

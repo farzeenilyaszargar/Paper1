@@ -85,7 +85,8 @@ def run(data, epochs, include_pilot):
 
         if include_pilot:
             pilot = Path("models/runs/pilot_500k_symbolic_seed1")
-            if (pilot/"last.pt").exists() and not (pilot/"results.json").exists():
+            pilot_finished = (pilot/"results.json").exists() and json.loads((pilot/"results.json").read_text()).get("status") == "completed"
+            if (pilot/"last.pt").exists() and not pilot_finished:
                 dispatch("resume_pilot_500k",[sys.executable,"-u","-m","models.train","--output",str(pilot),
                     "--size","500k","--epochs","30","--batch-size","32","--train-limit","20000",
                     "--eval-limit","1000","--device","mps","--resume"])

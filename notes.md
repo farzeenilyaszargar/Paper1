@@ -12,7 +12,12 @@ The first 89,763-parameter smoke run used only 300 training examples, two epochs
 and 30 validation examples. Best-validation-loss selection produced 26.7%
 validation accuracy. This is a software check, not evidence of learned reasoning
 or a meaningful estimate of transfer. The 457,251-parameter pilot on 20K examples
-was interrupted after epoch 18 and is being resumed from its verified checkpoint.
+completed 30 epochs after resuming its epoch-18 checkpoint. Its long-English
+evaluation exhausted MPS memory with dynamic sequence shapes and batch size 32;
+the repeated evaluation completed using smaller batches and 128-token padding
+buckets. Selected validation accuracy is 34.2% (1K cases), and symbolic IID test
+accuracy is 32.2% (1K cases). It fails the source-learning gate. The memory error
+was a runtime failure, not an inference accuracy result.
 A separate 99,075-parameter binding-normalized pilot fit its 2K training examples
 (95.35% final online training accuracy), but its selected checkpoint got 30.2%
 IID test accuracy on 1K cases. It does not satisfy the learning gate.
@@ -136,10 +141,31 @@ paper PDFs. This is a growing scoped review, not a claim to have read every
 paper on the topic. Check references/citations and recent arXiv submissions again
 before finalizing the related-work section.
 
-Additional screened candidates for later detailed review: [Tower of Hanoi world
-models](https://arxiv.org/abs/2608.07077) and [unfaithful arithmetic reasoning](https://arxiv.org/abs/2602.01017).
-Their abstracts are relevant to interpreting behavioral failures and trace
-faithfulness, but they have not yet received the same methods/results review.
+### Pereira and Zuidema, August 2026
+
+[Transformers Struggle to Use Their Emergent World Models](https://arxiv.org/abs/2608.07077).
+Reviewed the small-model training, state probes, interventions and large-model
+comparison in v1; visually checked the probe figure and intervention table.
+Question: what fails during Hanoi planning? Method: solution-trace training,
+state-distance/per-disk probes, whole-stream patches and activation steering.
+Result: useful state information can be present at the prompt yet degrade during
+generation. Their intervention is not a surgical test of the decoded 2D subspace.
+Difference: our classifier emits one label, without a long planning rollout.
+This study warns against equating behavioral failure with absent internal
+knowledge; it does not diagnose our current training failure.
+
+### Wang, Alazali and Zhong, February 2026
+
+[How Does Unfaithful Reasoning Emerge from Autoregressive Training?](https://arxiv.org/abs/2602.01017).
+Reviewed synthetic construction, consistency/intervention metrics, noise results,
+limitations and training details in v1; visually checked the faithfulness definitions.
+Question: when do arithmetic traces causally follow intermediate steps?
+Method: controlled corruption of modular-arithmetic chains and counterfactual
+interventions on the intermediate expression in small autoregressive models.
+Result: reasoning modes and faithfulness depend on noise, complexity and training
+duration. Difference: our answer-only classifier has no generated trace whose
+faithfulness can be scored directly. Verified labels do not establish an internal
+stepwise proof; any later trace condition needs an independent causal check.
 
 ## Experimental protocol and interpretation gates
 
@@ -208,7 +234,9 @@ Completed: audited corpus; three lossless renderers; causal classifier trainer;
 checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
-In progress: resumed pilot, 45-condition full-corpus baseline matrix, further
+Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
+ten relevant-paper methods/results reviews, with version distinctions recorded.
+In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final

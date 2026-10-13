@@ -245,6 +245,10 @@ The supervisor holds an OS lock, rejects overlapping live trainers, and records
 the active child in `models/suite_state.json`; logs are local in
 `models/suite_logs/`. Before restarting after an interruption, verify that the
 old supervisor and trainer are no longer live. Checkpoints are written atomically.
+Input lengths are padded to 128-token buckets to bound accelerator compilation
+cache shapes. `--eval-batch-size` controls evaluation separately from the training
+microbatch (default: at most four). This preserves all input tokens and EOS
+positions; padding is causally invisible to the answer head.
 Completion of this baseline queue is not completion of calibration, controls,
 or the research conclusion; the source-learning gate and all failures remain
 part of the results.
