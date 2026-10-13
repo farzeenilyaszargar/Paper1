@@ -115,7 +115,7 @@ def export(runs, output):
         ax.set(ylim=(0,1.05),ylabel="Accuracy",xticks=x,
                xticklabels=[s.removeprefix("test_") for s in splits],title="Full-corpus baseline measurements")
         ax.tick_params(axis="x",rotation=30)
-        ax.legend(loc="upper right",fontsize=8)
+        ax.legend(loc="upper left",bbox_to_anchor=(1.01,1),fontsize=8)
         fig.savefig(output/"full_corpus_baselines.png",dpi=180)
         plt.close(fig)
     lines = ["# Measured experiment results", "", "Smoke/pilot results are not final paper evidence. Confidence intervals describe finite test sampling, not training-seed uncertainty.", "",
