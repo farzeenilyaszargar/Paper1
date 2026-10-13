@@ -4,3 +4,7 @@ __pycache__/
 .pytest_cache/
 datasets/*/
 !datasets/example/
+.cache/
+models/runs/*/*.pt
+models/runs/*/state.json
+models/runs/*/*.predictions.jsonl

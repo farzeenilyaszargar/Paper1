@@ -1,0 +1,728 @@
+{
+  "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "feature_weights_standardized": [
+    [
+      0.030483365058898926,
+      -0.0633024051785469,
+      0.014679238200187683,
+      0.024908317252993584,
+      -0.15427035093307495,
+      0.0944327563047409,
+      0.04589453712105751,
+      0.10651282966136932,
+      -0.0007874382426962256,
+      0.03728480637073517
+    ],
+    [
+      0.04213530197739601,
+      -0.055487558245658875,
+      0.03091306798160076,
+      0.008736640214920044,
+      -0.16827994585037231,
+      0.09147913008928299,
+      0.06939547508955002,
+      0.09975481033325195,
+      -0.004629896022379398,
+      0.017720656469464302
+    ],
+    [
+      -0.014591215178370476,
+      -0.2608754336833954,
+      0.06103139370679855,
+      -0.02703816629946232,
+      -0.21080417931079865,
+      0.06791148334741592,
+      0.03806428611278534,
+      0.08954436331987381,
+      -0.028846362605690956,
+      0.259373277425766
+    ]
+  ],
+  "features": [
+    "facts",
+    "rules",
+    "symbols",
+    "or_rules",
+    "and_clauses",
+    "negative_facts",
+    "negative_premises",
+    "negative_conclusions",
+    "negative_query",
+    "input_characters"
+  ],
+  "selection": "validation loss only; 200 predefined optimizer steps",
+  "splits": {
+    "test_combinations": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.331,
+        "balanced_accuracy": 0.33099068755105865,
+        "confusion": [
+          [
+            1414,
+            607,
+            1313
+          ],
+          [
+            1439,
+            601,
+            1293
+          ],
+          [
+            1412,
+            626,
+            1295
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.18031803180318032,
+          "entailed": 0.4241151769646071,
+          "unknown": 0.38853885388538856
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_depth_3": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3378,
+        "balanced_accuracy": 0.3378040563504461,
+        "confusion": [
+          [
+            991,
+            762,
+            1581
+          ],
+          [
+            946,
+            762,
+            1625
+          ],
+          [
+            906,
+            802,
+            1625
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.22862286228622863,
+          "entailed": 0.29724055188962206,
+          "unknown": 0.48754875487548754
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_depth_4": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.333418494818888,
+        "confusion": [
+          [
+            495,
+            931,
+            1908
+          ],
+          [
+            494,
+            894,
+            1945
+          ],
+          [
+            481,
+            907,
+            1945
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.2682268226822682,
+          "entailed": 0.14847030593881225,
+          "unknown": 0.5835583558355836
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_depth_5": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3384,
+        "balanced_accuracy": 0.33842727404114137,
+        "confusion": [
+          [
+            219,
+            914,
+            2201
+          ],
+          [
+            213,
+            985,
+            2135
+          ],
+          [
+            209,
+            944,
+            2180
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.29552955295529554,
+          "entailed": 0.0656868626274745,
+          "unknown": 0.654065406540654
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_iid": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.333,
+        "balanced_accuracy": 0.33298971768802554,
+        "confusion": [
+          [
+            1453,
+            579,
+            1302
+          ],
+          [
+            1451,
+            610,
+            1272
+          ],
+          [
+            1424,
+            642,
+            1267
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.18301830183018303,
+          "entailed": 0.4358128374325135,
+          "unknown": 0.3801380138013801
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_structures": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3321,
+        "balanced_accuracy": 0.33204754188676217,
+        "confusion": [
+          [
+            2856,
+            266,
+            212
+          ],
+          [
+            2825,
+            284,
+            224
+          ],
+          [
+            2863,
+            289,
+            181
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0852085208520852,
+          "entailed": 0.856628674265147,
+          "unknown": 0.054305430543054305
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "test_symbols": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3318,
+        "balanced_accuracy": 0.3317895376820226,
+        "confusion": [
+          [
+            1455,
+            577,
+            1302
+          ],
+          [
+            1421,
+            598,
+            1314
+          ],
+          [
+            1464,
+            604,
+            1265
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.17941794179417941,
+          "entailed": 0.4364127174565087,
+          "unknown": 0.3795379537953795
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    },
+    "validation": {
+      "oracle": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            0,
+            3333,
+            0
+          ],
+          [
+            0,
+            0,
+            3333
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        }
+      },
+      "surface_features": {
+        "accuracy": 0.3309,
+        "balanced_accuracy": 0.3308907975380621,
+        "confusion": [
+          [
+            1410,
+            596,
+            1328
+          ],
+          [
+            1417,
+            615,
+            1301
+          ],
+          [
+            1406,
+            643,
+            1284
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.1845184518451845,
+          "entailed": 0.42291541691661666,
+          "unknown": 0.3852385238523852
+        }
+      },
+      "training_majority": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            3334,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ],
+          [
+            3333,
+            0,
+            0
+          ]
+        ],
+        "count": 10000,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        }
+      },
+      "uniform_random_expected_accuracy": 0.3333333333333333
+    }
+  }
+}

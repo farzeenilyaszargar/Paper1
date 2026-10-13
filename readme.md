@@ -2,9 +2,10 @@ If a small transformer learns a reasoning procedure in one representation, can i
 
 # Can Small Transformers Generalize Reasoning Across Representations?
 
-This repository starts with a reproducible symbolic reasoning dataset. Transformer
-training and the other representations are future stages; no model results are
-claimed here.
+This repository contains a reproducible reasoning dataset, paired symbolic,
+function-syntax and template-English renderers, and a from-scratch transformer
+experiment pipeline. Software smoke runs are complete; the main experiment is
+still in progress. See `notes.md` and `paper_outline.md` for the research record.
 
 ## Quick start
 
@@ -171,3 +172,56 @@ Then evaluate each test file independently, reporting overall and per-label
 accuracy and the training seed. This generator prepares data for 10K, 100K, and
 500K parameter models; it does not assume any model will solve the task. Additional
 representations and cross-representation transfer come after the symbolic baseline.
+
+## Transformer experiments
+
+Install the pinned experiment dependencies:
+
+```sh
+.venv/bin/python -m pip install -e '.[experiments]'
+.venv/bin/python -m unittest discover -s tests -v
+```
+
+The experiment environment is Python 3.14.6 on macOS arm64. The observed full
+dependency set is pinned in `models/requirements-experiments.lock.txt`.
+
+The updated primary scaling conditions are:
+
+| Preset | Actual trainable parameters |
+| --- | ---: |
+| `100k` | 99,075 |
+| `500k` | 457,251 |
+| `1m` | 1,004,547 |
+| `5m` | 4,961,923 |
+| `10m` | 9,896,643 |
+
+These are causal transformers with a three-class answer head, sinusoidal
+positions, and shared character IDs, not pretrained language models. Their
+fixed 4096-token positional table is a buffer, not trainable parameters.
+
+Example full-corpus run (choose a new output directory):
+
+```sh
+.venv/bin/python -m models.train --size 500k --representation symbolic --epochs 30 --seed 1 --batch-size 32 --output models/runs/full_500k_symbolic_seed1
+.venv/bin/python -m models.plots
+.venv/bin/python -m models.baselines
+```
+
+Use `--train-limit`/`--eval-limit` only for explicitly labeled pilots. Use
+`--resume` with the same output and configuration to extend a completed epoch
+checkpoint. Model changes with incompatible parameter counts are rejected.
+The trainer checks dataset hashes, selects checkpoints using only source-format
+validation loss, and then evaluates seven independent test splits in all three
+representations. Inputs never include proof metadata. Oversized sequences fail
+rather than being truncated. MPS is used when available; seeded accelerator
+training is not guaranteed bit-identical.
+
+JSON configs, epoch histories, measured results, and plots are committed;
+checkpoints remain local and ignored. Graphs identify smoke/pilot scope, and
+incomplete runs do not receive fabricated test results. Raw representation
+transfer reports source-unseen character IDs because a shared vocabulary alone
+does not remove syntax-exposure confounds. Full multi-seed scaling, controls,
+and the reasoning-onset analysis remain required before a final conclusion.
+The full-corpus exact and surface-feature baseline measurements are stored in
+`models/baseline_results.json`. Predictions needed for paired statistical tests
+are saved locally per run and ignored by Git, alongside checkpoints.

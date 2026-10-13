@@ -1,0 +1,17 @@
+{
+  "status": "source-learning calibration in progress; final matrix not completed",
+  "primary_sizes": ["100k", "500k", "1m", "5m", "10m"],
+  "actual_parameters": [99075, 457251, 1004547, 4961923, 9896643],
+  "representations": ["symbolic", "function", "english"],
+  "training_seeds": [1, 2, 3],
+  "final_dataset": "datasets/default",
+  "final_training_examples": 100000,
+  "final_validation_examples": 10000,
+  "final_test_examples_per_split": 10000,
+  "checkpoint_selection": "minimum source validation cross-entropy",
+  "source_learning_gate": {"validation_accuracy": 0.95, "minimum_class_recall": 0.90},
+  "calibration": {"learning_rates": [0.0003, 0.001, 0.003], "selection_data": "source validation only", "test_tuning": false},
+  "pending_final_budget": "Choose after pilot calibration; record epochs, updates, examples, nonpadding tokens and compute for every condition",
+  "required_controls": ["exact oracle", "surface-feature classifier", "parse-normalized transfer", "syntax exposure", "renaming", "statement order", "irrelevant facts", "premise removal", "depth versus context length"],
+  "onset_reporting": "Smallest actual tested capacity passing a specified gate across all three seeds; separate source learning from independent holdouts and raw transfer. No unobserved threshold interpolated."
+}

@@ -9,11 +9,16 @@ description = "Reproducible, audited symbolic inference datasets"
 requires-python = ">=3.11"
 dependencies = ["z3-solver==4.15.4.0"]
 
+[project.optional-dependencies]
+experiments = ["torch==2.14.1", "numpy==2.5.4", "matplotlib==3.11.2"]
+
 [project.scripts]
 reasoning-data = "synthetic_dataset_generator.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["synthetic_dataset_generator*"]
+include = ["synthetic_dataset_generator*", "models*"]
+exclude = ["models.runs*"]
 
 [tool.setuptools.package-data]
 synthetic_dataset_generator = ["configs/*.json"]
+models = ["experiment_protocol.json"]
