@@ -6,8 +6,9 @@ from pathlib import Path
 import torch
 
 from models.representations import LABELS, PAD, REPRESENTATIONS, encode, format_input
-from models.train import batches, evaluate
-from models.transformer import SIZES, TinyTransformer
+from models.train import batches, evaluate, optimizer_step
+from models.suite import jobs
+from models.transformer import SIZES, TinyTransformer, expected_parameter_count
 from models.baselines import features
 
 
@@ -49,8 +50,26 @@ class ModelTests(unittest.TestCase):
         previous = 0
         for size in ("10k", "100k", "500k", "1m", "3m", "5m", "10m"):
             count = TinyTransformer(size).parameter_count
+            self.assertEqual(count,expected_parameter_count(size))
             self.assertGreater(count, previous)
             previous = count
+
+    def test_accumulation_matches_full_batch(self):
+        torch.manual_seed(7)
+        full, micro = TinyTransformer("10k"), TinyTransformer("10k")
+        micro.load_state_dict(full.state_dict())
+        samples = [(encode("p000"),i%3,str(i)) for i in range(5)]
+        first = torch.optim.SGD(full.parameters(),lr=0.01)
+        second = torch.optim.SGD(micro.parameters(),lr=0.01)
+        optimizer_step(full,first,list(batches(samples,5)),"cpu")
+        optimizer_step(micro,second,list(batches(samples,2)),"cpu")
+        self.assertTrue(all(torch.allclose(a,b,atol=1e-6) for a,b in zip(full.parameters(),micro.parameters())))
+
+    def test_full_queue_covers_five_sizes_three_formats_three_seeds(self):
+        planned = jobs(30)
+        self.assertEqual(len(planned),45)
+        self.assertEqual(len({j["name"] for j in planned}),45)
+        self.assertTrue(all(j["batch_size"]*j["accumulation"] == 32 for j in planned))
 
     def test_batches_keep_identifiers_and_lengths(self):
         samples = [(encode("p000"), 0, "a"), (encode("p000 -> p001"), 1, "b")]

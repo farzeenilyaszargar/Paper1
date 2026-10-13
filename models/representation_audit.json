@@ -1,0 +1,53 @@
+{
+  "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "passed": true,
+  "scope": "text parser round-trip, not neural transfer accuracy",
+  "splits": {
+    "test_combinations": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_depth_3": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_depth_4": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_depth_5": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_iid": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_structures": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "test_symbols": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    },
+    "train": {
+      "pairwise_normalizations": 900000,
+      "parsed_forms": 300000,
+      "records": 100000
+    },
+    "validation": {
+      "pairwise_normalizations": 90000,
+      "parsed_forms": 30000,
+      "records": 10000
+    }
+  },
+  "total_records": 180000
+}

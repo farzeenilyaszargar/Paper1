@@ -82,9 +82,13 @@ def export(runs, output):
     for item in completed:
         result = item["result"]
         config = result["config"]
-        key = (result["scope"], config["size"], config["seed"])
+        key = (result["scope"], config["size"], config["seed"], config["parameter_count"],
+               config["train_examples"], config["dataset_manifest_sha256"], config.get("encoding","characters"))
         grouped.setdefault(key, []).append(result)
-    for (scope,size,seed), results in grouped.items():
+    for (scope,size,seed,parameters,train_examples,fingerprint,encoding), results in grouped.items():
+        sources = [r["config"]["representation"] for r in results]
+        if len(sources) != len(set(sources)):
+            raise ValueError("Duplicate source runs: comparisons require an explicit treatment grouping")
         matrix = np.full((3,3), np.nan)
         for result in results:
             source = REPRESENTATIONS.index(result["config"]["representation"])
@@ -95,13 +99,13 @@ def export(runs, output):
         rendered = ax.imshow(np.ma.masked_invalid(matrix), vmin=0, vmax=1, cmap=cmap)
         ax.set(xticks=range(3), yticks=range(3), xticklabels=REPRESENTATIONS, yticklabels=REPRESENTATIONS,
                xlabel="Test representation", ylabel="Training representation",
-               title=f"{scope}; {size}; seed {seed}\nUnrun cells are not measurements")
+               title=f"{scope}; {parameters:,} parameters; seed {seed}\n{train_examples:,} training examples; unrun cells are not measurements")
         for i in range(3):
             for j in range(3):
                 ax.text(j,i,"not run" if np.isnan(matrix[i,j]) else f"{matrix[i,j]:.3f}",ha="center",va="center",
                         color="white" if matrix[i,j] > 0.65 else "black")
         fig.colorbar(rendered,ax=ax,label="IID accuracy")
-        fig.savefig(output/f"{scope.replace(' ','_')}_{size}_seed{seed}_transfer_matrix.png",dpi=180)
+        fig.savefig(output/f"{scope.replace(' ','_')}_{size}_seed{seed}_p{parameters}_n{train_examples}_transfer_matrix.png",dpi=180)
         plt.close(fig)
     baseline_path = runs.parent / "baseline_results.json"
     if baseline_path.exists():

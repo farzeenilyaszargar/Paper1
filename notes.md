@@ -1,4 +1,4 @@
-# Research notes - 13 October 2026
+# Research notes - 13-14 October 2026
 
 ## Question and current evidence
 
@@ -11,8 +11,13 @@ are defined in the README. No model has yet met the learning gate below.
 The first 89,763-parameter smoke run used only 300 training examples, two epochs,
 and 30 validation examples. Best-validation-loss selection produced 26.7%
 validation accuracy. This is a software check, not evidence of learned reasoning
-or a meaningful estimate of transfer. A 457,251-parameter pilot on 20K examples
-is running; its results must be identified as pilot evidence, not full-corpus evidence.
+or a meaningful estimate of transfer. The 457,251-parameter pilot on 20K examples
+was interrupted after epoch 18 and is being resumed from its verified checkpoint.
+A separate 99,075-parameter binding-normalized pilot fit its 2K training examples
+(95.35% final online training accuracy), but its selected checkpoint got 30.2%
+IID test accuracy on 1K cases. It does not satisfy the learning gate.
+The 16-example memorization diagnostic first reached perfect online training
+accuracy at epoch 17; this verifies fitting capacity, not reasoning generalization.
 
 ## Closest papers: question, method, result, difference
 
@@ -47,8 +52,8 @@ controls here; their successes are not guarantees for our task or smaller scales
 ### Ye et al., NeurIPS 2025
 
 [How do Transformers Learn Implicit Reasoning?](https://proceedings.neurips.cc/paper_files/paper/2025/hash/5f1cb1d23261b19cbd45f90f7b4f251f-Abstract-Conference.html).
-Reviewed the symbolic construction and behavioral experiments in the full PDF;
-mechanistic sections and training appendix require a further detailed reading.
+Reviewed symbolic construction, behavioral experiments, semantic patching,
+cosine diagnostics, and the training/scaling appendix in the full PDF.
 Question: how does implicit multi-hop reasoning emerge?
 Method: scratch-trained transformers with targeted relational-composition
 omissions, semantic patching, and representation diagnostics.
@@ -71,19 +76,70 @@ Difference: our held-out names are combinations of known characters, not unused
 token IDs, and our output is a fixed three-class head without symbolic copying.
 Our experiment therefore cannot test their unembedding-collapse claim directly.
 
-## Recent additions discovered in the search
+## Recent additions: methods/results review
 
-- [Universal Transformers for Circuit Computations, August 2026](https://arxiv.org/html/2608.31067v1): examined its architecture/construction sections. It uses explicit circuit-depth information, constrained attention, iterative reduction, and halting. Its Boolean-expression guarantees must not be attributed to ordinary fixed-depth decoders. Detailed experimental review remains pending.
-- [What Do Current Systematic Generalization Tasks Miss?, September 2026](https://arxiv.org/html/2609.19212v1): examined task definition and generalization results. TranSGrid separates demands that simple productivity tests can omit. Our task measures controlled deduction, not comprehensive inductive/abductive reasoning. Detailed review remains pending.
-- [Algebraic Decomposition Theory for Transformer Length Generalization, August 2026](https://arxiv.org/abs/2608.13433): discovered and screened; full review pending.
-- [In-Context Learning Amplifies a Latent Symbolic Circuit, September 2026](https://arxiv.org/abs/2609.36265): discovered and screened; full review pending.
+### Ito et al., August 2026
 
-Search date: 13 October 2026. Queries included transformer symbolic reasoning,
+[Universal Transformers for Circuit Computations](https://arxiv.org/abs/2608.31067).
+Reviewed construction, numerical experiments, ordinary-looped-transformer
+comparisons, and limitations in the v1 PDF. Question: can a tiny architecture
+learn exact depth-general circuit evaluation? Method: explicit parenthesis-depth
+gating, constrained attention, discrete states, repeated reduction, and halting.
+Result: converged models generalize perfectly on sampled depths beyond training;
+Boolean/ListOps convergence is 9/10 seeds, not every initialization. Difference:
+our ordinary decoders have no built-in circuit-reduction algorithm or provided
+depth. Their 280-parameter Boolean result is not a universal capacity threshold.
+
+### Qi et al., September 2026
+
+[What Do Current Systematic Generalization Tasks Miss?](https://arxiv.org/abs/2609.19212).
+Reviewed task, experiments, controlled variants and architecture/data appendices
+in v2 (29 September); the earlier v1 HTML is not the current reference.
+Question: what reasoning demands do productivity tests miss? Method: interacting
+grid actions and executable goal-sequence evaluation with seven encoder-decoder
+sizes, plus decoupled/action-explicit variants. Result: the harder systematic
+benchmark exposes failures even within training-length ranges. Difference: our
+deductive entailment task does not cover induction and abduction comprehensively.
+Depth extrapolation is only one axis; it must not be equated with all systematic
+reasoning. Their solve rates are not comparable to our three-way accuracy.
+
+### Yang et al., COLM 2026
+
+[Algebraic Decomposition Theory for Transformer Length Generalization](https://arxiv.org/abs/2608.13433).
+Reviewed main characterization/algorithm and experimental setup/results in the
+v1 PDF; the long formal appendices are not independently proof-checked.
+Question: which regular languages admit C-RASP length generalization? Method:
+typed-monoid decomposition and a 125-language state-tracking suite.
+Result: the characterization predicts the measured language-dependent behavior.
+Their empirical selection uses long-test performance and a search for successful
+seeds. Difference: our validation-only, all-seed reporting avoids that selection
+strategy, and our rule-query task is not the same regular-language setting.
+The theorem does not give a parameter-onset value for this experiment.
+
+### Wessel, September 2026
+
+[In-Context Learning Amplifies a Latent Symbolic Circuit](https://arxiv.org/abs/2609.36265).
+Reviewed circuit tracking, cross-shot patching, function vectors and limitations
+in the v1 PDF. Question: do demonstrations create or strengthen rule circuits?
+Method: causal interventions on ABA/ABB rule completion in pretrained models.
+Result: functioning components are detectable below high behavioral accuracy,
+and intervention can restore performance. Difference: our models train from
+scratch on multi-hop entailment, not copying rules in pretrained billion-scale
+systems. A behavioral onset criterion is not the first mechanistic appearance
+of reasoning. Failure of an accuracy gate cannot prove every relevant circuit
+is absent.
+
+Search dates: 13-14 October 2026. Queries included transformer symbolic reasoning,
 cross-representation procedures, tiny transformers, length generalization, and
 September/October 2026 additions. Sources: arXiv, PMLR, NeurIPS, and primary
 paper PDFs. This is a growing scoped review, not a claim to have read every
 paper on the topic. Check references/citations and recent arXiv submissions again
 before finalizing the related-work section.
+
+Additional screened candidates for later detailed review: [Tower of Hanoi world
+models](https://arxiv.org/abs/2608.07077) and [unfaithful arithmetic reasoning](https://arxiv.org/abs/2602.01017).
+Their abstracts are relevant to interpreting behavioral failures and trace
+faithfulness, but they have not yet received the same methods/results review.
 
 ## Experimental protocol and interpretation gates
 
@@ -117,6 +173,11 @@ before finalizing the related-work section.
   on the other test splits 33.10%-33.84%, versus 100% for exact inference.
   This checks these features only; it does not prove every shortcut is absent.
 - A parse-and-normalize control to distinguish syntax recognition from inference.
+- Completed: text-only round-trip and pairwise normalization audit on all 180K
+  records (540K rendered forms, 1.62M directed normalizations). This is an encoding
+  invariant, not an extra neural transfer success. Parsers never consult targets
+  or proof metadata. The binding-normalized pilot remains below chance-level
+  generalization despite high training fit.
 - Syntax/character-exposure control: a shared alphabet alone does not mean all
   English/function punctuation and letters were trained. Current raw-transfer
   metrics explicitly record unseen source character IDs. Low raw-transfer
@@ -145,7 +206,10 @@ architecture change, budget, and seed rather than selecting only successes.
 
 Completed: audited corpus; three lossless renderers; causal classifier trainer;
 checkpoint/validation selection; smoke training/evaluation; graph exporter;
-full-corpus exact and superficial-feature baselines; five primary size presets.
-In progress: larger pilot, detailed literature review, source learning gate.
+full-corpus exact and superficial-feature baselines; five primary size presets;
+lossless text-only parsing audit; memorization and binding-normalized diagnostics.
+In progress: resumed pilot, 45-condition full-corpus baseline matrix, further
+literature screening, and source learning gate. The matrix uses 30 epochs,
+LR 0.001, and effective batch size 32; it is not called optimally calibrated.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.

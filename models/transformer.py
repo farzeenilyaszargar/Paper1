@@ -18,6 +18,12 @@ PRIMARY_SIZES = ("100k", "500k", "1m", "5m", "10m")
 FF_WIDTH = {"100k": 224, "5m": 1088}
 
 
+def expected_parameter_count(size):
+    width, layers, _ = SIZES[size]
+    ff = FF_WIDTH.get(size,4*width)
+    return layers*(4*width*width + 2*width*ff + 9*width + ff) + (VOCAB_SIZE+5)*width + 3
+
+
 class Block(nn.Module):
     def __init__(self, width, heads, dropout, ff_width=None):
         super().__init__()

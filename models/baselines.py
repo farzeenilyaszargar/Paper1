@@ -89,6 +89,9 @@ def run(data, output):
     majority = int(y.bincount(minlength=3).argmax())
     result = {"dataset_manifest_sha256": file_checksum(data/"manifest.json"), "features": list(FEATURE_NAMES),
               "feature_weights_standardized": classifier.weight.detach().tolist(),
+              "feature_bias": classifier.bias.detach().tolist(), "feature_mean": mean.tolist(), "feature_scale": scale.tolist(),
+              "seed": 1, "optimizer": "AdamW", "learning_rate": 0.05, "weight_decay": 0.01,
+              "optimizer_steps": 200, "class_order": list(LABELS),
               "selection": "validation loss only; 200 predefined optimizer steps", "splits": {}}
     for name in manifest["files"]:
         if name == "train.jsonl":

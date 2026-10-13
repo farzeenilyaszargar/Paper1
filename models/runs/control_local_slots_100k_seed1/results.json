@@ -1,0 +1,860 @@
+{
+  "config": {
+    "architecture": {
+      "ff_width": 224,
+      "heads": 4,
+      "layers": 3,
+      "width": 48
+    },
+    "batch_size": 32,
+    "characters": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "q",
+      "r",
+      "s",
+      "t",
+      "u",
+      "v",
+      "w",
+      "x",
+      "y",
+      "z",
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "J",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Y",
+      "Z",
+      "!",
+      "\"",
+      "#",
+      "$",
+      "%",
+      "&",
+      "'",
+      "(",
+      ")",
+      "*",
+      "+",
+      ",",
+      "-",
+      ".",
+      "/",
+      ":",
+      ";",
+      "<",
+      "=",
+      ">",
+      "?",
+      "@",
+      "[",
+      "\\",
+      "]",
+      "^",
+      "_",
+      "`",
+      "{",
+      "|",
+      "}",
+      "~",
+      " "
+    ],
+    "data": "datasets/default",
+    "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+    "dataset_name": "default",
+    "determinism": "seeded; MPS kernels may be nondeterministic",
+    "device": "cpu",
+    "encoding": "local_slots",
+    "epochs": 30,
+    "eval_limit": 1000,
+    "lr": 0.001,
+    "output": "models/runs/control_local_slots_100k_seed1",
+    "parameter_count": 99075,
+    "purpose": "pilot",
+    "representation": "symbolic",
+    "resume": false,
+    "seed": 1,
+    "size": "100k",
+    "source_checksums": {
+      "representations.py": "fdd8338f47e70760c34430e2509569fcfb383ae7e0563064ec558f0980e547b2",
+      "train.py": "b886b034737de8592ca53586407e7037b449eb0cab4157c758ca5908358d7993",
+      "transformer.py": "2860de0ae460e11a6b459127677a5bb8048f19141bf36d8c3eb61f1796e34a0a"
+    },
+    "threads": 1,
+    "torch_version": "2.14.1",
+    "train_examples": 2000,
+    "train_limit": 2000,
+    "validation_examples": 1000
+  },
+  "evaluations": {
+    "english": {
+      "test_combinations": {
+        "accuracy": 0.334,
+        "balanced_accuracy": 0.3295655130880811,
+        "confusion": [
+          [
+            33,
+            186,
+            105
+          ],
+          [
+            44,
+            176,
+            128
+          ],
+          [
+            30,
+            173,
+            125
+          ]
+        ],
+        "correct": 334,
+        "count": 1000,
+        "loss": 1.1048814086914063,
+        "recall": {
+          "contradicted": 0.5057471264367817,
+          "entailed": 0.10185185185185185,
+          "unknown": 0.38109756097560976
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30545180767687063,
+          0.3638187226538111
+        ]
+      },
+      "test_depth_3": {
+        "accuracy": 0.3,
+        "balanced_accuracy": 0.31449432963639784,
+        "confusion": [
+          [
+            22,
+            260,
+            45
+          ],
+          [
+            32,
+            230,
+            47
+          ],
+          [
+            26,
+            290,
+            48
+          ]
+        ],
+        "correct": 300,
+        "count": 1000,
+        "loss": 1.105796443939209,
+        "recall": {
+          "contradicted": 0.7443365695792881,
+          "entailed": 0.0672782874617737,
+          "unknown": 0.13186813186813187
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.272406351009411,
+          0.32912440842514523
+        ]
+      },
+      "test_depth_4": {
+        "accuracy": 0.337,
+        "balanced_accuracy": 0.33418449163677705,
+        "confusion": [
+          [
+            23,
+            290,
+            28
+          ],
+          [
+            27,
+            275,
+            36
+          ],
+          [
+            17,
+            265,
+            39
+          ]
+        ],
+        "correct": 337,
+        "count": 1000,
+        "loss": 1.107324107170105,
+        "recall": {
+          "contradicted": 0.8136094674556213,
+          "entailed": 0.06744868035190615,
+          "unknown": 0.12149532710280374
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3083759318113042,
+          0.3668716371278592
+        ]
+      },
+      "test_depth_5": {
+        "accuracy": 0.338,
+        "balanced_accuracy": 0.34721512860314124,
+        "confusion": [
+          [
+            45,
+            230,
+            75
+          ],
+          [
+            31,
+            219,
+            67
+          ],
+          [
+            38,
+            221,
+            74
+          ]
+        ],
+        "correct": 338,
+        "count": 1000,
+        "loss": 1.1036122064590455,
+        "recall": {
+          "contradicted": 0.6908517350157729,
+          "entailed": 0.12857142857142856,
+          "unknown": 0.2222222222222222
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30935093183582213,
+          0.36788898330616854
+        ]
+      },
+      "test_iid": {
+        "accuracy": 0.302,
+        "balanced_accuracy": 0.3066978597493157,
+        "confusion": [
+          [
+            39,
+            183,
+            129
+          ],
+          [
+            29,
+            164,
+            134
+          ],
+          [
+            30,
+            193,
+            99
+          ]
+        ],
+        "correct": 302,
+        "count": 1000,
+        "loss": 1.1083358974456787,
+        "recall": {
+          "contradicted": 0.5015290519877675,
+          "entailed": 0.1111111111111111,
+          "unknown": 0.30745341614906835
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.2743452451592359,
+          0.3311702066809748
+        ]
+      },
+      "test_structures": {
+        "accuracy": 0.355,
+        "balanced_accuracy": 0.35756452702635766,
+        "confusion": [
+          [
+            44,
+            162,
+            135
+          ],
+          [
+            32,
+            160,
+            143
+          ],
+          [
+            33,
+            140,
+            151
+          ]
+        ],
+        "correct": 355,
+        "count": 1000,
+        "loss": 1.105922384262085,
+        "recall": {
+          "contradicted": 0.47761194029850745,
+          "entailed": 0.12903225806451613,
+          "unknown": 0.4660493827160494
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3259479413468977,
+          0.38516185924315555
+        ]
+      },
+      "test_symbols": {
+        "accuracy": 0.33,
+        "balanced_accuracy": 0.33175567027896213,
+        "confusion": [
+          [
+            36,
+            178,
+            119
+          ],
+          [
+            40,
+            172,
+            111
+          ],
+          [
+            30,
+            192,
+            122
+          ]
+        ],
+        "correct": 330,
+        "count": 1000,
+        "loss": 1.103450138092041,
+        "recall": {
+          "contradicted": 0.5325077399380805,
+          "entailed": 0.10810810810810811,
+          "unknown": 0.3546511627906977
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3015550314798513,
+          0.3597461140395216
+        ]
+      }
+    },
+    "function": {
+      "test_combinations": {
+        "accuracy": 0.334,
+        "balanced_accuracy": 0.3295655130880811,
+        "confusion": [
+          [
+            33,
+            186,
+            105
+          ],
+          [
+            44,
+            176,
+            128
+          ],
+          [
+            30,
+            173,
+            125
+          ]
+        ],
+        "correct": 334,
+        "count": 1000,
+        "loss": 1.1048814086914063,
+        "recall": {
+          "contradicted": 0.5057471264367817,
+          "entailed": 0.10185185185185185,
+          "unknown": 0.38109756097560976
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30545180767687063,
+          0.3638187226538111
+        ]
+      },
+      "test_depth_3": {
+        "accuracy": 0.3,
+        "balanced_accuracy": 0.31449432963639784,
+        "confusion": [
+          [
+            22,
+            260,
+            45
+          ],
+          [
+            32,
+            230,
+            47
+          ],
+          [
+            26,
+            290,
+            48
+          ]
+        ],
+        "correct": 300,
+        "count": 1000,
+        "loss": 1.105796443939209,
+        "recall": {
+          "contradicted": 0.7443365695792881,
+          "entailed": 0.0672782874617737,
+          "unknown": 0.13186813186813187
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.272406351009411,
+          0.32912440842514523
+        ]
+      },
+      "test_depth_4": {
+        "accuracy": 0.337,
+        "balanced_accuracy": 0.33418449163677705,
+        "confusion": [
+          [
+            23,
+            290,
+            28
+          ],
+          [
+            27,
+            275,
+            36
+          ],
+          [
+            17,
+            265,
+            39
+          ]
+        ],
+        "correct": 337,
+        "count": 1000,
+        "loss": 1.107324107170105,
+        "recall": {
+          "contradicted": 0.8136094674556213,
+          "entailed": 0.06744868035190615,
+          "unknown": 0.12149532710280374
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3083759318113042,
+          0.3668716371278592
+        ]
+      },
+      "test_depth_5": {
+        "accuracy": 0.338,
+        "balanced_accuracy": 0.34721512860314124,
+        "confusion": [
+          [
+            45,
+            230,
+            75
+          ],
+          [
+            31,
+            219,
+            67
+          ],
+          [
+            38,
+            221,
+            74
+          ]
+        ],
+        "correct": 338,
+        "count": 1000,
+        "loss": 1.1036122064590455,
+        "recall": {
+          "contradicted": 0.6908517350157729,
+          "entailed": 0.12857142857142856,
+          "unknown": 0.2222222222222222
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30935093183582213,
+          0.36788898330616854
+        ]
+      },
+      "test_iid": {
+        "accuracy": 0.302,
+        "balanced_accuracy": 0.3066978597493157,
+        "confusion": [
+          [
+            39,
+            183,
+            129
+          ],
+          [
+            29,
+            164,
+            134
+          ],
+          [
+            30,
+            193,
+            99
+          ]
+        ],
+        "correct": 302,
+        "count": 1000,
+        "loss": 1.1083358974456787,
+        "recall": {
+          "contradicted": 0.5015290519877675,
+          "entailed": 0.1111111111111111,
+          "unknown": 0.30745341614906835
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.2743452451592359,
+          0.3311702066809748
+        ]
+      },
+      "test_structures": {
+        "accuracy": 0.355,
+        "balanced_accuracy": 0.35756452702635766,
+        "confusion": [
+          [
+            44,
+            162,
+            135
+          ],
+          [
+            32,
+            160,
+            143
+          ],
+          [
+            33,
+            140,
+            151
+          ]
+        ],
+        "correct": 355,
+        "count": 1000,
+        "loss": 1.105922384262085,
+        "recall": {
+          "contradicted": 0.47761194029850745,
+          "entailed": 0.12903225806451613,
+          "unknown": 0.4660493827160494
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3259479413468977,
+          0.38516185924315555
+        ]
+      },
+      "test_symbols": {
+        "accuracy": 0.33,
+        "balanced_accuracy": 0.33175567027896213,
+        "confusion": [
+          [
+            36,
+            178,
+            119
+          ],
+          [
+            40,
+            172,
+            111
+          ],
+          [
+            30,
+            192,
+            122
+          ]
+        ],
+        "correct": 330,
+        "count": 1000,
+        "loss": 1.103450138092041,
+        "recall": {
+          "contradicted": 0.5325077399380805,
+          "entailed": 0.10810810810810811,
+          "unknown": 0.3546511627906977
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3015550314798513,
+          0.3597461140395216
+        ]
+      }
+    },
+    "symbolic": {
+      "test_combinations": {
+        "accuracy": 0.334,
+        "balanced_accuracy": 0.3295655130880811,
+        "confusion": [
+          [
+            33,
+            186,
+            105
+          ],
+          [
+            44,
+            176,
+            128
+          ],
+          [
+            30,
+            173,
+            125
+          ]
+        ],
+        "correct": 334,
+        "count": 1000,
+        "loss": 1.1048814086914063,
+        "recall": {
+          "contradicted": 0.5057471264367817,
+          "entailed": 0.10185185185185185,
+          "unknown": 0.38109756097560976
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30545180767687063,
+          0.3638187226538111
+        ]
+      },
+      "test_depth_3": {
+        "accuracy": 0.3,
+        "balanced_accuracy": 0.31449432963639784,
+        "confusion": [
+          [
+            22,
+            260,
+            45
+          ],
+          [
+            32,
+            230,
+            47
+          ],
+          [
+            26,
+            290,
+            48
+          ]
+        ],
+        "correct": 300,
+        "count": 1000,
+        "loss": 1.105796443939209,
+        "recall": {
+          "contradicted": 0.7443365695792881,
+          "entailed": 0.0672782874617737,
+          "unknown": 0.13186813186813187
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.272406351009411,
+          0.32912440842514523
+        ]
+      },
+      "test_depth_4": {
+        "accuracy": 0.337,
+        "balanced_accuracy": 0.33418449163677705,
+        "confusion": [
+          [
+            23,
+            290,
+            28
+          ],
+          [
+            27,
+            275,
+            36
+          ],
+          [
+            17,
+            265,
+            39
+          ]
+        ],
+        "correct": 337,
+        "count": 1000,
+        "loss": 1.107324107170105,
+        "recall": {
+          "contradicted": 0.8136094674556213,
+          "entailed": 0.06744868035190615,
+          "unknown": 0.12149532710280374
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3083759318113042,
+          0.3668716371278592
+        ]
+      },
+      "test_depth_5": {
+        "accuracy": 0.338,
+        "balanced_accuracy": 0.34721512860314124,
+        "confusion": [
+          [
+            45,
+            230,
+            75
+          ],
+          [
+            31,
+            219,
+            67
+          ],
+          [
+            38,
+            221,
+            74
+          ]
+        ],
+        "correct": 338,
+        "count": 1000,
+        "loss": 1.1036122064590455,
+        "recall": {
+          "contradicted": 0.6908517350157729,
+          "entailed": 0.12857142857142856,
+          "unknown": 0.2222222222222222
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.30935093183582213,
+          0.36788898330616854
+        ]
+      },
+      "test_iid": {
+        "accuracy": 0.302,
+        "balanced_accuracy": 0.3066978597493157,
+        "confusion": [
+          [
+            39,
+            183,
+            129
+          ],
+          [
+            29,
+            164,
+            134
+          ],
+          [
+            30,
+            193,
+            99
+          ]
+        ],
+        "correct": 302,
+        "count": 1000,
+        "loss": 1.1083358974456787,
+        "recall": {
+          "contradicted": 0.5015290519877675,
+          "entailed": 0.1111111111111111,
+          "unknown": 0.30745341614906835
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.2743452451592359,
+          0.3311702066809748
+        ]
+      },
+      "test_structures": {
+        "accuracy": 0.355,
+        "balanced_accuracy": 0.35756452702635766,
+        "confusion": [
+          [
+            44,
+            162,
+            135
+          ],
+          [
+            32,
+            160,
+            143
+          ],
+          [
+            33,
+            140,
+            151
+          ]
+        ],
+        "correct": 355,
+        "count": 1000,
+        "loss": 1.105922384262085,
+        "recall": {
+          "contradicted": 0.47761194029850745,
+          "entailed": 0.12903225806451613,
+          "unknown": 0.4660493827160494
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3259479413468977,
+          0.38516185924315555
+        ]
+      },
+      "test_symbols": {
+        "accuracy": 0.33,
+        "balanced_accuracy": 0.33175567027896213,
+        "confusion": [
+          [
+            36,
+            178,
+            119
+          ],
+          [
+            40,
+            172,
+            111
+          ],
+          [
+            30,
+            192,
+            122
+          ]
+        ],
+        "correct": 330,
+        "count": 1000,
+        "loss": 1.103450138092041,
+        "recall": {
+          "contradicted": 0.5325077399380805,
+          "entailed": 0.10810810810810811,
+          "unknown": 0.3546511627906977
+        },
+        "unseen_source_token_ids": [],
+        "wilson95": [
+          0.3015550314798513,
+          0.3597461140395216
+        ]
+      }
+    }
+  },
+  "interpretation": "External parsing and alpha-renaming; identical normalized inputs are not evidence of learned raw-format transfer",
+  "scope": "binding-normalized pilot",
+  "selection": "minimum source-representation validation loss",
+  "status": "completed"
+}

@@ -1,5 +1,39 @@
 {
+  "class_order": [
+    "entailed",
+    "contradicted",
+    "unknown"
+  ],
   "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "feature_bias": [
+    0.19060476124286652,
+    0.183379128575325,
+    0.1865176111459732
+  ],
+  "feature_mean": [
+    9.995070457458496,
+    12.350419998168945,
+    24.248920440673828,
+    0.4502300024032593,
+    0.45320001244544983,
+    4.988289833068848,
+    6.615119934082031,
+    6.175039768218994,
+    0.5006099939346313,
+    285.2862548828125
+  ],
+  "feature_scale": [
+    1.4153465032577515,
+    1.9753999710083008,
+    2.811732292175293,
+    0.591968297958374,
+    0.5949229598045349,
+    1.7301048040390015,
+    2.392911434173584,
+    1.8877332210540771,
+    0.5000021457672119,
+    35.14677047729492
+  ],
   "feature_weights_standardized": [
     [
       0.030483365058898926,
@@ -50,6 +84,10 @@
     "negative_query",
     "input_characters"
   ],
+  "learning_rate": 0.05,
+  "optimizer": "AdamW",
+  "optimizer_steps": 200,
+  "seed": 1,
   "selection": "validation loss only; 200 predefined optimizer steps",
   "splits": {
     "test_combinations": {
@@ -724,5 +762,6 @@
       },
       "uniform_random_expected_accuracy": 0.3333333333333333
     }
-  }
+  },
+  "weight_decay": 0.01
 }

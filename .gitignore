@@ -8,3 +8,6 @@ datasets/*/
 models/runs/*/*.pt
 models/runs/*/state.json
 models/runs/*/*.predictions.jsonl
+models/runs/*/*.tmp
+.suite.lock
+models/suite_logs/

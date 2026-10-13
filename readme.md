@@ -225,3 +225,26 @@ and the reasoning-onset analysis remain required before a final conclusion.
 The full-corpus exact and surface-feature baseline measurements are stored in
 `models/baseline_results.json`. Predictions needed for paired statistical tests
 are saved locally per run and ignored by Git, alongside checkpoints.
+
+`models/parsing.py` parses all three declared surface grammars without reading
+answer/proof metadata. The full 180K-record round-trip/normalization audit is in
+`models/representation_audit.json`. `--encoding local_slots` is a separately
+labeled external-parsing and binding-normalization control; its identical
+cross-format inputs are not learned raw-format transfer.
+
+The initial fixed-budget full-corpus matrix has 45 conditions: five capacities,
+three source representations, and three seeds. Each uses 30 epochs, LR 0.001,
+and effective batch size 32. Gradient accumulation keeps that batch constant
+while reducing microbatch memory for larger models. To run/resume its queue:
+
+```sh
+.venv/bin/python -u -m models.suite --include-pilot
+```
+
+The supervisor holds an OS lock, rejects overlapping live trainers, and records
+the active child in `models/suite_state.json`; logs are local in
+`models/suite_logs/`. Before restarting after an interruption, verify that the
+old supervisor and trainer are no longer live. Checkpoints are written atomically.
+Completion of this baseline queue is not completion of calibration, controls,
+or the research conclusion; the source-learning gate and all failures remain
+part of the results.
