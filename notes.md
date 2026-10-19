@@ -460,12 +460,17 @@ trainer path (first optimization pilot running; calibration completion pending).
 Also completed: full-corpus character-exposure diagnostic and measured matrix,
 which quantifies a raw-transfer confound without replacing its required control.
 Software completed additionally: TRAIN-only matched warmup arms, provenance-
-checked supervised initialization, and CPU checkpoint/replay tests. Actual
-warmup treatment runs and their scientific comparisons are still pending.
+checked supervised initialization, and CPU checkpoint/replay tests. On 20 October,
+the actual 100K symbolic source-only warmup (seed 1) was launched on one CPU
+thread with the prespecified 1,000-update/2,048,000-prediction-token budget.
+Its all-format counterpart and matched supervised comparisons are pending;
+warmup LM loss must not be reported as inference accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
 the Mac had approximately 3.6 GiB disk free and 8.8 GiB encrypted swap in use;
 the three existing scientific processes were live. No extra warmup workload was
-launched under that resource pressure. Existing processes are not hot-patched.
+launched under that resource pressure. By 20 October disk free had recovered
+to about 12 GiB and system memory free was 25%; the one-thread warmup was
+then launched. Existing processes are not hot-patched by source edits.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.

@@ -1,5 +1,5 @@
 {
-  "status": "Implemented and software-tested; no scientific warmup treatment launched",
+  "status": "Seed-1 100K source-only warmup launched on CPU; all-format arm and supervised comparisons pending",
   "pilot_size": "100k",
   "pilot_source": "symbolic",
   "final_training_seeds": [1, 2, 3],
