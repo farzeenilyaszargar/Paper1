@@ -87,6 +87,9 @@ IDs. Distinguish this corpus audit from a neural syntax-exposure intervention.
 Compare unlabeled multiformat warmup against a matched source-only LM warmup,
 not only a no-warmup baseline. Report additional tokens, windows, updates and
 record counts; call this exposure/adaptation, not zero-exposure transfer.
+Both 100K warmup arms are complete for seeds 1–3, with measured exposure curves.
+Their downstream matched supervised comparison is pending: LM loss is not a
+source-inference or transfer result, and differs across text distributions.
 
 ## 7. Discussion and limitations
 

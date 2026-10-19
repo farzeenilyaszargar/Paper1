@@ -271,9 +271,9 @@ The separate warmup implementation is available for those controls:
 .venv/bin/python -m models.plot_warmup models/warmups/100k_source_only_seed1 models/warmups/100k_all_formats_seed1
 ```
 
-Both seed-1 CPU warmups have completed and their verified exposure figure is
-`graphs/warmup_100k_symbolic_seed1.png`; downstream matched supervised comparisons
-are pending. These commands use protected output directories and will not
+Both CPU warmup arms have completed for seeds 1, 2 and 3. Their verified exposure
+figures are `graphs/warmup_100k_symbolic_seed{1,2,3}.png`; downstream matched
+supervised comparisons are pending. These commands use protected output directories and will not
 overwrite completed runs. Do not start another accelerator job beside the queue.
 Both arms predict exactly 2,048,000 next tokens in 1,000 fixed-size updates by
 default. A tied LM projection adds no parameters and leaves the classifier head

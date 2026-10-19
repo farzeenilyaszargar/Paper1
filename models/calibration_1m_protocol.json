@@ -1,0 +1,22 @@
+{
+  "scope": "Exploratory 1M symbolic optimization pilot, separate from the fixed-budget baseline matrix and warmup comparisons",
+  "status": "LR 0.001 trial launched after final 100K warmup completed; other rates pending; no rate selected",
+  "size": "1m",
+  "parameters": 1004547,
+  "representation": "symbolic",
+  "encoding": "characters",
+  "seed": 101,
+  "epochs": 10,
+  "train_limit": 20000,
+  "validation_limit": 2000,
+  "learning_rates": [0.001, 0.0003, 0.003],
+  "first_trial": "calibration_1m_symbolic_seed101_lr001",
+  "device": "cpu",
+  "threads": 1,
+  "microbatch": 4,
+  "accumulation": 8,
+  "validation_only": true,
+  "selection": "Minimum selected source-validation cross-entropy after all three rate trials complete; no winner before coverage is complete",
+  "test_supervision_for_selection": false,
+  "interpretation": "Exploratory subset calibration defined after earlier 100K diagnostics, not a globally preregistered confirmatory test. One seed and a subset cannot establish a reasoning onset, optimal full-corpus settings or final generalization. The 1M preset changes architecture as well as count. Effective batch is 32 but microbatch differs from the 100K pilot for memory. Baseline matrix and matched warmup-supervision settings remain unchanged."
+}

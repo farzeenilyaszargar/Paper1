@@ -332,6 +332,12 @@ that every recent reasoning paper has been found or read.
    LR 0.001 has completed its first epoch: validation loss 1.099865, accuracy
    32.30%, balanced accuracy 31.48%, entailed recall zero. This is an early
    observation from the still-running ten-epoch trial, not a completed result.
+   After all six 100K warmups finished, the freed one-thread CPU slot was used
+   for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
+   symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
+   accumulation 8). `models/calibration_1m_protocol.json` records this exploratory
+   three-rate plan before its first run; remaining rates are pending. It is not
+   a final baseline, a task-success result, or an optimally calibrated setting.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -504,7 +510,10 @@ matched configuration/provenance and history totals before exporting
 `graphs/warmup_100k_symbolic_seed2`. The seed-3 source-only warmup completed
 the same budget: 7,113 records started, final logged minibatch LM loss 0.990229,
 35 observed input IDs. Its initialization provenance check passed; the seed-3
-all-format counterpart is now running. All three source-only warmups are done.
+all-format counterpart also completed: 5,515 records started (1,838 symbolic,
+1,838 function, 1,839 English), final logged minibatch LM loss 0.910378.
+The paired checkpoint/provenance/history checks pass for seed 3, and its measured
+figure is `graphs/warmup_100k_symbolic_seed3`. All six 100K warmups are done.
 Matched supervised comparisons are pending; warmup LM loss is not inference
 accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
