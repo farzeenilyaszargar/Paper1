@@ -224,6 +224,24 @@ correction within each run's 14 comparisons. Missing legacy predictions are
 explicitly unavailable, not reconstructed from aggregate accuracy. These are
 exploratory checkpoint-conditional comparisons, not final across-seed inference.
 
+Evaluate a completed raw-character checkpoint under solver-checked interventions:
+
+```sh
+.venv/bin/python -m models.robustness models/runs/baseline_full_100k_symbolic_seed1
+.venv/bin/python -m models.plot_robustness models/runs/baseline_full_100k_symbolic_seed1/robustness.json
+```
+
+By default this checks all 10K IID cases on CPU, separately from accelerator
+training. It probes bijective familiar-name renaming, presentation order,
+disconnected distractors, query negation, and supporting-fact removal. Labels
+are recomputed with the classical solver; no proof metadata enters a prompt.
+Fact removal may need multiple facts for OR branches and is not applicable to
+originally unknown queries. Report joint correctness and label-change response,
+not only prediction invariance: a constant classifier can be perfectly invariant.
+This distractor probe does not replace a length-matched depth experiment.
+Existing robustness reports are never overwritten; `--limit` explicitly marks
+an optional subset diagnostic rather than a full evaluation.
+
 Use `--train-limit`/`--eval-limit` only for explicitly labeled pilots. Use
 `--resume` with the same output and configuration to extend a completed epoch
 checkpoint. Model changes with incompatible parameter counts are rejected.

@@ -209,10 +209,27 @@ our own evidence, rather than importing their mechanism.
 Search update on 19 October screened recent symbolic/tiny-transformer reasoning
 results and retrieved these primary sources. This is a documented relevance
 search, not a claim to have read every new paper. The Google Research entry for
-*A Implies B* and its authors' code repository were also identified; a full
-methods review of that paper remains pending and is not counted among the 12
-reviewed studies. Pretrained-billion-scale two-hop blog results and task-policy
+*A Implies B* and its authors' code repository led to the v4 review below.
+Pretrained-billion-scale two-hop blog results and task-policy
 sequent-search studies were screened, not treated as direct replications.
+
+### Hong et al., revised 19 June 2025
+
+[A Implies B, v4](https://arxiv.org/html/2411.04105v4).
+Reviewed task/method definitions, necessity/sufficiency tests, discussion, and
+small-transformer appendices C and D (selected analyses, not all model-specific
+appendix interventions). The older title was *How Transformers Solve Propositional
+Logic Problems*. Question: which components implement in-context logic?
+Method: query/rule/fact counterfactuals and activation patching, plus scratch-trained
+attention-only models. Result: sparse modular pathways in pretrained models;
+small models solve a controlled template with less modular computations.
+Their three-layer success uses width 768, atomic variable tokens, proof generation,
+two million training examples, and warmup/cosine optimization—not a 100K-parameter
+character classifier. Difference: our independent holdouts, three-class answer-only
+objective, and scale range are distinct. This is a close comparator for controls,
+but its circuit evidence and smallest successful architecture cannot be imported
+as our mechanism or capacity threshold. Input interventions alone are behavioral
+tests; our current probes do not constitute activation-patching circuit analysis.
 
 ## Experimental protocol and interpretation gates
 
@@ -264,7 +281,17 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   English/function punctuation and letters were trained. Current raw-transfer
   metrics explicitly record unseen source character IDs. Low raw-transfer
   accuracy alone cannot establish failure of an abstract procedure.
-- Symbol-renaming, statement-order, irrelevant-fact, and premise-removal probes.
+- Implemented: raw-input symbol-renaming, statement-order, disconnected-distractor,
+  query-negation and supporting-fact ablation probes in `models.robustness`.
+  They parse text only and independently solver-check each new label. The
+  ablation finds an irredundant supporting-fact cut (possibly multiple OR roots),
+  scores only originally decisive queries and reports its different denominator.
+  The full 10K-IID check of the selected full-corpus 100K checkpoint is running
+  on one CPU thread alongside, not instead of, the accelerator matrix.
+  Reports include confusion matrices, joint original/transformed correctness,
+  unchanged predictions and correct responses to gold-label changes. Constant
+  classifiers can pass invariance but fail the causal-label-change probes.
+  These are diagnostic test analyses, not validation or training interventions.
 - A length-matched distractor control to separate proof depth from context length.
 - If source learning fails, investigate encoding/optimization/capacity without
   replacing the main experiment with an easier task or claiming transfer failure.
@@ -291,7 +318,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-twelve relevant-paper methods/results reviews, with version distinctions recorded;
+thirteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
