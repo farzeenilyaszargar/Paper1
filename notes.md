@@ -256,6 +256,11 @@ tests; our current probes do not constitute activation-patching circuit analysis
    `models/calibration_protocol.json`; LR 0.001 and 0.003 are planned, not yet
    launched. No winning rate or source-learning success is claimed. This does
    not replace the full-corpus baseline or calibrate all capacities/formats.
+   First-epoch observation only: 33.35% online training accuracy and 32.10%
+   source validation accuracy. The 2K validation prefix has class counts
+   635/680/685, so its majority-class baseline is 34.25%, not exactly one third.
+   Uniform-random expected accuracy is still one third. No final rate selection
+   is justified from one epoch or before the other planned rates complete.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -312,7 +317,20 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   `models.audit_robustness` independently reaggregates stored prediction metrics,
   pair IDs, label-change relations and provenance checksums. It does not rerun
   model inference or reconstruct modified texts; its audit scope is explicit.
-- A length-matched distractor control to separate proof depth from context length.
+- Implemented `models.length_control`, `models.audit_length_control`, and
+  `models.evaluate_length_control` for 2-hop versus 3/4/5-hop, equal-token-length
+  diagnostics in all three grammars. Full generation is running: planned 90K
+  pairs/180K logical inputs, not yet a completed or audited full corpus.
+  Each pair matches label and exact token count, not core KB. Both sides receive
+  disconnected forest components with familiar names and nonreserved edges;
+  their original decisive proof depths are retained. No filler whitespace is
+  used. The auditor also checks source-core preservation and training-KB leakage.
+  The small software integration corpus is byte-reproducible and audited; its
+  untrained constant-head evaluation is strictly a test fixture, not paper data.
+  Full independent audit, model evaluation and scientific results are pending.
+  This control does not equalize fact/operator/distractor counts or graph details,
+  and shared 2-hop cores across depths make conditions correlated. Any observed
+  accuracy gap is not by itself a causal depth effect.
 - If source learning fails, investigate encoding/optimization/capacity without
   replacing the main experiment with an easier task or claiming transfer failure.
 - Curriculum/mixed-format conditions after the answer-only baseline; identify
@@ -346,5 +364,8 @@ trainer path (first optimization pilot running; calibration completion pending).
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
+Also in progress: full length-matched control generation and the first
+validation-only optimization trial. The control's full audit/evaluation are not
+yet complete; code and integration tests must not be reported as neural results.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.

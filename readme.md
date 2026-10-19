@@ -249,6 +249,39 @@ This distractor probe does not replace a length-matched depth experiment.
 Existing robustness reports are never overwritten; `--limit` explicitly marks
 an optional subset diagnostic rather than a full evaluation.
 
+### Depth versus input length
+
+Build and independently audit a separate held-out control corpus:
+
+```sh
+.venv/bin/python -m models.length_control
+.venv/bin/python -m models.audit_length_control
+.venv/bin/python -m models.evaluate_length_control models/runs/baseline_full_100k_symbolic_seed1
+```
+
+The full control contains 90K pairs (180K logical inputs): 10K pairs for each
+of depths 3/4/5 and each of the three representations. Every pair compares a
+2-hop core with a deeper core of the same label, at exactly equal character-token
+length, including BOS/EOS. Pairing uses held-out labels and original symbolic
+lengths, never model predictions. Unknown examples retain null proof depths.
+Both sides receive disconnected logical components using familiar names and
+nonreserved dependency pairs. No filler whitespace or truncation is used.
+
+This matches length and label, **not the entire underlying problem**: core KBs,
+distractor counts, operators and graph details can still differ. Results are
+diagnostic same-format comparisons, not a causal isolation of depth or raw
+representation transfer. Core knowledge bases may recur across depth conditions;
+do not treat those conditions as independent replications.
+
+The auditor reparses every stored input, verifies its preserved core,
+disconnected additions, graph/pair/name constraints, minimum proof depth, exact
+token length, classical label and absence of training-KB duplicates. Evaluation
+requires a passing audit and the model's matching parent-corpus fingerprint.
+Bulk controls remain Git-ignored; a passing audit exports the compact tracked
+`datasets/length_control_summary.json`. A generation without its final manifest
+is incomplete and cannot be evaluated. `--limit` on generation creates an
+explicitly labeled optional subset, not a replacement for the full control.
+
 Use `--train-limit`/`--eval-limit` only for explicitly labeled pilots. Use
 `--resume` with the same output and configuration to extend a completed epoch
 checkpoint. Model changes with incompatible parameter counts are rejected.

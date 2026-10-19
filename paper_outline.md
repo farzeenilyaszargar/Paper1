@@ -51,6 +51,9 @@ and syntax-exposure controls before interpreting transfer.
 5.3 Independent symbol-combination and held-out-name results.
 5.4 Held-out diamond dependencies.
 5.5 Depth 2-5 versus context-length controls.
+Use exact-token-length pairs with the same gold label in each grammar. State
+that the paired cores differ and that added distractor/count/graph cues are not
+fully matched; this is not a pure causal intervention on proof depth.
 5.6 Capacity scaling and training-seed variability.
 
 Figures 2-5: learning curves, transfer heatmaps, depth curves, capacity curves.

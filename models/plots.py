@@ -32,16 +32,20 @@ def export(runs, output):
         if history:
             fig, axes = plt.subplots(1, 2, figsize=(10, 3.5), constrained_layout=True)
             epochs = [h["epoch"] for h in history]
-            axes[0].plot(epochs, [h["train_loss"] for h in history], label="Training")
-            axes[0].plot(epochs, [h["validation"]["loss"] for h in history], label="Source validation")
+            marker = "o" if len(history) == 1 else None
+            axes[0].plot(epochs, [h["train_loss"] for h in history], label="Training",marker=marker)
+            axes[0].plot(epochs, [h["validation"]["loss"] for h in history], label="Source validation",marker=marker)
             axes[0].set(xlabel="Epoch", ylabel="Cross-entropy")
-            axes[1].plot(epochs, [h["train_accuracy"] for h in history], label="Training")
-            axes[1].plot(epochs, [h["validation"]["accuracy"] for h in history], label="Source validation")
-            axes[1].axhline(1/3, color="grey", linestyle="--", label="Balanced chance")
+            axes[1].plot(epochs, [h["train_accuracy"] for h in history], label="Training",marker=marker)
+            axes[1].plot(epochs, [h["validation"]["accuracy"] for h in history], label="Source validation",marker=marker)
+            axes[1].axhline(1/3, color="grey", linestyle="--", label="Uniform-random expectation")
             axes[1].set(xlabel="Epoch", ylabel="Accuracy", ylim=(0, 1))
             for axis in axes:
                 axis.legend(fontsize=8)
                 axis.grid(alpha=0.2)
+                if len(history) == 1:
+                    axis.set_xlim(epochs[0]-.5,epochs[0]+.5)
+                    axis.set_xticks(epochs)
             fig.suptitle(f"{directory.name} - measured learning curve")
             fig.savefig(output / f"{directory.name}_learning.png", dpi=180)
             save_svg(fig, output / f"{directory.name}_learning.svg")
@@ -59,7 +63,7 @@ def export(runs, output):
         fig, ax = plt.subplots(figsize=(6, 4), constrained_layout=True)
         ax.bar(REPRESENTATIONS, values, yerr=np.array([[v-lo for v,(lo,hi) in zip(values, intervals)],
                                                      [hi-v for v,(lo,hi) in zip(values, intervals)]]), capsize=4)
-        ax.axhline(1/3, color="grey", linestyle="--", label="Balanced chance")
+        ax.axhline(1/3, color="grey", linestyle="--", label="Uniform-random expectation")
         ax.set(ylim=(0,1), ylabel="IID accuracy (95% binomial interval)", xlabel="Evaluation representation",
                title=f"Train: {source}; {config['parameter_count']:,} parameters\n{result['scope']} - {directory.name}")
         ax.legend()
