@@ -1,5 +1,5 @@
 {
-  "status": "Both 100K warmup arms completed for seeds 1 and 2, with verified provenance; seed-3 source-only warmup launched; supervised comparisons pending",
+  "status": "Source-only 100K warmups completed for all three seeds; all-format seeds 1 and 2 completed; seed-3 all-format warmup launched; supervised comparisons pending",
   "pilot_size": "100k",
   "pilot_source": "symbolic",
   "final_training_seeds": [1, 2, 3],

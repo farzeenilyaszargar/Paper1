@@ -329,6 +329,9 @@ that every recent reasoning paper has been found or read.
    accuracy 33.45%, balanced accuracy 32.72%, and entailed recall zero. Its
    report has `validation_only_completed` status and no test evaluations.
    No rate is selected before all three trials finish.
+   LR 0.001 has completed its first epoch: validation loss 1.099865, accuracy
+   32.30%, balanced accuracy 31.48%, entailed recall zero. This is an early
+   observation from the still-running ten-epoch trial, not a completed result.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -498,7 +501,10 @@ The seed-2 all-format counterpart also completed the fixed budget: 5,515
 records started (1,838 symbolic, 1,839 function, 1,838 English), final logged
 minibatch LM loss 0.920960. The paired exporter verifies both initializations,
 matched configuration/provenance and history totals before exporting
-`graphs/warmup_100k_symbolic_seed2`. The seed-3 source-only warmup is now running.
+`graphs/warmup_100k_symbolic_seed2`. The seed-3 source-only warmup completed
+the same budget: 7,113 records started, final logged minibatch LM loss 0.990229,
+35 observed input IDs. Its initialization provenance check passed; the seed-3
+all-format counterpart is now running. All three source-only warmups are done.
 Matched supervised comparisons are pending; warmup LM loss is not inference
 accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
