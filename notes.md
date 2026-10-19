@@ -372,8 +372,8 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   BOS/EOS/PAD are excluded from these denominators. This is a measured input
   exposure mismatch, not a neural accuracy result or a causal attribution of
   failure. `models/character_exposure.json` retains exact counts; the figure is
-  `graphs/character_exposure.png`. Actual training-only syntax-exposure and
-  matched-compute controls remain pending, not completed by this audit.
+  `graphs/character_exposure.png`. The audit alone does not complete actual
+  training-only syntax-exposure and matched-compute controls.
   Implemented the next stage separately in `models.syntax_warmup`: fixed-token,
   fixed-window TRAIN-only next-token exposure, source-only versus all-format
   arms. The functional tied LM projection adds no parameters; the classification
@@ -381,11 +381,12 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   Verified initializations can seed source-only supervised runs with reset
   optimizer moments and separate result scopes. Resume replays only the training
   stream. The initial protocol uses 2,048,000 prediction tokens per arm; it is
-  not presented as an optimal budget. Neither scientific arm has been launched.
+  not presented as an optimal budget. Both seed-1 scientific warmup arms have
+  now completed; downstream matched supervised training/evaluation is pending.
   This matches LM compute/token budgets, not latent-example counts or all content
   cues; it is richer than a character-only intervention and not zero-exposure
   transfer. Primary no-warmup runs remain unchanged. Unit fixtures are not data
-  for the paper, and actual control training/evaluation remain pending.
+  for the paper; report warmup exposure separately from downstream task results.
 - Implemented: raw-input symbol-renaming, statement-order, disconnected-distractor,
   query-negation and supporting-fact ablation probes in `models.robustness`.
   They parse text only and independently solver-check each new label. The
@@ -482,9 +483,15 @@ thread with the prespecified 1,000-update/2,048,000-prediction-token budget.
 It completed all 1,000 updates: 7,113 symbolic records started, 35 observed
 input IDs, final logged minibatch LM loss 0.993857 (not corpus-average loss).
 The initialization loader verified the report, budget, corpus fingerprint and
-checkpoint SHA256. Its matched all-format counterpart is now running with the
-same seed and token/update/window/batch budget. Matched supervised comparisons
-are pending; warmup LM loss is not inference accuracy or task mastery.
+checkpoint SHA256. Its matched all-format counterpart also completed the same
+seed and token/update/window/batch budget: 5,515 records started (1,838 symbolic,
+1,838 function, 1,839 English), final logged minibatch LM loss 0.976620.
+Both initializations pass the provenance loader. The measured
+`graphs/warmup_100k_symbolic_seed1` figure/report records both curves and unequal
+record counts; the losses are from different distributions, not a ranking of
+reasoning ability. The prespecified seed-2 source-only warmup is now running.
+Matched supervised comparisons are pending; warmup LM loss is not inference
+accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
 the Mac had approximately 3.6 GiB disk free and 8.8 GiB encrypted swap in use;
 the three existing scientific processes were live. No extra warmup workload was

@@ -11,6 +11,7 @@ from torch.nn import functional as F
 
 from models.representations import PAD,REPRESENTATIONS,VOCAB_SIZE,encode
 from models.syntax_warmup import TrainingStream,initialization,language_logits,run
+from models.plot_warmup import load_pair,export as plot_warmup
 from models.train import run as supervise
 from models.transformer import TinyTransformer
 from synthetic_dataset_generator.audit import audit
@@ -84,6 +85,21 @@ class SyntaxWarmupTests(unittest.TestCase):
                     initialization(args.output/"initialization.pt","10k",2,"symbolic",file_checksum(data/"manifest.json"))
             self.assertEqual(reports[0]["config"]["token_budget"],reports[1]["config"]["token_budget"])
             self.assertEqual(reports[0]["stream_tokens_consumed"],reports[1]["stream_tokens_consumed"])
+            arms = (root/"source_only",root/"all_formats")
+            self.assertEqual(len(load_pair(arms)),2)
+            plot_warmup(arms,root/"fixture_graphs")
+            self.assertTrue((root/"fixture_graphs"/"warmup_10k_symbolic_seed1.png").exists())
+            with self.assertRaisesRegex(ValueError,"one source-only"):
+                load_pair((arms[0],arms[0]))
+            history_path = arms[1]/"history.jsonl"
+            original = history_path.read_text()
+            import json
+            altered = json.loads(original)
+            altered["predicted_tokens"] += 1
+            history_path.write_text(json.dumps(altered)+"\n")
+            with self.assertRaisesRegex(ValueError,"token budget"):
+                load_pair(arms)
+            history_path.write_text(original)
             fit = argparse.Namespace(data=data,output=root/"supervised",size="10k",representation="symbolic",
                 seed=1,epochs=1,batch_size=3,lr=.001,train_limit=3,eval_limit=3,device="cpu",threads=1,
                 purpose="pilot",encoding="characters",accumulation=1,eval_batch_size=3,validation_only=True,

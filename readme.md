@@ -268,10 +268,13 @@ The separate warmup implementation is available for those controls:
 ```sh
 .venv/bin/python -m models.syntax_warmup --size 100k --source symbolic --treatment source_only --seed 1 --device cpu --output models/warmups/100k_source_only_seed1
 .venv/bin/python -m models.syntax_warmup --size 100k --source symbolic --treatment all_formats --seed 1 --device cpu --output models/warmups/100k_all_formats_seed1
+.venv/bin/python -m models.plot_warmup models/warmups/100k_source_only_seed1 models/warmups/100k_all_formats_seed1
 ```
 
-These are commands to run separately when compute/memory permit, not treatments
-already completed. Do not start another accelerator job beside the active queue.
+Both seed-1 CPU warmups have completed and their verified exposure figure is
+`graphs/warmup_100k_symbolic_seed1.png`; downstream matched supervised comparisons
+are pending. These commands use protected output directories and will not
+overwrite completed runs. Do not start another accelerator job beside the queue.
 Both arms predict exactly 2,048,000 next tokens in 1,000 fixed-size updates by
 default. A tied LM projection adds no parameters and leaves the classifier head
 untouched. LM windows can cut/cross problem boundaries; answer-only inference

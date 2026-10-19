@@ -1,5 +1,5 @@
 {
-  "status": "Seed-1 100K source-only warmup completed and initialization provenance verified; matched all-format warmup launched; supervised comparisons pending",
+  "status": "Both seed-1 100K warmups completed and initialization provenance verified; seed-2 source-only warmup launched; supervised comparisons pending",
   "pilot_size": "100k",
   "pilot_source": "symbolic",
   "final_training_seeds": [1, 2, 3],
