@@ -1,0 +1,14 @@
+{
+  "status": "Implemented and software-tested; no scientific warmup treatment launched",
+  "pilot_size": "100k",
+  "pilot_source": "symbolic",
+  "final_training_seeds": [1, 2, 3],
+  "arms": ["source_only", "all_formats"],
+  "shared_vocabulary": "Existing 98 IDs; tied functional LM projection adds no parameters",
+  "data": "Only datasets/default/train.jsonl; bounded-window shuffle and cycling format schedule",
+  "labels_and_proofs_in_lm_text": false,
+  "warmup_budget": {"steps": 1000, "batch_size": 8, "context": 256, "prediction_tokens": 2048000, "learning_rate": 0.001},
+  "supervised_comparison": "Identical source-only data, training budget, calibration-selected hyperparameters, checkpoint rule and seed across warmup arms; optimizer moments reset before supervision",
+  "no_warmup_reference": "Use an otherwise matched no-warmup run; the primary baseline is a matched reference only when its supervised configuration agrees",
+  "interpretation": "Auxiliary unlabeled representation exposure, not pure character intervention or zero-exposure transfer. Token/step/window budgets match, but latent problem counts and available syntax/content can differ. Report actual consumed records, form counts and input IDs. Do not count implementation or unit fixtures as scientific runs. No final hyperparameter selection or source-learning success has been established."
+}

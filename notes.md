@@ -344,6 +344,18 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   failure. `models/character_exposure.json` retains exact counts; the figure is
   `graphs/character_exposure.png`. Actual training-only syntax-exposure and
   matched-compute controls remain pending, not completed by this audit.
+  Implemented the next stage separately in `models.syntax_warmup`: fixed-token,
+  fixed-window TRAIN-only next-token exposure, source-only versus all-format
+  arms. The functional tied LM projection adds no parameters; the classification
+  head is not trained during warmup. No label/proof strings enter LM text.
+  Verified initializations can seed source-only supervised runs with reset
+  optimizer moments and separate result scopes. Resume replays only the training
+  stream. The initial protocol uses 2,048,000 prediction tokens per arm; it is
+  not presented as an optimal budget. Neither scientific arm has been launched.
+  This matches LM compute/token budgets, not latent-example counts or all content
+  cues; it is richer than a character-only intervention and not zero-exposure
+  transfer. Primary no-warmup runs remain unchanged. Unit fixtures are not data
+  for the paper, and actual control training/evaluation remain pending.
 - Implemented: raw-input symbol-renaming, statement-order, disconnected-distractor,
   query-negation and supporting-fact ablation probes in `models.robustness`.
   They parse text only and independently solver-check each new label. The
@@ -412,6 +424,13 @@ for that checkpoint, with a measured robustness figure/table; tested validation-
 trainer path (first optimization pilot running; calibration completion pending).
 Also completed: full-corpus character-exposure diagnostic and measured matrix,
 which quantifies a raw-transfer confound without replacing its required control.
+Software completed additionally: TRAIN-only matched warmup arms, provenance-
+checked supervised initialization, and CPU checkpoint/replay tests. Actual
+warmup treatment runs and their scientific comparisons are still pending.
+New process invocations have storage preflight/checkpoint guards. On 19 October,
+the Mac had approximately 3.6 GiB disk free and 8.8 GiB encrypted swap in use;
+the three existing scientific processes were live. No extra warmup workload was
+launched under that resource pressure. Existing processes are not hot-patched.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.

@@ -4,10 +4,12 @@ Example: python -m models.train --size 100k --representation symbolic --epochs 1
 """
 
 import argparse
+import errno
 import hashlib
 import json
 import math
 import random
+import shutil
 import time
 from itertools import islice
 from pathlib import Path
@@ -18,7 +20,7 @@ from torch.nn import functional as F
 
 from synthetic_dataset_generator.generator import file_checksum, write_json
 from .representations import CHARACTERS, LABELS, PAD, REPRESENTATIONS, encode, format_input
-from .transformer import FF_WIDTH, SIZES, TinyTransformer
+from .transformer import FF_WIDTH, SIZES, TinyTransformer, expected_parameter_count
 from .local_encoding import encode_slots
 
 
@@ -74,7 +76,32 @@ def optimizer_step(model, optimizer, group, device):
     return total_loss, correct, count, token_count
 
 
+def tensor_bytes(value):
+    if isinstance(value,torch.Tensor):
+        return value.numel()*value.element_size()
+    if isinstance(value,dict):
+        return sum(tensor_bytes(v) for v in value.values())
+    if isinstance(value,(list,tuple)):
+        return sum(tensor_bytes(v) for v in value)
+    return 0
+
+
+def require_space(path,required):
+    ancestor = path.resolve()
+    while not ancestor.exists():
+        ancestor = ancestor.parent
+    free = shutil.disk_usage(ancestor).free
+    if free < required:
+        raise OSError(errno.ENOSPC,f"Insufficient checkpoint space: {free:,} bytes free; {required:,} required; existing checkpoints preserved",str(path))
+
+
+def training_space_preflight(output,parameters):
+    # FP32 model + Adam moments + atomic copies + predictions, plus OS reserve.
+    require_space(output,1024**3+32*parameters+64*1024**2)
+
+
 def save_checkpoint(value, path):
+    require_space(path.parent,tensor_bytes(value)+512*1024**2+1024**2)
     temporary = path.with_name(path.name + ".tmp")
     torch.save(value, temporary)
     temporary.replace(path)
@@ -111,6 +138,7 @@ def evaluate(model, samples, batch_size, device, prediction_path=None):
 
 
 def run(args):
+    training_space_preflight(args.output,expected_parameter_count(args.size))
     torch.set_num_threads(args.threads)
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -131,9 +159,24 @@ def run(args):
     train = load(args.data / "train.jsonl", args.representation, args.train_limit, args.encoding)
     validation = load(args.data / "validation.jsonl", args.representation, args.eval_limit, args.encoding)
     model = TinyTransformer(args.size).to(device)
+    initialization_path = getattr(args,"initialization",None)
+    warmup = None
+    if initialization_path is not None:
+        if args.encoding != "characters":
+            raise ValueError("Raw syntax warmup cannot initialize parser-normalized encoding")
+        from .syntax_warmup import initialization as load_initialization
+        initial_state,warmup = load_initialization(initialization_path,args.size,args.seed,args.representation,file_checksum(manifest_path))
+        if warmup["config"]["parameter_count"] != model.parameter_count:
+            raise ValueError("Warmup parameter count differs from current model")
+        if not args.resume:
+            model.load_state_dict(initial_state)
+    # Supervised optimization always starts with fresh moments after warmup.
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
     config = vars(args).copy()
     config["data"], config["output"] = str(args.data), str(args.output)
+    config["initialization"] = str(initialization_path) if initialization_path is not None else None
+    config["initialization_sha256"] = file_checksum(initialization_path) if initialization_path is not None else None
+    config["warmup"] = warmup
     config.update(device=device, parameter_count=model.parameter_count, torch_version=torch.__version__,
                   dataset_name=manifest["config"]["name"],
                   effective_batch_size=args.batch_size * args.accumulation,
@@ -156,6 +199,8 @@ def run(args):
             raise ValueError("Resume accumulation mismatch")
         if old.get("validation_only",False) != args.validation_only:
             raise ValueError("Resume validation-only mode mismatch")
+        if old.get("initialization_sha256") != config["initialization_sha256"]:
+            raise ValueError("Resume initialization mismatch")
         for key in ("size", "representation", "parameter_count", "seed", "dataset_manifest_sha256", "train_limit", "eval_limit", "batch_size", "lr"):
             if config[key] != old[key]:
                 raise ValueError(f"Resume configuration mismatch: {key}")
@@ -209,6 +254,9 @@ def run(args):
     results["selected_validation"] = selected_validation
     results["source_learning_gate_passed"] = selected_validation["accuracy"] >= 0.95 and all(
         value is not None and value >= 0.90 for value in selected_validation["recall"].values())
+    if warmup is not None:
+        results["scope"] = warmup["config"]["treatment"]+" warmup "+("pilot" if args.train_limit or args.eval_limit else "full control")
+        results["interpretation"] = "Separate unlabeled-exposure treatment; compare matched source-only warmup, not just a no-warmup baseline. Not zero-exposure transfer."
     if args.encoding == "local_slots":
         results["scope"] = "binding-normalized pilot" if args.train_limit or args.eval_limit else "binding-normalized full control"
         results["interpretation"] = "External parsing and alpha-renaming; identical normalized inputs are not evidence of learned raw-format transfer"
@@ -218,6 +266,7 @@ def run(args):
         write_json(args.output / "results.json",results)
         return results
     training_chars = set(c for sequence, _, _ in train for c in sequence)
+    all_training_chars = training_chars | (set(warmup["input_token_ids_observed"]) if warmup else set())
     for representation in REPRESENTATIONS:
         results["evaluations"][representation] = {}
         for filename in manifest["files"]:
@@ -229,6 +278,7 @@ def run(args):
                                args.output / f"{representation}_{split}.predictions.jsonl")
             test_chars = set(c for sequence, _, _ in samples for c in sequence)
             metrics["unseen_source_token_ids"] = sorted(test_chars - training_chars)
+            metrics["unseen_all_training_token_ids"] = sorted(test_chars - all_training_chars)
             if args.encoding == "characters":
                 metrics["unseen_source_character_ids"] = metrics["unseen_source_token_ids"]
             results["evaluations"][representation][split] = metrics
@@ -259,6 +309,7 @@ def main():
     parser.add_argument("--encoding", choices=("characters", "local_slots"), default="characters")
     parser.add_argument("--accumulation", type=int, default=1)
     parser.add_argument("--eval-batch-size",type=int)
+    parser.add_argument("--initialization",type=Path,help="Verified TRAIN-only LM warmup initialization.pt")
     parser.add_argument("--validation-only",action="store_true",
                         help="Finish after source validation; never evaluate test splits (for calibration)")
     parser.add_argument("--resume", action="store_true")

@@ -21,4 +21,4 @@ exclude = ["models.runs*"]
 
 [tool.setuptools.package-data]
 synthetic_dataset_generator = ["configs/*.json"]
-models = ["experiment_protocol.json"]
+models = ["experiment_protocol.json", "calibration_protocol.json", "syntax_exposure_protocol.json"]

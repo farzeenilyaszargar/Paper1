@@ -106,7 +106,8 @@ def analyze_run(directory):
             validate_metrics(right, metric)
             hashes[right_path.name] = file_checksum(right_path)
             rows.append(dict(compare(left, right), split=split, source=source, target=target,
-                             unseen_source_token_ids=metric.get("unseen_source_token_ids")))
+                             unseen_source_token_ids=metric.get("unseen_source_token_ids"),
+                             unseen_all_training_token_ids=metric.get("unseen_all_training_token_ids")))
     for row, adjusted in zip(rows, holm([row["p_exact_mcnemar"] for row in rows])):
         row["p_holm_within_run"] = adjusted
     return {"run": directory.name, "scope": result["scope"],

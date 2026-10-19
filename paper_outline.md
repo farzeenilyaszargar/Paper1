@@ -78,6 +78,9 @@ Separate evidence for syntax recognition, variable binding, and inference.
 Include the measured character-exposure matrix: symbolic-to-function/English
 inputs contain substantial source-unseen character occurrences despite shared
 IDs. Distinguish this corpus audit from a neural syntax-exposure intervention.
+Compare unlabeled multiformat warmup against a matched source-only LM warmup,
+not only a no-warmup baseline. Report additional tokens, windows, updates and
+record counts; call this exposure/adaptation, not zero-exposure transfer.
 
 ## 7. Discussion and limitations
 

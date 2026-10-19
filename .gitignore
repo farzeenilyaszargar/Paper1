@@ -11,3 +11,5 @@ models/runs/*/*.predictions.jsonl
 models/runs/*/*.tmp
 .suite.lock
 models/suite_logs/
+models/warmups/*/*.pt
+models/warmups/*/*.tmp

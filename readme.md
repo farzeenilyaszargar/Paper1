@@ -263,6 +263,42 @@ not pilot subsets. Zero unseen IDs does not establish learned syntax, and
 nonzero exposure mismatch does not by itself explain an accuracy failure.
 Training-only syntax-exposure and compute-matched controls remain separate work.
 
+The separate warmup implementation is available for those controls:
+
+```sh
+.venv/bin/python -m models.syntax_warmup --size 100k --source symbolic --treatment source_only --seed 1 --device cpu --output models/warmups/100k_source_only_seed1
+.venv/bin/python -m models.syntax_warmup --size 100k --source symbolic --treatment all_formats --seed 1 --device cpu --output models/warmups/100k_all_formats_seed1
+```
+
+These are commands to run separately when compute/memory permit, not treatments
+already completed. Do not start another accelerator job beside the active queue.
+Both arms predict exactly 2,048,000 next tokens in 1,000 fixed-size updates by
+default. A tied LM projection adds no parameters and leaves the classifier head
+untouched. LM windows can cut/cross problem boundaries; answer-only inference
+still rejects truncation. Only training text is used, with no labels or proofs.
+
+For subsequent source-only supervision, pass `--initialization` pointing to the
+chosen warmup's `initialization.pt` to `models.train`. It checks corpus, size,
+seed, source, completed budget and file provenance, then resets optimizer moments.
+Use matched supervised settings for both arms and a no-warmup reference; choose
+settings from validation, not tests. Warmup results have separate scopes and
+cannot satisfy the primary baseline queue. `--validation-only` still avoids test
+evaluation. Metrics distinguish IDs absent from source supervision from those
+absent from all observed training inputs, including warmup.
+
+Warmup checkpoints support `--resume` with identical configuration/code; an
+interrupted stream is deterministically replayed to its saved position. Checkpoint
+files remain local. Matching token/update budgets does not match the number of
+latent problems or isolate character learning from richer unlabeled syntax.
+The planned comparison is recorded in `models/syntax_exposure_protocol.json`.
+
+Fresh trainer/warmup invocations check available storage before creating output
+directories, including an OS reserve and estimated checkpoint/prediction space.
+Atomic checkpoint writes also check capacity before touching a new temporary
+file; low space raises an error while preserving the previous checkpoint.
+These checks cannot guarantee space stays available, and already-running
+processes are not hot-patched by source edits.
+
 ### Depth versus input length
 
 Build and independently audit a separate held-out control corpus:
