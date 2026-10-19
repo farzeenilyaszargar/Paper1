@@ -249,6 +249,20 @@ This distractor probe does not replace a length-matched depth experiment.
 Existing robustness reports are never overwritten; `--limit` explicitly marks
 an optional subset diagnostic rather than a full evaluation.
 
+### Character-exposure diagnostic
+
+```sh
+.venv/bin/python -m models.character_exposure --plot
+```
+
+This scans all corpus renderings and counts target-format character occurrences
+whose IDs were absent from source-format training. It exports counts and a
+3-by-3 IID exposure matrix, **not neural transfer accuracy**. BOS/EOS/PAD are
+excluded from the content-token denominator. It uses the full training corpus,
+not pilot subsets. Zero unseen IDs does not establish learned syntax, and
+nonzero exposure mismatch does not by itself explain an accuracy failure.
+Training-only syntax-exposure and compute-matched controls remain separate work.
+
 ### Depth versus input length
 
 Build and independently audit a separate held-out control corpus:

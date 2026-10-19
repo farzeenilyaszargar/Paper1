@@ -14,5 +14,6 @@
   "baseline_budget": {"epochs": 30, "learning_rate": 0.001, "effective_batch_size": 32, "conditions": 45},
   "budget_interpretation": "Initial prespecified baseline, not a claim of optimal training. Validation-only learning-rate calibration and syntax controls remain separate. Do not use test results to tune this matrix.",
   "required_controls": ["exact oracle", "surface-feature classifier", "parse-normalized transfer", "syntax exposure", "renaming", "statement order", "irrelevant facts", "premise removal", "depth versus context length"],
+  "syntax_exposure_status": "Full-corpus character-coverage audit completed; this measures an input-exposure mismatch, not a causal neural control. Training-only syntax exposure and matched-compute comparisons remain pending; raw transfer alone cannot isolate procedure failure.",
   "onset_reporting": "Smallest actual tested capacity passing a specified gate across all three seeds; separate source learning from independent holdouts and raw transfer. No unobserved threshold interpolated."
 }

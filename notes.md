@@ -231,6 +231,41 @@ but its circuit evidence and smallest successful architecture cannot be imported
 as our mechanism or capacity threshold. Input interventions alone are behavioral
 tests; our current probes do not constitute activation-patching circuit analysis.
 
+### Maltoni and Ferrara, revised 30 June 2026
+
+[Deductive Logic in Language Models: Horizontal vs Vertical Reasoning, v2](https://arxiv.org/html/2510.09340v2).
+Reviewed task construction, models, trace/no-trace experiments, convergence and
+bias appendices in HTML; publisher page was rate-limited, so this review uses
+arXiv v2. Question: how does supervision change deduction?
+Method: implication chains and tree navigation, with attention/residual decoding.
+Result: selected proof-supervised models generalize; answer-only variants can
+memorize or exploit generation shortcuts. Their 144,384-parameter trace model
+has 24-token prompts, and only about 20% of runs converge within 250 epochs;
+averages over converged models are not unconditional reliability estimates.
+Difference: our longer inputs, multi-character names and three-class labels
+exclude generated proofs. Their successes do not set our parameter threshold.
+This supports separately testing supervision and optimization, without replacing
+the primary answer-only task or selectively dropping failed seeds.
+
+### Nguyen, Dang and Inoue, May 2026
+
+[Revealing Algorithmic Deductive Circuits for Logical Reasoning, v1](https://arxiv.org/html/2605.27824v1).
+Reviewed synthetic construction, patching, ablations and limitations in HTML.
+Question: which components support symbolic-aided proof generation?
+Method: counterfactual prompts, activation/path patching, and targeted versus
+random head removal in pretrained models. Result: distinct reading/decision
+roles and targeted ablation damage on reasoning benchmarks; combined ablations
+also affect MMLU, so reasoning exclusivity is not established.
+Difference: their trace tokens and inference-step scores are not our classifier
+outputs. Our behavioral interventions alone cannot establish their circuit-level
+claims or identify internal proof steps. Any future mechanism claim needs its
+own intervention evidence rather than an accuracy threshold or attention picture.
+
+Screening update: added these two directly relevant primary-source reviews.
+Majority-function optimization theory, visual recursion, and Bayesian common-cause
+papers were screened but not counted as reviewed: their tasks/assumptions require
+separate analysis before applying their claims to this in-context logic fragment.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -261,6 +296,9 @@ tests; our current probes do not constitute activation-patching circuit analysis
    635/680/685, so its majority-class baseline is 34.25%, not exactly one third.
    Uniform-random expected accuracy is still one third. No final rate selection
    is justified from one epoch or before the other planned rates complete.
+   At epoch 2 the latest validation accuracy is 34.35%, but loss is worse than
+   at epoch 1 and entailed-class recall is zero. The minimum-validation-loss
+   checkpoint has therefore not improved. This is not source-task mastery.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -295,6 +333,17 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   English/function punctuation and letters were trained. Current raw-transfer
   metrics explicitly record unseen source character IDs. Low raw-transfer
   accuracy alone cannot establish failure of an abstract procedure.
+- Completed corpus-level exposure audit: all 180K records rendered in all three
+  forms. For symbolic-source training, 41.13% of function IID content-character
+  occurrences (17 distinct characters) and 39.55% of English occurrences (15
+  characters) use source-unseen IDs. Other cross-format pairs range from 19.55%
+  to 40.93%. Every same-format held-out-name test has zero source-unseen
+  character occurrences, consistent with its shared-character encoding design.
+  BOS/EOS/PAD are excluded from these denominators. This is a measured input
+  exposure mismatch, not a neural accuracy result or a causal attribution of
+  failure. `models/character_exposure.json` retains exact counts; the figure is
+  `graphs/character_exposure.png`. Actual training-only syntax-exposure and
+  matched-compute controls remain pending, not completed by this audit.
 - Implemented: raw-input symbol-renaming, statement-order, disconnected-distractor,
   query-negation and supporting-fact ablation probes in `models.robustness`.
   They parse text only and independently solver-check each new label. The
@@ -356,11 +405,13 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-thirteen relevant-paper methods/results reviews, with version distinctions recorded;
+fifteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
 trainer path (first optimization pilot running; calibration completion pending).
+Also completed: full-corpus character-exposure diagnostic and measured matrix,
+which quantifies a raw-transfer confound without replacing its required control.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.

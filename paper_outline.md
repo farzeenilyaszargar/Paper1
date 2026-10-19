@@ -21,8 +21,10 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The thirteen reviewed references are collected in `references.bib`; screening and
+The fifteen reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
+Distinguish answer-only versus proof supervision and success-conditioned
+mechanistic case studies from unconditional multi-seed reliability.
 
 ## 3. Task and dataset
 
@@ -73,6 +75,9 @@ Oracle and superficial-feature baselines; parse-normalized versus raw transfer;
 syntax exposure; renaming/order/distractor probes; ablated premises; optional
 curriculum and mixed-format adaptation. Use actual error examples with IDs.
 Separate evidence for syntax recognition, variable binding, and inference.
+Include the measured character-exposure matrix: symbolic-to-function/English
+inputs contain substantial source-unseen character occurrences despite shared
+IDs. Distinguish this corpus audit from a neural syntax-exposure intervention.
 
 ## 7. Discussion and limitations
 
