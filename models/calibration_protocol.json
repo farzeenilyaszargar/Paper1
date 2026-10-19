@@ -1,6 +1,6 @@
 {
   "scope": "Initial 100K symbolic optimization pilot, separate from the 45-condition fixed-budget baseline",
-  "status": "First learning-rate trial launched; other rates planned, not yet running",
+  "status": "LR 0.0003 completed without source mastery; LR 0.001 launched; LR 0.003 pending; no rate selected",
   "size": "100k",
   "parameters": 99075,
   "representation": "symbolic",

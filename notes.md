@@ -312,8 +312,9 @@ that every recent reasoning paper has been found or read.
    First actual trial launched: 99,075 parameters, symbolic/characters, seed 101,
    LR 0.0003, 20K train/2K validation, 10 epochs, effective batch 32, one CPU
    thread, validation-only. The prespecified three-rate pilot is recorded in
-   `models/calibration_protocol.json`; LR 0.001 and 0.003 are planned, not yet
-   launched. No winning rate or source-learning success is claimed. This does
+   `models/calibration_protocol.json`; LR 0.001 was launched after LR 0.0003
+   completed, while LR 0.003 remains pending. No winning rate or source-learning
+   success is claimed. This does
    not replace the full-corpus baseline or calibrate all capacities/formats.
    First-epoch observation only: 33.35% online training accuracy and 32.10%
    source validation accuracy. The 2K validation prefix has class counts
@@ -323,8 +324,11 @@ that every recent reasoning paper has been found or read.
    The epoch-2 validation accuracy was 34.35%, but loss was worse than
    at epoch 1 and entailed-class recall is zero. The minimum-validation-loss
    checkpoint had therefore not improved at that point. At epoch 9, validation
-   accuracy is 32.50% and minimum-loss selection remains in effect. The first
-   trial is still running; no rate is selected before all three trials finish.
+   accuracy was 32.50%. The first trial has now completed all 10 epochs:
+   the selected minimum-loss checkpoint is epoch 10, validation loss 1.100379,
+   accuracy 33.45%, balanced accuracy 32.72%, and entailed recall zero. Its
+   report has `validation_only_completed` status and no test evaluations.
+   No rate is selected before all three trials finish.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -456,15 +460,20 @@ sixteen relevant-paper methods/results reviews, with version distinctions record
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
-trainer path (first optimization pilot running; calibration completion pending).
+trainer path and the first optimization pilot (LR 0.0003; no source mastery).
+The LR 0.001 pilot is running; the three-rate calibration remains incomplete.
 Also completed: full-corpus character-exposure diagnostic and measured matrix,
 which quantifies a raw-transfer confound without replacing its required control.
 Software completed additionally: TRAIN-only matched warmup arms, provenance-
 checked supervised initialization, and CPU checkpoint/replay tests. On 20 October,
 the actual 100K symbolic source-only warmup (seed 1) was launched on one CPU
 thread with the prespecified 1,000-update/2,048,000-prediction-token budget.
-Its all-format counterpart and matched supervised comparisons are pending;
-warmup LM loss must not be reported as inference accuracy or task mastery.
+It completed all 1,000 updates: 7,113 symbolic records started, 35 observed
+input IDs, final logged minibatch LM loss 0.993857 (not corpus-average loss).
+The initialization loader verified the report, budget, corpus fingerprint and
+checkpoint SHA256. Its matched all-format counterpart is now running with the
+same seed and token/update/window/batch budget. Matched supervised comparisons
+are pending; warmup LM loss is not inference accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
 the Mac had approximately 3.6 GiB disk free and 8.8 GiB encrypted swap in use;
 the three existing scientific processes were live. No extra warmup workload was
@@ -475,7 +484,7 @@ In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
 Also completed: the full length-matched corpus's independent audit. Its neural
-evaluation and the first validation-only optimization trial are running; code
+evaluation and the second validation-only optimization trial are running; code
 and integration tests must not be reported as neural results.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.

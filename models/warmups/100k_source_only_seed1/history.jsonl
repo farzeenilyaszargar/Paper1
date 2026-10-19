@@ -1,0 +1,10 @@
+{"step": 100, "last_batch_loss": 1.5150996446609497, "predicted_tokens": 204800, "records_started": 714, "forms_rendered": {"symbolic": 714, "function": 0, "english": 0}}
+{"step": 200, "last_batch_loss": 1.4473270177841187, "predicted_tokens": 409600, "records_started": 1416, "forms_rendered": {"symbolic": 1416, "function": 0, "english": 0}}
+{"step": 300, "last_batch_loss": 1.373260259628296, "predicted_tokens": 614400, "records_started": 2127, "forms_rendered": {"symbolic": 2127, "function": 0, "english": 0}}
+{"step": 400, "last_batch_loss": 1.3075377941131592, "predicted_tokens": 819200, "records_started": 2836, "forms_rendered": {"symbolic": 2836, "function": 0, "english": 0}}
+{"step": 500, "last_batch_loss": 1.3037060499191284, "predicted_tokens": 1024000, "records_started": 3545, "forms_rendered": {"symbolic": 3545, "function": 0, "english": 0}}
+{"step": 600, "last_batch_loss": 1.2271920442581177, "predicted_tokens": 1228800, "records_started": 4259, "forms_rendered": {"symbolic": 4259, "function": 0, "english": 0}}
+{"step": 700, "last_batch_loss": 1.164155125617981, "predicted_tokens": 1433600, "records_started": 4970, "forms_rendered": {"symbolic": 4970, "function": 0, "english": 0}}
+{"step": 800, "last_batch_loss": 1.0763410329818726, "predicted_tokens": 1638400, "records_started": 5684, "forms_rendered": {"symbolic": 5684, "function": 0, "english": 0}}
+{"step": 900, "last_batch_loss": 1.0271763801574707, "predicted_tokens": 1843200, "records_started": 6397, "forms_rendered": {"symbolic": 6397, "function": 0, "english": 0}}
+{"step": 1000, "last_batch_loss": 0.9938568472862244, "predicted_tokens": 2048000, "records_started": 7113, "forms_rendered": {"symbolic": 7113, "function": 0, "english": 0}}
