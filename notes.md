@@ -489,7 +489,10 @@ seed and token/update/window/batch budget: 5,515 records started (1,838 symbolic
 Both initializations pass the provenance loader. The measured
 `graphs/warmup_100k_symbolic_seed1` figure/report records both curves and unequal
 record counts; the losses are from different distributions, not a ranking of
-reasoning ability. The prespecified seed-2 source-only warmup is now running.
+reasoning ability. The prespecified seed-2 source-only warmup also completed
+1,000 updates / 2,048,000 predictions: 7,114 records started and final logged
+minibatch LM loss 1.047872. Initialization provenance verification passed.
+The seed-2 all-format counterpart is now running with the same fixed budget.
 Matched supervised comparisons are pending; warmup LM loss is not inference
 accuracy or task mastery.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
