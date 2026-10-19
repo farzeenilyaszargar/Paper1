@@ -8,9 +8,9 @@
       "--data",
       "datasets/default",
       "--output",
-      "models/runs/baseline_full_100k_symbolic_seed1",
+      "models/runs/baseline_full_500k_symbolic_seed1",
       "--size",
-      "100k",
+      "500k",
       "--representation",
       "symbolic",
       "--seed",
@@ -18,18 +18,20 @@
       "--epochs",
       "30",
       "--batch-size",
-      "16",
+      "8",
       "--accumulation",
-      "2",
+      "4",
       "--lr",
       "0.001",
       "--device",
       "mps"
     ],
-    "name": "baseline_full_100k_symbolic_seed1",
-    "pid": 85026
+    "name": "baseline_full_500k_symbolic_seed1",
+    "pid": 47723
   },
-  "completed": [],
+  "completed": [
+    "baseline_full_100k_symbolic_seed1"
+  ],
   "conditions": [
     {
       "accumulation": 2,
@@ -531,5 +533,5 @@
   "failed": [],
   "phase": "fixed-budget baseline; validation calibration/controls remain separate",
   "status": "running",
-  "supervisor_pid": 83608
+  "supervisor_pid": 47663
 }

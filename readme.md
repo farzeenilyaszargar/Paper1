@@ -214,7 +214,15 @@ Example full-corpus run (choose a new output directory):
 .venv/bin/python -m models.train --size 500k --representation symbolic --epochs 30 --seed 1 --batch-size 32 --output models/runs/full_500k_symbolic_seed1
 .venv/bin/python -m models.plots
 .venv/bin/python -m models.baselines
+.venv/bin/python -m models.paired_statistics
 ```
+
+Paired statistics require retained local per-instance prediction files. The
+export verifies matching IDs, labels and saved confusion matrices, and reports
+source-versus-target accuracy differences with exact McNemar tests and Holm
+correction within each run's 14 comparisons. Missing legacy predictions are
+explicitly unavailable, not reconstructed from aggregate accuracy. These are
+exploratory checkpoint-conditional comparisons, not final across-seed inference.
 
 Use `--train-limit`/`--eval-limit` only for explicitly labeled pilots. Use
 `--resume` with the same output and configuration to extend a completed epoch

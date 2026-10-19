@@ -21,7 +21,7 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The ten reviewed references are collected in `references.bib`; screening and
+The twelve reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
 
 ## 3. Task and dataset
@@ -56,6 +56,9 @@ and syntax-exposure controls before interpreting transfer.
 Figures 2-5: learning curves, transfer heatmaps, depth curves, capacity curves.
 Tables 2-3: per-condition/per-class results and paired statistical comparisons.
 Do not fill missing runs with estimated or synthetic measurements.
+The first full-corpus 99,075-parameter seed-1 symbolic baseline is complete:
+33.33% validation and IID accuracy, with a constant-class selected checkpoint.
+This single condition fails the source gate and does not determine an onset.
 
 ## 6. Controls and error analysis
 

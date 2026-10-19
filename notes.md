@@ -1,4 +1,4 @@
-# Research notes - 13-14 October 2026
+# Research notes - updated 19 October 2026
 
 ## Question and current evidence
 
@@ -23,6 +23,17 @@ A separate 99,075-parameter binding-normalized pilot fit its 2K training example
 IID test accuracy on 1K cases. It does not satisfy the learning gate.
 The 16-example memorization diagnostic first reached perfect online training
 accuracy at epoch 17; this verifies fitting capacity, not reasoning generalization.
+
+The first full-corpus condition, `baseline_full_100k_symbolic_seed1` (99,075
+parameters), completed 30 epochs on all 100K training examples. Its selected
+checkpoint gets 33.33% validation and 33.33% symbolic IID test accuracy (10K
+each), predicting only `contradicted` in both. Final online training accuracy
+is 33.329%; this is failure to fit, not just overfitting. No onset is established.
+On 19 October the old suite/trainer PIDs and supervisor tool handle were missing.
+The next 500K job had stopped before its first completed epoch, without a
+checkpoint or logged exception; its cause is unknown. Its config/invocation/log
+evidence was preserved under `models/interrupted_runs/`. The queue was restarted,
+skipping the validated completed 100K condition. No measurements were discarded.
 
 ## Closest papers: question, method, result, difference
 
@@ -167,6 +178,42 @@ duration. Difference: our answer-only classifier has no generated trace whose
 faithfulness can be scored directly. Verified labels do not establish an internal
 stepwise proof; any later trace condition needs an independent causal check.
 
+### Ma et al., revised 14 October 2026
+
+[Making Transformers Logical, v2](https://arxiv.org/html/2608.00418v2).
+Reviewed main methods/results, limitations, mask design and training details in
+HTML, not an independent proof verification. Question: can attention priors
+change Boolean extrapolation? Method: task-designed, learnable additive masks
+versus vanilla and QK-initialized transformers, with five-seed Boolean tests.
+Result: the masks retain useful interaction patterns and improve unseen-case
+accuracy; QK initialization can lose the same prior. Difference: masks encode
+domain knowledge explicitly (an acknowledged oracle assumption); our baseline
+must learn dependencies from raw prompts. This motivates a separately labeled
+structural-prior control, not attributing current failure to insufficient
+parameter count or silently adding oracle masks to the primary conditions.
+
+### Zhang et al., revised 27 August 2026
+
+[Why Knowing Both Hops Is Not Enough, v2](https://arxiv.org/html/2608.07261v2).
+Reviewed task/split definitions, training dynamics, patching/attention analyses,
+looped training, and training details in HTML. Question: why can known atomic
+facts fail to compose? Method: memorized entity-relation facts, an 8-layer,
+width-768 transformer, independent first/second-hop omissions, and interventions.
+Result: second-hop distribution matters; weight sharing improves their failures,
+consistent with a representation/upper-layer mismatch. Difference: our facts
+arrive in each input, names share character pieces, and outputs are three
+classes. Their long training and looped architecture are not a measured capacity
+threshold for our task. A binding or optimization diagnosis here still needs
+our own evidence, rather than importing their mechanism.
+
+Search update on 19 October screened recent symbolic/tiny-transformer reasoning
+results and retrieved these primary sources. This is a documented relevance
+search, not a claim to have read every new paper. The Google Research entry for
+*A Implies B* and its authors' code repository were also identified; a full
+methods review of that paper remains pending and is not counted among the 12
+reviewed studies. Pretrained-billion-scale two-hop blog results and task-policy
+sequent-search studies were screened, not treated as direct replications.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -189,6 +236,15 @@ stepwise proof; any later trace condition needs an independent causal check.
    finite-test confidence intervals, and variation across training seeds. Pair
    transfer comparisons by instance ID; use paired tests with multiplicity
    correction for confirmatory comparisons, not unpaired overlapping intervals.
+
+Implemented `python -m models.paired_statistics`: compares source-format to the
+two alternate formats on each of seven test splits, pairing by exact instance ID
+and verifying gold labels, counts, and confusion matrices against saved metrics.
+It exports discordance tables, paired accuracy differences, exact two-sided
+McNemar p-values and Holm correction over those 14 contrasts **within each run**.
+Prediction-file and result hashes are retained. Missing legacy gate fields are
+null, not invented successes. Current comparisons are exploratory: this is not
+correction across the final size/seed/condition family, nor seed uncertainty.
 
 ## Required controls still to implement/run
 
@@ -235,7 +291,8 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-ten relevant-paper methods/results reviews, with version distinctions recorded.
+twelve relevant-paper methods/results reviews, with version distinctions recorded;
+the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
