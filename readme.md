@@ -317,6 +317,9 @@ length, including BOS/EOS. Pairing uses held-out labels and original symbolic
 lengths, never model predictions. Unknown examples retain null proof depths.
 Both sides receive disconnected logical components using familiar names and
 nonreserved dependency pairs. No filler whitespace or truncation is used.
+Generation and the independent full-corpus audit are complete; the audit
+summary is in `datasets/length_control_summary.json`. The first actual checkpoint
+evaluation is running; no completed length-control neural result is claimed yet.
 
 This matches length and label, **not the entire underlying problem**: core KBs,
 distractor counts, operators and graph details can still differ. Results are

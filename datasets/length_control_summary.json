@@ -1,0 +1,185 @@
+{
+  "audit_code_sha256": "329c983b6d38b0f0df76597be2fd3d0829e461e3c764a6471e1c734e9af2f323",
+  "classical_solver_verified": true,
+  "files": {
+    "depth_3_english.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 930,
+      "mean_added_facts_short_long": [
+        7.8328,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        4.0976,
+        2.0
+      ],
+      "mean_tokens": 647.9181,
+      "minimum_tokens": 433
+    },
+    "depth_3_function.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 932,
+      "mean_added_facts_short_long": [
+        7.7661,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        4.0592,
+        2.0
+      ],
+      "mean_tokens": 648.6998,
+      "minimum_tokens": 430
+    },
+    "depth_3_symbolic.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 610,
+      "mean_added_facts_short_long": [
+        7.8505,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        4.0498,
+        2.0
+      ],
+      "mean_tokens": 436.4248,
+      "minimum_tokens": 305
+    },
+    "depth_4_english.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 1149,
+      "mean_added_facts_short_long": [
+        11.5752,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        5.9589,
+        2.0
+      ],
+      "mean_tokens": 767.4771,
+      "minimum_tokens": 489
+    },
+    "depth_4_function.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 1147,
+      "mean_added_facts_short_long": [
+        11.4597,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        5.9046,
+        2.0
+      ],
+      "mean_tokens": 767.9722,
+      "minimum_tokens": 482
+    },
+    "depth_4_symbolic.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 751,
+      "mean_added_facts_short_long": [
+        11.6499,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        5.9322,
+        2.0
+      ],
+      "mean_tokens": 511.9453,
+      "minimum_tokens": 337
+    },
+    "depth_5_english.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 1403,
+      "mean_added_facts_short_long": [
+        15.8224,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        8.0799,
+        2.0
+      ],
+      "mean_tokens": 903.2063,
+      "minimum_tokens": 555
+    },
+    "depth_5_function.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 1407,
+      "mean_added_facts_short_long": [
+        15.6959,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        8.0257,
+        2.0
+      ],
+      "mean_tokens": 903.5682,
+      "minimum_tokens": 551
+    },
+    "depth_5_symbolic.jsonl": {
+      "count": 10000,
+      "labels": {
+        "contradicted": 3333,
+        "entailed": 3334,
+        "unknown": 3333
+      },
+      "maximum_tokens": 903,
+      "mean_added_facts_short_long": [
+        15.9168,
+        4.0
+      ],
+      "mean_added_rules_short_long": [
+        8.0708,
+        2.0
+      ],
+      "mean_tokens": 597.4239,
+      "minimum_tokens": 372
+    }
+  },
+  "generator_source_matches_current": true,
+  "interpretation": "Same label and exact character-token length within each pair/grammar; different core KBs. Both sides padded with disconnected familiar-name, nonreserved-pair forest components. Controls length, not all graph, fact-count, operator, position or distractor cues. Unknown proof depths remain null. Derived test controls must never be used for training or tuning.",
+  "logical_input_count": 180000,
+  "manifest_sha256": "60f41e807c4c6b5544169580f78a193805fbb0d0c66368790cba6143d75769da",
+  "pair_count": 90000,
+  "parent_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "passed": true,
+  "scope": "full held-out length control"
+}

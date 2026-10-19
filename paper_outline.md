@@ -21,7 +21,7 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The fifteen reviewed references are collected in `references.bib`; screening and
+The sixteen reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
 Distinguish answer-only versus proof supervision and success-conditioned
 mechanistic case studies from unconditional multi-seed reliability.
@@ -56,6 +56,8 @@ and syntax-exposure controls before interpreting transfer.
 Use exact-token-length pairs with the same gold label in each grammar. State
 that the paired cores differ and that added distractor/count/graph cues are not
 fully matched; this is not a pure causal intervention on proof depth.
+The full 90K-pair/180K-input control corpus passed its independent audit;
+checkpoint evaluation is running, so no neural accuracy claim is filled in yet.
 5.6 Capacity scaling and training-seed variability.
 
 Figures 2-5: learning curves, transfer heatmaps, depth curves, capacity curves.
@@ -68,6 +70,8 @@ Its full-IID interventions also retain the constant answer: 100% prediction
 invariance, zero jointly correct pairs after query negation, and 0% accuracy
 after supporting-fact ablation. Use this measured example to explain why
 invariance must be accompanied by correctness and counterfactual sensitivity.
+Relate this distinction to Zhang, Chen and Chen's matched SAT-pair evaluation;
+their label-changing ADR pairs differ from our equal-label length controls.
 
 ## 6. Controls and error analysis
 

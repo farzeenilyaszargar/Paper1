@@ -1,4 +1,4 @@
-# Research notes - updated 19 October 2026
+# Research notes - updated 20 October 2026
 
 ## Question and current evidence
 
@@ -266,6 +266,30 @@ Majority-function optimization theory, visual recursion, and Bayesian common-cau
 papers were screened but not counted as reviewed: their tasks/assumptions require
 separate analysis before applying their claims to this in-context logic fragment.
 
+### Zhang, Chen and Chen, May 2026
+
+[Satisfiability Solving with LLMs: A Matched-Pair Evaluation of Reasoning
+Capability](https://arxiv.org/html/2605.28602v1), v1, reviewed 20 October.
+Read main-text setup, paired-edit protocol, reductions and validity discussion;
+supplemental reduction implementations were not independently reproduced.
+
+- Question: does pretrained-model SAT performance survive small label-changing
+  edits and equivalent graph/packing encodings?
+- Method: solver-verified SAT/UNSAT pairs; ADR requires both answers correct.
+  Comparisons include 2-SAT, 3-SAT, Vertex Cover and discrete 3D packing.
+- Result: class-biased accuracy and cross-format agreement can conceal failure;
+  competence declines with instance size. Main-text pooled CNF/Vertex Cover
+  agreement is 75.3%, so do not repeat the abstract's broader >80% wording as
+  that particular statistic. Timeout-limited coverage also complicates ranking.
+- Difference: ours trains small classifiers from scratch on three-way in-context
+  inference, not pretrained SAT decision/witness generation. Our label-changing
+  robustness probes already report joint correctness; equal-label length pairs
+  are not ADR counterfactuals. Neither joint correctness nor invariance alone
+  proves an internal algorithm or eliminates every shortcut.
+
+The 20 October search adds this directly relevant methods review, not a claim
+that every recent reasoning paper has been found or read.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -296,9 +320,11 @@ separate analysis before applying their claims to this in-context logic fragment
    635/680/685, so its majority-class baseline is 34.25%, not exactly one third.
    Uniform-random expected accuracy is still one third. No final rate selection
    is justified from one epoch or before the other planned rates complete.
-   At epoch 2 the latest validation accuracy is 34.35%, but loss is worse than
+   The epoch-2 validation accuracy was 34.35%, but loss was worse than
    at epoch 1 and entailed-class recall is zero. The minimum-validation-loss
-   checkpoint has therefore not improved. This is not source-task mastery.
+   checkpoint had therefore not improved at that point. At epoch 9, validation
+   accuracy is 32.50% and minimum-loss selection remains in effect. The first
+   trial is still running; no rate is selected before all three trials finish.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -381,15 +407,18 @@ correction across the final size/seed/condition family, nor seed uncertainty.
 - Implemented `models.length_control`, `models.audit_length_control`, and
   `models.evaluate_length_control` for 2-hop versus 3/4/5-hop, equal-token-length
   diagnostics in all three grammars. Full generation completed on 19 October:
-  90K pairs/180K logical inputs. The separate full-corpus audit is running;
-  generation success alone is not the independent audit result.
+  90K pairs/180K logical inputs. The separate full-corpus audit passed on
+  20 October, including all nine files, independent text parsing, solver labels,
+  proof depths, exact length matching and training-KB exclusion. The tracked
+  `datasets/length_control_summary.json` records counts and fingerprints.
   Each pair matches label and exact token count, not core KB. Both sides receive
   disconnected forest components with familiar names and nonreserved edges;
   their original decisive proof depths are retained. No filler whitespace is
   used. The auditor also checks source-core preservation and training-KB leakage.
   The small software integration corpus is byte-reproducible and audited; its
   untrained constant-head evaluation is strictly a test fixture, not paper data.
-  Full independent audit, model evaluation and scientific results are pending.
+  The selected full-corpus 100K checkpoint's CPU evaluation is running;
+  completed neural results and the scientific control figure are still pending.
   The length-control figure/table exporter now rejects incomplete reports,
   verifies baseline/checkpoint and retained-prediction checksums, reaggregates
   accuracy and paired comparisons, and checks the three-comparison Holm
@@ -423,7 +452,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-fifteen relevant-paper methods/results reviews, with version distinctions recorded;
+sixteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
@@ -440,8 +469,8 @@ launched under that resource pressure. Existing processes are not hot-patched.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
-Also in progress: the full length-matched corpus's independent audit and the first
-validation-only optimization trial. The control's full audit/evaluation are not
-yet complete; code and integration tests must not be reported as neural results.
+Also completed: the full length-matched corpus's independent audit. Its neural
+evaluation and the first validation-only optimization trial are running; code
+and integration tests must not be reported as neural results.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.
