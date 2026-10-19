@@ -1,0 +1,9 @@
+{
+  "original_cases": 10000,
+  "passed": true,
+  "prediction_records": 56667,
+  "probe_source_matches_current": true,
+  "report_sha256": "9a99a4fb820fd608b144b1813668e31ea3cc27d5fc9eb95b94f339d198e3028e",
+  "run": "baseline_full_100k_symbolic_seed1",
+  "scope": "Retained prediction counts, labels, pairings, confusions, accuracy, correctness/change metrics and file provenance; not an independent inference or transformed-text reconstruction. Input-token means and irredundant-cut sizes are not rederived here."
+}

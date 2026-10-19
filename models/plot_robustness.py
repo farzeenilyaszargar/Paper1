@@ -18,14 +18,17 @@ def export(path, output):
     labels = ("Original","Renamed","Reordered","Distractors","Negated query","Fact ablation")
     metrics = [report["variants"][name] for name in names]
     x = np.arange(len(names))
-    fig,axes = plt.subplots(1,2,figsize=(13,5),constrained_layout=True)
+    fig,axes = plt.subplots(1,2,figsize=(15,5),constrained_layout=True)
     axes[0].bar(x,[m["accuracy"] if m["accuracy"] is not None else np.nan for m in metrics])
     axes[0].set(ylabel="Accuracy against solver-checked gold",title="Accuracy (intervention-specific label mix)")
+    for i,metric in enumerate(metrics):
+        if metric["accuracy"] is not None:
+            axes[0].text(i,metric["accuracy"]+.015,f"{metric['accuracy']:.2%}",ha="center",fontsize=8)
     # Ablation golds are all unknown: a universal 1/3 chance line would mislead.
     for offset,(key,label) in enumerate((("unchanged_predictions","Prediction unchanged"),("jointly_correct","Original AND changed correct"))):
         axes[1].bar(x+(offset-.5)*.36,[m[key]/m["count"] if m["count"] else np.nan for m in metrics],width=.36,label=label)
     axes[1].set(ylabel="Fraction of applicable paired cases",title="Invariance alone does not demonstrate reasoning")
-    axes[1].legend(fontsize=8)
+    axes[1].legend(loc="upper left",bbox_to_anchor=(1.01,1),fontsize=8)
     for ax in axes:
         ax.set(ylim=(0,1.05),xticks=x,xticklabels=[f"{label}\nn={m['count']:,}" for label,m in zip(labels,metrics)])
         ax.tick_params(axis="x",labelsize=8,rotation=20)

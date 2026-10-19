@@ -224,10 +224,17 @@ correction within each run's 14 comparisons. Missing legacy predictions are
 explicitly unavailable, not reconstructed from aggregate accuracy. These are
 exploratory checkpoint-conditional comparisons, not final across-seed inference.
 
+For learning-rate/optimization calibration, add `--validation-only` to a new
+training run. It saves the selected source-validation metrics without loading
+test examples for evaluation, and marks its status `validation_only_completed`
+so it cannot be counted as a completed transfer experiment. Dataset checksums
+are still verified. Resume rejects switching this mode within a run.
+
 Evaluate a completed raw-character checkpoint under solver-checked interventions:
 
 ```sh
 .venv/bin/python -m models.robustness models/runs/baseline_full_100k_symbolic_seed1
+.venv/bin/python -m models.audit_robustness models/runs/baseline_full_100k_symbolic_seed1
 .venv/bin/python -m models.plot_robustness models/runs/baseline_full_100k_symbolic_seed1/robustness.json
 ```
 

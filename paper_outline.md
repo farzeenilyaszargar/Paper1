@@ -59,6 +59,10 @@ Do not fill missing runs with estimated or synthetic measurements.
 The first full-corpus 99,075-parameter seed-1 symbolic baseline is complete:
 33.33% validation and IID accuracy, with a constant-class selected checkpoint.
 This single condition fails the source gate and does not determine an onset.
+Its full-IID interventions also retain the constant answer: 100% prediction
+invariance, zero jointly correct pairs after query negation, and 0% accuracy
+after supporting-fact ablation. Use this measured example to explain why
+invariance must be accompanied by correctness and counterfactual sensitivity.
 
 ## 6. Controls and error analysis
 

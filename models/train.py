@@ -154,6 +154,8 @@ def run(args):
             raise ValueError("Resume encoding mismatch")
         if old.get("accumulation",1) != args.accumulation:
             raise ValueError("Resume accumulation mismatch")
+        if old.get("validation_only",False) != args.validation_only:
+            raise ValueError("Resume validation-only mode mismatch")
         for key in ("size", "representation", "parameter_count", "seed", "dataset_manifest_sha256", "train_limit", "eval_limit", "batch_size", "lr"):
             if config[key] != old[key]:
                 raise ValueError(f"Resume configuration mismatch: {key}")
@@ -210,6 +212,11 @@ def run(args):
     if args.encoding == "local_slots":
         results["scope"] = "binding-normalized pilot" if args.train_limit or args.eval_limit else "binding-normalized full control"
         results["interpretation"] = "External parsing and alpha-renaming; identical normalized inputs are not evidence of learned raw-format transfer"
+    if args.validation_only:
+        results.update(status="validation_only_completed",scope="validation-only calibration",
+                       interpretation="No test examples were loaded for model evaluation. Dataset file checksums were verified for integrity only. Select hyperparameters using source validation, not test diagnostics.")
+        write_json(args.output / "results.json",results)
+        return results
     training_chars = set(c for sequence, _, _ in train for c in sequence)
     for representation in REPRESENTATIONS:
         results["evaluations"][representation] = {}
@@ -252,6 +259,8 @@ def main():
     parser.add_argument("--encoding", choices=("characters", "local_slots"), default="characters")
     parser.add_argument("--accumulation", type=int, default=1)
     parser.add_argument("--eval-batch-size",type=int)
+    parser.add_argument("--validation-only",action="store_true",
+                        help="Finish after source validation; never evaluate test splits (for calibration)")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     if min(args.epochs, args.batch_size, args.threads, args.accumulation) < 1 or args.lr <= 0 or any(v is not None and v < 1 for v in (args.train_limit, args.eval_limit, args.eval_batch_size)):

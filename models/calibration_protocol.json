@@ -1,0 +1,22 @@
+{
+  "scope": "Initial 100K symbolic optimization pilot, separate from the 45-condition fixed-budget baseline",
+  "status": "First learning-rate trial launched; other rates planned, not yet running",
+  "size": "100k",
+  "parameters": 99075,
+  "representation": "symbolic",
+  "encoding": "characters",
+  "seed": 101,
+  "epochs": 10,
+  "train_limit": 20000,
+  "validation_limit": 2000,
+  "learning_rates": [0.0003, 0.001, 0.003],
+  "first_trial": "calibration_100k_symbolic_seed101_lr0003",
+  "device": "cpu",
+  "threads": 1,
+  "microbatch": 8,
+  "accumulation": 4,
+  "validation_only": true,
+  "selection": "Minimum selected source-validation cross-entropy after all three rate trials complete; no winner before coverage is complete",
+  "test_supervision_for_selection": false,
+  "interpretation": "Subset calibration only. Does not establish optimal full-corpus hyperparameters, test generalization, a final three-seed result, or a reasoning threshold. Larger-scale and other-format calibration remains pending. No baseline run is replaced."
+}

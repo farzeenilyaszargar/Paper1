@@ -1,0 +1,189 @@
+{
+  "batch_size": 8,
+  "checkpoint_sha256": "9ca1b1fdc5d2856b1b776482e2cdff56b0f46fb9185b557eafeb0ef2c96f795c",
+  "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "device": "cpu",
+  "iid_sha256": "7f9efb442143893aa9d8bcdd53d920c63c6864ab3c42f27f80b1f312def8e545",
+  "interpretation": "High prediction invariance without joint correctness can reflect a constant classifier, not reasoning. Test diagnostics are not used for hyperparameter selection. This distractor intervention is not a length-matched depth control.",
+  "limit": null,
+  "prediction_sha256": "f5c9f0cf3084b4b3f03b24d6f7337776a65ef96a35b3a22bac0b09d35e4b6fbb",
+  "probe_code_sha256": "ef710751f366d0f840cdd4845a2dddefb14fc0e33aa698fc0747cea3a1e50634",
+  "removed_fact_count_total": 8028,
+  "representation": "symbolic",
+  "result_sha256": "526e9930fe3157cbc5bd8fdcf5cb58d98b74cbe06186b41086ed958556517daf",
+  "run": "baseline_full_100k_symbolic_seed1",
+  "scope": "full IID robustness diagnostic",
+  "seed_rule": "first 16 hex digits of SHA256(instance ID + :robustness-v1)",
+  "source_learning_gate_passed": false,
+  "threads": 1,
+  "variants": {
+    "irrelevant_components": {
+      "accuracy": 0.3333,
+      "confusion": [
+        [
+          0,
+          3334,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 10000,
+      "gold_label_changed": 0,
+      "jointly_correct": 3333,
+      "mean_input_tokens": 389.0423,
+      "not_applicable": 0,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 10000
+    },
+    "original": {
+      "accuracy": 0.3333,
+      "confusion": [
+        [
+          0,
+          3334,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 10000,
+      "gold_label_changed": 0,
+      "jointly_correct": 3333,
+      "mean_input_tokens": 287.0423,
+      "not_applicable": 0,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 10000
+    },
+    "query_negation": {
+      "accuracy": 0.3334,
+      "confusion": [
+        [
+          0,
+          3333,
+          0
+        ],
+        [
+          0,
+          3334,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 10000,
+      "gold_label_changed": 6667,
+      "jointly_correct": 0,
+      "mean_input_tokens": 287.0411,
+      "not_applicable": 0,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 10000
+    },
+    "rename": {
+      "accuracy": 0.3333,
+      "confusion": [
+        [
+          0,
+          3334,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 10000,
+      "gold_label_changed": 0,
+      "jointly_correct": 3333,
+      "mean_input_tokens": 287.0423,
+      "not_applicable": 0,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 10000
+    },
+    "statement_order": {
+      "accuracy": 0.3333,
+      "confusion": [
+        [
+          0,
+          3334,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ],
+        [
+          0,
+          3333,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 10000,
+      "gold_label_changed": 0,
+      "jointly_correct": 3333,
+      "mean_input_tokens": 287.0423,
+      "not_applicable": 0,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 10000
+    },
+    "support_fact_ablation": {
+      "accuracy": 0.0,
+      "confusion": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6667,
+          0
+        ]
+      ],
+      "correctly_followed_gold_change": 0,
+      "count": 6667,
+      "gold_label_changed": 6667,
+      "jointly_correct": 0,
+      "mean_input_tokens": 279.45987700614967,
+      "not_applicable": 3333,
+      "original_correct_on_applicable": 3333,
+      "unchanged_predictions": 6667
+    }
+  }
+}

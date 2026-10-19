@@ -247,6 +247,15 @@ tests; our current probes do not constitute activation-patching circuit analysis
 4. Use seeds 1, 2, and 3 for final conditions. Pilot LR/budget choices use only
    source validation. Record example/token exposure and compute because equal
    epochs across representations do not imply equal token or compute budgets.
+   The trainer now has a tested `--validation-only` path: calibration can end
+   with the selected validation metrics and no test loading/evaluation. This
+   prevents routine trainer test evaluation from becoming part of tuning.
+   First actual trial launched: 99,075 parameters, symbolic/characters, seed 101,
+   LR 0.0003, 20K train/2K validation, 10 epochs, effective batch 32, one CPU
+   thread, validation-only. The prespecified three-rate pilot is recorded in
+   `models/calibration_protocol.json`; LR 0.001 and 0.003 are planned, not yet
+   launched. No winning rate or source-learning success is claimed. This does
+   not replace the full-corpus baseline or calibrate all capacities/formats.
 5. Evaluate unseen familiar-symbol pairs, new symbol names, diamonds, and depths
    2-5 independently. Unknown labels have scaffold depth, not a valid proof depth.
 6. Report overall accuracy, balanced accuracy, per-class recalls/confusions,
@@ -286,12 +295,23 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   They parse text only and independently solver-check each new label. The
   ablation finds an irredundant supporting-fact cut (possibly multiple OR roots),
   scores only originally decisive queries and reports its different denominator.
-  The full 10K-IID check of the selected full-corpus 100K checkpoint is running
+  Completed the full 10K-IID check of the selected full-corpus 100K checkpoint
   on one CPU thread alongside, not instead of, the accelerator matrix.
   Reports include confusion matrices, joint original/transformed correctness,
   unchanged predictions and correct responses to gold-label changes. Constant
   classifiers can pass invariance but fail the causal-label-change probes.
   These are diagnostic test analyses, not validation or training interventions.
+  Retained-prediction audit passes for 56,667 records: 10K for each of the five
+  all-case variants, and 6,667 for fact ablation (3,333 unknown originals are
+  inapplicable). The model always predicts `contradicted`. Renaming, reordering
+  and distractors each score 33.33%, with 100% prediction invariance. Negating
+  queries scores 33.34% but zero jointly correct original/changed pairs; it
+  correctly follows none of the 6,667 gold-label changes. Fact ablation scores
+  0%, again following none of 6,667 changes. This demonstrates why invariance
+  alone is insufficient here, not a universal conclusion about 100K models.
+  `models.audit_robustness` independently reaggregates stored prediction metrics,
+  pair IDs, label-change relations and provenance checksums. It does not rerun
+  model inference or reconstruct modified texts; its audit scope is explicit.
 - A length-matched distractor control to separate proof depth from context length.
 - If source learning fails, investigate encoding/optimization/capacity without
   replacing the main experiment with an easier task or claiming transfer failure.
@@ -320,6 +340,9 @@ lossless text-only parsing audit; memorization and binding-normalized diagnostic
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
 thirteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
+Also completed: full-IID behavioral interventions and retained-prediction audit
+for that checkpoint, with a measured robustness figure/table; tested validation-only
+trainer path (first optimization pilot running; calibration completion pending).
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
