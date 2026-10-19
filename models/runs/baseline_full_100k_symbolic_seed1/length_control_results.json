@@ -1,0 +1,103 @@
+{
+  "batch_size": 4,
+  "checkpoint_sha256": "9ca1b1fdc5d2856b1b776482e2cdff56b0f46fb9185b557eafeb0ef2c96f795c",
+  "code_sha256": "171bb69d976f4923b3f4e73b5c7d4517cdd55b5d61e890756e85dff3a63f3936",
+  "control_manifest_sha256": "60f41e807c4c6b5544169580f78a193805fbb0d0c66368790cba6143d75769da",
+  "control_scope": "full held-out length control",
+  "depths": {
+    "3": {
+      "long_depth": 3,
+      "metrics": {
+        "long": {
+          "accuracy": 0.3333,
+          "balanced_accuracy": 0.3333333333333333,
+          "confusion": [
+            [
+              0,
+              3334,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ]
+          ],
+          "correct": 3333,
+          "count": 10000,
+          "loss": 1.0986134907722473,
+          "recall": {
+            "contradicted": 1.0,
+            "entailed": 0.0,
+            "unknown": 0.0
+          },
+          "wilson95": [
+            0.32412626965497815,
+            0.3426017601051091
+          ]
+        },
+        "short": {
+          "accuracy": 0.3333,
+          "balanced_accuracy": 0.3333333333333333,
+          "confusion": [
+            [
+              0,
+              3334,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ]
+          ],
+          "correct": 3333,
+          "count": 10000,
+          "loss": 1.098613515663147,
+          "recall": {
+            "contradicted": 1.0,
+            "entailed": 0.0,
+            "unknown": 0.0
+          },
+          "wilson95": [
+            0.32412626965497815,
+            0.3426017601051091
+          ]
+        }
+      },
+      "note": "Unknown examples use scaffold depths and have no decisive proof",
+      "paired_comparison": {
+        "both_correct": 3333,
+        "both_wrong": 6667,
+        "count": 10000,
+        "long_minus_short_accuracy": 0.0,
+        "p_exact_mcnemar": 1.0,
+        "source_only_correct": 0,
+        "target_only_correct": 0
+      },
+      "prediction_sha256": {
+        "long": "a250a0b91573b7683f634d60ffdb1d69ba70f1c115864e43e037a0cc2e614e82",
+        "short": "a250a0b91573b7683f634d60ffdb1d69ba70f1c115864e43e037a0cc2e614e82"
+      },
+      "short_depth": 2
+    }
+  },
+  "device": "cpu",
+  "interpretation": "Diagnostic same-format comparisons with equal length and label but different core KBs. Added distractor, graph and fact/operator-count cues are not fully controlled. Not a causal isolation of depth or a transfer result. Exact paired p-values are checkpoint/test-conditional; Holm covers only this run's three depth comparisons, not other seeds/sizes/controls.",
+  "representation": "symbolic",
+  "result_sha256": "526e9930fe3157cbc5bd8fdcf5cb58d98b74cbe06186b41086ed958556517daf",
+  "run": "baseline_full_100k_symbolic_seed1",
+  "source_learning_gate_passed": false,
+  "status": "evaluation_in_progress",
+  "threads": 1
+}

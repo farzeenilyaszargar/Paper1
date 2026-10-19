@@ -423,6 +423,10 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   untrained constant-head evaluation is strictly a test fixture, not paper data.
   The selected full-corpus 100K checkpoint's CPU evaluation is running;
   completed neural results and the scientific control figure are still pending.
+  Its first 10K-pair comparison (2 versus 3 hops, symbolic) has finished at
+  33.33% accuracy on both sides; depths 4 and 5 are still pending. The saved
+  report is explicitly `evaluation_in_progress`. A constant-class checkpoint
+  that failed source learning does not demonstrate depth generalization.
   The length-control figure/table exporter now rejects incomplete reports,
   verifies baseline/checkpoint and retained-prediction checksums, reaggregates
   accuracy and paired comparisons, and checks the three-comparison Holm
@@ -450,6 +454,13 @@ does not prove raw cross-representation understanding. Log every failed run,
 architecture change, budget, and seed rather than selecting only successes.
 
 ## Completion ledger
+
+`graphs/dataset_characteristics.md` now provides the measured Table 1 draft:
+all nine split sizes, symbol pools, holdout boundaries and mean BOS/EOS-inclusive
+token lengths in all three renderings. Counts come from the full-corpus
+character-exposure audit with manifest/renderer provenance rechecked. The table
+explicitly distinguishes unknown scaffold depth and documents length confounds;
+it is not a model result or proof of independent alpha-equivalent graph holdout.
 
 Completed: audited corpus; three lossless renderers; causal classifier trainer;
 checkpoint/validation selection; smoke training/evaluation; graph exporter;

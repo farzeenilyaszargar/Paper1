@@ -36,6 +36,8 @@ held out. Show one identical latent problem in all three representations.
 
 Figure 1: paired representation example and dependency graph.
 Table 1: split counts, depth, symbol pools, structural constraints, input lengths.
+Measured draft: `graphs/dataset_characteristics.md`, derived from the audited
+full-corpus character counts; it also documents the unequal-length confound.
 
 ## 4. Models and experimental design
 
