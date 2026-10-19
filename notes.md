@@ -425,7 +425,9 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   The selected full-corpus 100K checkpoint's CPU evaluation is running;
   completed neural results and the scientific control figure are still pending.
   Its first 10K-pair comparison (2 versus 3 hops, symbolic) has finished at
-  33.33% accuracy on both sides; depths 4 and 5 are still pending. The saved
+  33.33% accuracy on both sides. The 2-versus-4-hop comparison also finished
+  at 33.33% on both sides; its retained paired predictions, confusion matrices,
+  checksums and comparison statistics were rechecked. Depth 5 is pending. The saved
   report is explicitly `evaluation_in_progress`. A constant-class checkpoint
   that failed source learning does not demonstrate depth generalization.
   The length-control figure/table exporter now rejects incomplete reports,
