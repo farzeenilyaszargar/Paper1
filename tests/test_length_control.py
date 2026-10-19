@@ -7,6 +7,7 @@ from pathlib import Path
 from models.length_control import build, make_pair, padding_plan
 from models.audit_length_control import audit as audit_control, verify_member
 from models.evaluate_length_control import run as evaluate_control
+from models.plot_length_control import export as plot_control, verified_report
 from models.transformer import TinyTransformer
 import torch
 from models.parsing import parse
@@ -88,6 +89,32 @@ class LengthControlTests(unittest.TestCase):
                 self.assertEqual(result["metrics"]["short"]["count"],3)
                 self.assertEqual(result["metrics"]["short"]["accuracy"],1/3)
                 self.assertEqual(result["paired_comparison"]["long_minus_short_accuracy"],0)
+            report_path = run_directory/"length_control_results.json"
+            self.assertEqual(verified_report(report_path),measured)
+            plot_control(report_path,root/"fixture_graphs")
+            for suffix in ("png","svg","md"):
+                self.assertTrue((root/"fixture_graphs"/f"model_fixture_length_control.{suffix}").is_file())
+            altered = copy.deepcopy(measured)
+            altered["status"] = "evaluation_in_progress"
+            write_json(report_path,altered)
+            with self.assertRaisesRegex(ValueError,"completed"):
+                plot_control(report_path,root/"must_not_exist")
+            self.assertFalse((root/"must_not_exist").exists())
+            altered = copy.deepcopy(measured)
+            altered["depths"]["3"]["metrics"]["short"]["accuracy"] = 1.0
+            write_json(report_path,altered)
+            with self.assertRaisesRegex(ValueError,"accuracy"):
+                verified_report(report_path)
+            altered = copy.deepcopy(measured)
+            altered["depths"]["4"]["paired_comparison"]["p_holm_within_run_three_depths"] = 0
+            write_json(report_path,altered)
+            with self.assertRaisesRegex(ValueError,"multiplicity"):
+                verified_report(report_path)
+            write_json(report_path,measured)
+            prediction_path = run_directory/"length_control_depth5_short.predictions.jsonl"
+            prediction_path.write_text(prediction_path.read_text()+"\n")
+            with self.assertRaisesRegex(ValueError,"checksum"):
+                verified_report(report_path)
 
 
 if __name__ == "__main__":

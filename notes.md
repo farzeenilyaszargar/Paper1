@@ -380,8 +380,9 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   model inference or reconstruct modified texts; its audit scope is explicit.
 - Implemented `models.length_control`, `models.audit_length_control`, and
   `models.evaluate_length_control` for 2-hop versus 3/4/5-hop, equal-token-length
-  diagnostics in all three grammars. Full generation is running: planned 90K
-  pairs/180K logical inputs, not yet a completed or audited full corpus.
+  diagnostics in all three grammars. Full generation completed on 19 October:
+  90K pairs/180K logical inputs. The separate full-corpus audit is running;
+  generation success alone is not the independent audit result.
   Each pair matches label and exact token count, not core KB. Both sides receive
   disconnected forest components with familiar names and nonreserved edges;
   their original decisive proof depths are retained. No filler whitespace is
@@ -389,6 +390,11 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   The small software integration corpus is byte-reproducible and audited; its
   untrained constant-head evaluation is strictly a test fixture, not paper data.
   Full independent audit, model evaluation and scientific results are pending.
+  The length-control figure/table exporter now rejects incomplete reports,
+  verifies baseline/checkpoint and retained-prediction checksums, reaggregates
+  accuracy and paired comparisons, and checks the three-comparison Holm
+  correction before writing figures. Its constant-head integration fixture is
+  software evidence only; no scientific length-control graph exists yet.
   This control does not equalize fact/operator/distractor counts or graph details,
   and shared 2-hop cores across depths make conditions correlated. Any observed
   accuracy gap is not by itself a causal depth effect.
@@ -434,7 +440,7 @@ launched under that resource pressure. Existing processes are not hot-patched.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
-Also in progress: full length-matched control generation and the first
+Also in progress: the full length-matched corpus's independent audit and the first
 validation-only optimization trial. The control's full audit/evaluation are not
 yet complete; code and integration tests must not be reported as neural results.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final

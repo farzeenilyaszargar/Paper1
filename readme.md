@@ -307,6 +307,7 @@ Build and independently audit a separate held-out control corpus:
 .venv/bin/python -m models.length_control
 .venv/bin/python -m models.audit_length_control
 .venv/bin/python -m models.evaluate_length_control models/runs/baseline_full_100k_symbolic_seed1
+.venv/bin/python -m models.plot_length_control models/runs/baseline_full_100k_symbolic_seed1/length_control_results.json
 ```
 
 The full control contains 90K pairs (180K logical inputs): 10K pairs for each
