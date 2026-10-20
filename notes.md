@@ -857,3 +857,15 @@ still await their scheduled turn.
 The twentieth reviewed reference is the feature-resemblance comparison above.
 The corpus, training settings and queue order were not changed based on this
 reading; no final capacity threshold or research conclusion is established.
+
+### October 20: 500K reaches the final training epoch
+
+The 500K symbolic seed-1 baseline saved epoch 29/30 and began epoch 30.
+Its retained history contains epochs 1-29, 90,625 updates and 2.9M example
+presentations. Epoch-29 training accuracy was 33.275%; full validation accuracy
+was 33.34%, loss 1.098697, balanced accuracy one third, with every answer
+entailed. Validation metrics were checked against the manifest gold counts;
+the source-learning gate still fails. These are interim validation measurements,
+not the selected final checkpoint's test results. The learning curve was
+refreshed from the retained history. Completion of training alone will not
+complete the condition: its 21 full test groups must finish afterward.
