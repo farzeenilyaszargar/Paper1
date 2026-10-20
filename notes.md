@@ -800,3 +800,26 @@ The 500K run completed epoch 27/30: validation accuracy 33.33%, balanced accurac
 one third, all answers contradicted. This still fails source learning. It is
 not a completed 500K result or a capacity threshold. The full primary matrix,
 downstream control outcomes, final statistics and paper conclusion remain open.
+
+### October 20: next retained training checkpoints
+
+The full 500K symbolic seed-1 baseline completed epoch 28/30 (87,500 retained
+optimizer updates, 2.8M retained example presentations). Training accuracy was
+33.24%; validation accuracy was 33.33%, loss 1.098641, balanced accuracy one
+third, with every validation answer unknown. Its history has all epochs 1-28
+and the expected update/example counts. These counters exclude any previously
+lost partial-epoch work, and this is not a completed 500K experiment.
+
+The second 1M calibration trial, LR 0.0003, saved epoch 1/10: 625 updates,
+20K examples, training accuracy 33.375%, validation accuracy 34.25% and loss
+1.105814. All 2K validation predictions are unknown, giving balanced accuracy
+one third and exactly matching the prefix's majority class (635 entailed,
+680 contradicted, 685 unknown). The confusion/recall/counts were checked against
+the actual validation prefix; the run is validation-only and has no retained
+test predictions. Do not compare this one-epoch point as a completed equal-budget
+trial against the finished LR 0.001 run, or select a 1M rate yet.
+
+Measured learning curves were refreshed from these retained histories. Both
+runs remain in progress and fail the observed source-learning criterion; no
+inference onset, successful transfer or final result is claimed. All three
+training children and their supervisors remained live during the checks.
