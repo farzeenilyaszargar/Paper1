@@ -312,8 +312,8 @@ that every recent reasoning paper has been found or read.
    First actual trial launched: 99,075 parameters, symbolic/characters, seed 101,
    LR 0.0003, 20K train/2K validation, 10 epochs, effective batch 32, one CPU
    thread, validation-only. The prespecified three-rate pilot is recorded in
-   `models/calibration_protocol.json`; LR 0.001 was launched after LR 0.0003
-   completed, while LR 0.003 remains pending. No winning rate or source-learning
+   `models/calibration_protocol.json`; LR 0.001 completed after LR 0.0003,
+   and LR 0.003 is now running. No winning rate or source-learning
    success is claimed. This does
    not replace the full-corpus baseline or calibrate all capacities/formats.
    First-epoch observation only: 33.35% online training accuracy and 32.10%
@@ -329,9 +329,11 @@ that every recent reasoning paper has been found or read.
    accuracy 33.45%, balanced accuracy 32.72%, and entailed recall zero. Its
    report has `validation_only_completed` status and no test evaluations.
    No rate is selected before all three trials finish.
-   LR 0.001 has completed its first epoch: validation loss 1.099865, accuracy
+   LR 0.001's first epoch gave validation loss 1.099865, accuracy
    32.30%, balanced accuracy 31.48%, entailed recall zero. This is an early
-   observation from the still-running ten-epoch trial, not a completed result.
+   observation. The trial has now completed all ten epochs: selected validation
+   loss 1.098881, accuracy 32.35%, balanced accuracy 31.56%, entailed recall zero.
+   It failed the source gate. Final LR 0.003 is running; no winner yet.
    After all six 100K warmups finished, the freed one-thread CPU slot was used
    for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
    symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
@@ -431,19 +433,19 @@ correction across the final size/seed/condition family, nor seed uncertainty.
   used. The auditor also checks source-core preservation and training-KB leakage.
   The small software integration corpus is byte-reproducible and audited; its
   untrained constant-head evaluation is strictly a test fixture, not paper data.
-  The selected full-corpus 100K checkpoint's CPU evaluation is running;
-  completed neural results and the scientific control figure are still pending.
-  Its first 10K-pair comparison (2 versus 3 hops, symbolic) has finished at
-  33.33% accuracy on both sides. The 2-versus-4-hop comparison also finished
-  at 33.33% on both sides; its retained paired predictions, confusion matrices,
-  checksums and comparison statistics were rechecked. Depth 5 is pending. The saved
-  report is explicitly `evaluation_in_progress`. A constant-class checkpoint
-  that failed source learning does not demonstrate depth generalization.
+  The selected full-corpus 100K checkpoint's CPU evaluation completed all three
+  symbolic 10K-pair comparisons: 33.33% accuracy on both sides for 2 versus
+  3, 4 and 5 hops. Every paired accuracy difference is zero; exact McNemar and
+  within-run three-comparison Holm p-values are 1. The exporter rechecked all
+  retained prediction hashes, paired counts/confusions/accuracy/statistics,
+  baseline/checkpoint provenance and completed status. A constant-class
+  checkpoint that failed source learning does not demonstrate depth generalization.
   The length-control figure/table exporter now rejects incomplete reports,
   verifies baseline/checkpoint and retained-prediction checksums, reaggregates
   accuracy and paired comparisons, and checks the three-comparison Holm
   correction before writing figures. Its constant-head integration fixture is
-  software evidence only; no scientific length-control graph exists yet.
+  software evidence only. The actual completed checkpoint's measured graph and
+  table are `graphs/baseline_full_100k_symbolic_seed1_length_control`.
   This control does not equalize fact/operator/distractor counts or graph details,
   and shared 2-hop cores across depths make conditions correlated. Any observed
   accuracy gap is not by itself a causal depth effect.
@@ -484,7 +486,8 @@ the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison 
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
 trainer path and the first optimization pilot (LR 0.0003; no source mastery).
-The LR 0.001 pilot is running; the three-rate calibration remains incomplete.
+The LR 0.001 pilot is complete without source mastery; the final LR 0.003 pilot
+is running and the three-rate calibration remains incomplete.
 Also completed: full-corpus character-exposure diagnostic and measured matrix,
 which quantifies a raw-transfer confound without replacing its required control.
 Software completed additionally: TRAIN-only matched warmup arms, provenance-
@@ -525,8 +528,25 @@ then launched. Existing processes are not hot-patched by source edits.
 In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
-Also completed: the full length-matched corpus's independent audit. Its neural
-evaluation and the second validation-only optimization trial are running; code
-and integration tests must not be reported as neural results.
+Also completed: the full length-matched corpus's independent audit and its first
+checkpoint evaluation/verified measured figure. The final 100K validation-only
+optimization trial is running; code and integration tests are not neural results.
+
+### Verified recovery on 20 October, approximately 18:26 IST
+
+No suite, trainer or control-evaluation process was live in the system process
+table; the old evaluation session handle was missing. This was a verified stop,
+not an observation timeout. The control evaluation and LR 0.001 100K pilot had
+completed successfully. The 500K baseline retained an epoch-14 checkpoint and
+had begun epoch 15; the 1M pilot retained an epoch-4 checkpoint. The cause of
+the training stop is unknown: no terminal exception or exit code was retained.
+The suite was restarted first and resumed the 500K run from epoch 15; the 1M
+pilot was then resumed from epoch 5, and the remaining 100K LR 0.003 trial was
+launched. Existing histories/checkpoints were preserved. Unsaved partial epochs
+are replayed, so completed-epoch example/token counters exclude any lost partial
+work and must not be claimed as exact total physical compute. Resume invocation
+records retain the checkpoint starting epoch and full configuration. All three
+new processes were checked live after launch; stale suite state alone was not
+used as evidence of liveness. The 45-condition objective remains incomplete.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.

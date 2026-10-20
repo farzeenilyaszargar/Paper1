@@ -58,8 +58,11 @@ and syntax-exposure controls before interpreting transfer.
 Use exact-token-length pairs with the same gold label in each grammar. State
 that the paired cores differ and that added distractor/count/graph cues are not
 fully matched; this is not a pure causal intervention on proof depth.
-The full 90K-pair/180K-input control corpus passed its independent audit;
-checkpoint evaluation is running, so no neural accuracy claim is filled in yet.
+The full 90K-pair/180K-input control corpus passed its independent audit.
+The first full 100K symbolic checkpoint scores 33.33% on both sides of each
+10K-pair 2-versus-3/4/5 comparison, with zero paired differences. Its failed
+source gate prevents a reasoning/depth-generalization interpretation. The
+measured figure/table is `graphs/baseline_full_100k_symbolic_seed1_length_control`.
 5.6 Capacity scaling and training-seed variability.
 
 Figures 2-5: learning curves, transfer heatmaps, depth curves, capacity curves.

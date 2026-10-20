@@ -321,8 +321,11 @@ lengths, never model predictions. Unknown examples retain null proof depths.
 Both sides receive disconnected logical components using familiar names and
 nonreserved dependency pairs. No filler whitespace or truncation is used.
 Generation and the independent full-corpus audit are complete; the audit
-summary is in `datasets/length_control_summary.json`. The first actual checkpoint
-evaluation is running; no completed length-control neural result is claimed yet.
+summary is in `datasets/length_control_summary.json`. The full 100K seed-1
+symbolic checkpoint evaluation is complete: all three 10K-pair comparisons
+score 33.33% on both sides, with zero paired accuracy differences. This constant
+checkpoint failed source learning, so these results do not establish reasoning
+or depth generalization. See `graphs/baseline_full_100k_symbolic_seed1_length_control.md`.
 
 This matches length and label, **not the entire underlying problem**: core KBs,
 distractor counts, operators and graph details can still differ. Results are

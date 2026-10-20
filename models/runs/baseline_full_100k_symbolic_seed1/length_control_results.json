@@ -82,6 +82,7 @@
         "count": 10000,
         "long_minus_short_accuracy": 0.0,
         "p_exact_mcnemar": 1.0,
+        "p_holm_within_run_three_depths": 1.0,
         "source_only_correct": 0,
         "target_only_correct": 0
       },
@@ -168,12 +169,100 @@
         "count": 10000,
         "long_minus_short_accuracy": 0.0,
         "p_exact_mcnemar": 1.0,
+        "p_holm_within_run_three_depths": 1.0,
         "source_only_correct": 0,
         "target_only_correct": 0
       },
       "prediction_sha256": {
         "long": "a9ecde5e2c84bb4dce3206c7c240ca74b7844d2602b31b4791782605893b8d67",
         "short": "a9ecde5e2c84bb4dce3206c7c240ca74b7844d2602b31b4791782605893b8d67"
+      },
+      "short_depth": 2
+    },
+    "5": {
+      "long_depth": 5,
+      "metrics": {
+        "long": {
+          "accuracy": 0.3333,
+          "balanced_accuracy": 0.3333333333333333,
+          "confusion": [
+            [
+              0,
+              3334,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ]
+          ],
+          "correct": 3333,
+          "count": 10000,
+          "loss": 1.098613510465622,
+          "recall": {
+            "contradicted": 1.0,
+            "entailed": 0.0,
+            "unknown": 0.0
+          },
+          "wilson95": [
+            0.32412626965497815,
+            0.3426017601051091
+          ]
+        },
+        "short": {
+          "accuracy": 0.3333,
+          "balanced_accuracy": 0.3333333333333333,
+          "confusion": [
+            [
+              0,
+              3334,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ],
+            [
+              0,
+              3333,
+              0
+            ]
+          ],
+          "correct": 3333,
+          "count": 10000,
+          "loss": 1.0986135006904603,
+          "recall": {
+            "contradicted": 1.0,
+            "entailed": 0.0,
+            "unknown": 0.0
+          },
+          "wilson95": [
+            0.32412626965497815,
+            0.3426017601051091
+          ]
+        }
+      },
+      "note": "Unknown examples use scaffold depths and have no decisive proof",
+      "paired_comparison": {
+        "both_correct": 3333,
+        "both_wrong": 6667,
+        "count": 10000,
+        "long_minus_short_accuracy": 0.0,
+        "p_exact_mcnemar": 1.0,
+        "p_holm_within_run_three_depths": 1.0,
+        "source_only_correct": 0,
+        "target_only_correct": 0
+      },
+      "prediction_sha256": {
+        "long": "fbef4b4b5be6d4f81450092d8f7257a92174dd8a99bd5c3ea00ecef081659f14",
+        "short": "fbef4b4b5be6d4f81450092d8f7257a92174dd8a99bd5c3ea00ecef081659f14"
       },
       "short_depth": 2
     }
@@ -184,6 +273,6 @@
   "result_sha256": "526e9930fe3157cbc5bd8fdcf5cb58d98b74cbe06186b41086ed958556517daf",
   "run": "baseline_full_100k_symbolic_seed1",
   "source_learning_gate_passed": false,
-  "status": "evaluation_in_progress",
+  "status": "completed",
   "threads": 1
 }

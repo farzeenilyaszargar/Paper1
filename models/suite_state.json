@@ -24,10 +24,11 @@
       "--lr",
       "0.001",
       "--device",
-      "mps"
+      "mps",
+      "--resume"
     ],
     "name": "baseline_full_500k_symbolic_seed1",
-    "pid": 47723
+    "pid": 38758
   },
   "completed": [
     "baseline_full_100k_symbolic_seed1"
@@ -533,5 +534,5 @@
   "failed": [],
   "phase": "fixed-budget baseline; validation calibration/controls remain separate",
   "status": "running",
-  "supervisor_pid": 47663
+  "supervisor_pid": 38743
 }
