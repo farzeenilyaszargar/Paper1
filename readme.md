@@ -431,3 +431,32 @@ positions; padding is causally invisible to the answer head.
 Completion of this baseline queue is not completion of calibration, controls,
 or the research conclusion; the source-learning gate and all failures remain
 part of the results.
+
+Two additional restartable CPU lanes implement the already recorded auxiliary
+budgets, separately from the primary matrix:
+
+```sh
+.venv/bin/python -u -m models.auxiliary_queue --lane calibration_1m
+.venv/bin/python -u -m models.auxiliary_queue --lane syntax_supervision
+```
+
+The first lane runs the three validation-only 1M rates in declared order. The
+second runs the nine 100K supervised controls, ordered no-warmup, source-only
+warmup, all-format warmup within each seed. Each lane holds its own OS lock and
+runs only one single-threaded CPU trainer at a time; the two lanes can coexist
+with the one accelerator lane. Existing live runs can be handed over without
+interruption using `--drain-pid PID`: the supervisor verifies the live CPU
+command, output and saved configuration, waits for it to finish, then resumes
+the planned sequence. A PID/state file alone does not prove liveness.
+
+The queues check the recorded protocol, calibration-selection hash, completed
+warmup budgets/checksums, configuration, retained epoch/update/example budget,
+minimum-validation-loss selection and checkpoint existence. Completed supervised
+controls also require all 21 full test groups and retained prediction files.
+This is coverage checking, not the independent per-prediction statistical audit.
+Incomplete runs need a valid saved epoch checkpoint; the queue refuses to
+overwrite a partial directory without one. A live trainer with the same output
+blocks another dispatch. State is in `models/*_queue_state.json`; child logs
+are local under `models/suite_logs/`. Calibration coverage does not itself select
+an optimal learning rate or establish source mastery. CLI plot exports share an
+OS lock so primary and auxiliary completions cannot write graphs simultaneously.

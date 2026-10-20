@@ -10,7 +10,6 @@ import hashlib
 from pathlib import Path
 
 from synthetic_dataset_generator.generator import file_checksum
-from .transformer import SIZES, FF_WIDTH
 
 HISTORICAL_SOURCE = "e218ac74f8f42324ddb80bc79328ef1acdccd7e8671562ecadcaa3adfa35e5a7"
 HISTORICAL_COMPUTATION = "eea42cbf50270bca4382d64a463c549efbd2cbf16a5e340d66debe7629909e0a"
@@ -37,11 +36,19 @@ def verify_transformer_provenance(config):
     recorded = config["source_checksums"]["transformer.py"]
     if recorded == file_checksum(path):
         return
+    # Read literal registry metadata without importing torch in CPU supervisors.
+    source = path.read_text()
+    registry = {node.targets[0].id:ast.literal_eval(node.value)
+                for node in ast.parse(source).body
+                if isinstance(node,ast.Assign) and len(node.targets) == 1
+                and isinstance(node.targets[0],ast.Name)
+                and node.targets[0].id in ("SIZES","FF_WIDTH")}
+    sizes, ff_width = registry["SIZES"], registry["FF_WIDTH"]
     size = config["size"]
     architecture = config.get("architecture", {})
     old = HISTORICAL_PRESETS.get(size)
-    current = (*SIZES[size], FF_WIDTH.get(size, 4*SIZES[size][0]))
+    current = (*sizes[size], ff_width.get(size, 4*sizes[size][0]))
     saved = tuple(architecture.get(key) for key in ("width", "layers", "heads", "ff_width"))
     if (recorded != HISTORICAL_SOURCE or old is None or old != current or saved != old
-            or computation_digest(path.read_text()) != HISTORICAL_COMPUTATION):
+            or computation_digest(source) != HISTORICAL_COMPUTATION):
         raise ValueError("Primary architecture provenance differs from pinned computation/preset")

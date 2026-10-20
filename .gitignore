@@ -10,6 +10,8 @@ models/runs/*/state.json
 models/runs/*/*.predictions.jsonl
 models/runs/*/*.tmp
 .suite.lock
+.auxiliary_*.lock
+.plots.lock
 models/suite_logs/
 models/warmups/*/*.pt
 models/warmups/*/*.tmp

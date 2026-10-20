@@ -743,3 +743,43 @@ The validation-only calibration has no transfer/test measurement and is not
 added to that evaluated-run count. Existing measured-results tables stayed
 unchanged. Live process checks confirmed the main child, revised waiting
 supervisor and both CPU jobs; none was restarted or interrupted for plotting.
+
+### October 20: guarded automatic auxiliary handoffs
+
+`models.auxiliary_queue` now schedules the three declared 1M calibration rates
+and nine declared 100K downstream syntax-exposure conditions as two separate
+single-threaded CPU lanes. This changes scheduling only: no examples, rates,
+seeds, epochs, physical/effective batch sizes, optimizer settings or comparison
+arms were added or changed. Both lanes check their frozen protocol and use
+independent OS locks. They can coexist with the one accelerator job. The queue
+processes do not import torch; their idle supervisory memory is small.
+
+The calibration supervisor was verified live at PID 66353, waiting for the
+existing LR 0.0003 child PID 63602; the supervision supervisor was verified live
+at PID 66357, waiting for the existing no-warmup child PID 50388. Neither child
+was interrupted. After each finishes, its lane checks coverage before advancing
+to the next planned condition. The current 500K accelerator child and revised
+main supervisor were also checked live. An attempted duplicate calibration
+supervisor was rejected by its OS lock without changing the active state file.
+
+Queue coverage checks include protocol/rate-selection integrity, all six
+completed warmup initialization hashes/budgets, matching configuration, full
+retained epoch/example/update counts, minimum-validation-loss selection,
+checkpoint existence, and absence of test evaluations for calibration.
+Supervised controls must retain all 21 full test groups and prediction files.
+File existence/count coverage is not a substitute for the independent retained-
+prediction correctness/statistics audit. A partial directory without a saved
+epoch checkpoint or a conflicting live output refuses dispatch rather than
+being overwritten. CLI plotting now uses one shared lock across all lanes.
+
+The architecture-provenance guard reads literal registry metadata with AST
+inspection rather than importing torch, while preserving the pinned historical
+computation/preset checks. Actual completed calibration provenance and all six
+initialization files were rechecked. All 66 tests pass, including six auxiliary-
+queue tests. Unit fixtures for scheduler checks are not scientific training or
+prediction outputs.
+
+The 500K run completed epoch 27/30: validation accuracy 33.33%, balanced accuracy
+one third, all answers contradicted. This still fails source learning. It is
+not a completed 500K result or a capacity threshold. The full primary matrix,
+downstream control outcomes, final statistics and paper conclusion remain open.

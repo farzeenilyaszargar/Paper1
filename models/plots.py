@@ -1,6 +1,7 @@
 """Plot measured results only; incomplete runs stay visible as incomplete."""
 
 import argparse
+import fcntl
 import json
 from pathlib import Path
 
@@ -142,7 +143,10 @@ def main():
     parser.add_argument("--runs", type=Path, default=Path("models/runs"))
     parser.add_argument("--output", type=Path, default=Path("graphs"))
     args = parser.parse_args()
-    print(f"Exported {export(args.runs, args.output)} completed runs")
+    # Primary and auxiliary queues can finish together; serialize CLI exports.
+    with Path(".plots.lock").open("w") as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        print(f"Exported {export(args.runs, args.output)} completed runs")
 
 
 if __name__ == "__main__":
