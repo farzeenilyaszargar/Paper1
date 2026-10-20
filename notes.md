@@ -334,6 +334,11 @@ that every recent reasoning paper has been found or read.
    observation. The trial has now completed all ten epochs: selected validation
    loss 1.098881, accuracy 32.35%, balanced accuracy 31.56%, entailed recall zero.
    It failed the source gate. Final LR 0.003 is running; no winner yet.
+   The LR 0.003 trial's first epoch scores 34.25% validation accuracy (loss
+   1.098402), predicting unknown for all 2,000 cases. This equals the prefix's
+   majority baseline exactly, with entailed and contradicted recalls both zero.
+   Balanced accuracy is one third; this is not evidence of source learning.
+   Nine scheduled epochs remain, and learning-rate selection is still pending.
    After all six 100K warmups finished, the freed one-thread CPU slot was used
    for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
    symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
