@@ -469,6 +469,34 @@ correction across the final size/seed/condition family, nor seed uncertainty.
 
 ## Where logical reasoning starts: reporting rule
 
+The new `models.final_analysis` tool implements the primary-matrix coverage
+gate and descriptive criteria. Its actual current export reports only one of
+45 aggregate/config-complete conditions, with no final statistics or onset.
+Only after all conditions exist does it verify every retained 30-epoch budget,
+parent-file hash, test ID/gold label, per-class confusion/accuracy/recall and
+prediction hash; architecture/renderer provenance must match. It hashes each
+selected checkpoint and history without claiming to rerun inference/training.
+Its fixed primary family is 45 runs × 7 splits × 2 alternate target formats =
+630 paired McNemar contrasts, corrected together with Holm. This family was
+documented before matrix completion, not externally preregistered. Calibration,
+warmups and intervention analyses remain separate; this does not correct every
+possible paper claim or supply training-seed uncertainty. Each behavioral
+holdout/transfer criterion requires validation plus source-IID mastery and
+target success in all three seeds. Nonmonotone size outcomes are preserved,
+not forced into a universal threshold. Five targeted tests passed, including
+partial matrices, duplicate contrasts, full-family correction, three-seed gates,
+retained split-ID/gold checks and truncated-history rejection. Unit fixtures
+are not scientific results. New suite invocations refresh the report after
+each completed condition; the current live supervisor uses its already-loaded
+version, so this turn ran the command manually without interrupting training.
+The strict individual verifier also passed on the actual completed 100K
+symbolic seed-1 baseline (all 14 contrasts, exact test IDs/golds, full history
+and checkpoint/prediction hashes); its source criterion remains false. This is
+not a completed matrix or global-family result. The full regression suite now
+passes all 55 tests. Latest retained training measurements are epoch 16 for the
+500K baseline and epoch 6 for both live calibration pilots. They still show
+constant-class answers and one-third balanced accuracy; no onset is claimed.
+
 Report the smallest **tested** capacity that passes the source-learning gate
 across all three final seeds. Then separately report the smallest capacity that
 passes the same accuracy/recall criterion on each independent holdout and under

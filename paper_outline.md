@@ -71,6 +71,11 @@ measured figure/table is `graphs/baseline_full_100k_symbolic_seed1_length_contro
 
 Figures 2-5: learning curves, transfer heatmaps, depth curves, capacity curves.
 Tables 2-3: per-condition/per-class results and paired statistical comparisons.
+The final primary analysis command is `python -m models.final_analysis`.
+It refuses global statistics/onsets until all 45 fixed-budget conditions are
+complete, then corrects the 630 primary paired contrasts as one Holm family.
+This is not a correction over calibration, warmups or every paper claim, and
+the behavioral smallest-tested-size criteria are descriptive, not mechanistic.
 Do not fill missing runs with estimated or synthetic measurements.
 The first full-corpus 99,075-parameter seed-1 symbolic baseline is complete:
 33.33% validation and IID accuracy, with a constant-class selected checkpoint.

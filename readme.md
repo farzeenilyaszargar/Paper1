@@ -230,6 +230,20 @@ correction within each run's 14 comparisons. Missing legacy predictions are
 explicitly unavailable, not reconstructed from aggregate accuracy. These are
 exploratory checkpoint-conditional comparisons, not final across-seed inference.
 
+Run `.venv/bin/python -m models.final_analysis` for the fixed 45-condition,
+30-epoch primary matrix. Until every condition is present, its output
+`graphs/final_baseline_analysis.json` contains only incomplete coverage—not
+global statistics or an inferred reasoning onset. Once complete, it verifies
+all retained epoch budgets, actual test IDs/golds, confusion-based metrics and
+prediction hashes, and applies Holm across the full 630 source-versus-target
+paired contrasts. Pilots and warmups cannot enter this family. Behavioral
+criteria require source-validation plus IID mastery and success across all three
+seeds; the smallest tested passing size is not a universal reasoning threshold.
+These tests condition on checkpoints/test records, not uncertainty over seeds.
+The analysis verifies artifacts; it does not rerun training or model inference.
+New suite invocations refresh this report after each completed condition;
+already-running supervisors are not hot-patched and can use the manual command.
+
 For learning-rate/optimization calibration, add `--validation-only` to a new
 training run. It saves the selected source-validation metrics without loading
 test examples for evaluation, and marks its status `validation_only_completed`

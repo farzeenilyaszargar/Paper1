@@ -107,6 +107,7 @@ def run(data, epochs, include_pilot):
             state["completed"].append(job["name"])
             write_json(state_path,state)
             subprocess.run([sys.executable,"-m","models.plots"],check=True)
+            subprocess.run([sys.executable,"-m","models.final_analysis","--data",str(data)],check=True)
         state["status"] = "baseline_matrix_completed"
         write_json(state_path,state)
 
