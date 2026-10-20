@@ -309,6 +309,22 @@ implementation not reproduced.
 
 This focused search adds one methods review, not an exhaustive-literature claim.
 
+### He et al., September 2026
+
+[Task-ceiling study](https://arxiv.org/html/2609.33134v1), v1, reviewed 20 October:
+main methods, Appendix B/C assumptions and G/H setup/results; no independent
+proof verification or reproduction.
+
+- Question: when does chain content supply necessary computation?
+- Method: shallow-circuit bounds; finite-group experiments, width 512,
+  2/4/8 layers, mostly three seeds; dense no-chain versus trace supervision.
+- Result: answer-only training also fails on solvable controls; failed optimization
+  is not a theorem test.
+- Caveat: log-precision hardness is conditional; Appendix C strengthens to
+  almost-everywhere hardness. These are not finite 2-hop impossibility bounds.
+- Difference: our answer-only 2–5-hop benchmark supplies no CoT interventions;
+  this paper establishes no parameter onset for our task.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -537,7 +553,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-seventeen relevant-paper methods/results reviews, with version distinctions recorded;
+eighteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
@@ -708,3 +724,22 @@ main conditions and refuses final statistics/onsets. Software validation has
 60 tests, including the requested capacities, exact parameter counts, matched
 effective batches, historical provenance checks and safe trainer handover.
 No claim of learned 2-hop inference or a capacity threshold is supported yet.
+
+### October 20: literature follow-up and measured curve refresh
+
+The focused primary-source search added the eighteenth reviewed reference
+above; it is not an exhaustive-literature claim. No experimental setting was
+changed based on this reading. The answer-only training failures remain
+optimization observations, not a proof that these finite tasks are impossible.
+
+`python -m models.plots` regenerated actual retained learning curves. The 1M
+LR 0.001 calibration curve now contains all ten completed epochs. The 500K
+baseline and no-warmup 100K control curves remain partial snapshots at 26/30
+and 3/30 epochs respectively, not completed final results. All three changed
+PNG plots were visually inspected, including labels, legends and chance line.
+The five completed evaluated runs in the generic plotting export include
+smoke/pilot/diagnostic conditions; this is not five completed primary conditions.
+The validation-only calibration has no transfer/test measurement and is not
+added to that evaluated-run count. Existing measured-results tables stayed
+unchanged. Live process checks confirmed the main child, revised waiting
+supervisor and both CPU jobs; none was restarted or interrupted for plotting.
