@@ -342,6 +342,22 @@ limitations and appendices A-C/R-S; not reproduced.
 
 Focused review, not exhaustive coverage.
 
+### Xu, Yan and Zhang, May 2026 revision
+
+[Feature-resemblance study](https://arxiv.org/html/2603.05143v3), v3: setup,
+theorem statements, experiments and Appendix O reviewed; proofs/code not
+independently verified.
+
+- Question: when does representation alignment enable transfer?
+- Method: stylized two-token block, orthonormal embeddings and staged gradient
+  descent; larger-model comparisons.
+- Result: curriculum asymmetry and identity-bridge effects under specified
+  assumptions.
+- Caveats: inductive attribute transfer is not logical entailment; identity
+  necessity is not universal.
+- Difference: fresh-KB character inference does not satisfy these assumptions;
+  do not change benchmark labels or require identity facts on this basis.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -570,7 +586,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-nineteen relevant-paper methods/results reviews, with version distinctions recorded;
+twenty relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
@@ -823,3 +839,21 @@ Measured learning curves were refreshed from these retained histories. Both
 runs remain in progress and fail the observed source-learning criterion; no
 inference onset, successful transfer or final result is claimed. All three
 training children and their supervisors remained live during the checks.
+
+### October 20: no-warmup control epoch 4
+
+The separate CPU reference `exposure_full_100k_symbolic_seed1_no_warmup_lr003`
+completed epoch 4/30 (12,500 retained updates and 400K retained example
+presentations). Training accuracy was 33.287%; full validation accuracy was
+33.34%, loss 1.099291, with every answer entailed and balanced accuracy one
+third. The confusion/recall/counts were checked against the audited manifest's
+validation label counts, together with all four epoch/update/example records.
+Its control purpose, absent warmup initialization and LR 0.003 were rechecked.
+The measured curve was refreshed and visually inspected. This partial no-warmup
+reference is not a completed syntax-exposure comparison, source-learning
+success or primary-matrix condition. The warmup-initialized supervised arms
+still await their scheduled turn.
+
+The twentieth reviewed reference is the feature-resemblance comparison above.
+The corpus, training settings and queue order were not changed based on this
+reading; no final capacity threshold or research conclusion is established.
