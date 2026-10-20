@@ -21,7 +21,7 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The eighteen reviewed references are collected in `references.bib`; screening and
+The nineteen reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
 Distinguish answer-only versus proof supervision and success-conditioned
 mechanistic case studies from unconditional multi-seed reliability.
@@ -29,6 +29,8 @@ Include recurrent-model optimization as a distinct architectural comparison,
 not a parameter-threshold result for our nonrecurrent task.
 Separate conditional asymptotic circuit bounds from finite-depth training failures
 (He et al.); neither establishes our empirical onset.
+Distinguish learned cross-category analogy (Minegishi et al.) from fresh-KB
+cross-format inference and universal capacity claims.
 
 ## 3. Task and dataset
 

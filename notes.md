@@ -325,6 +325,23 @@ proof verification or reproduction.
 - Difference: our answer-only 2–5-hop benchmark supplies no CoT interventions;
   this paper establishes no parameter onset for our task.
 
+### Minegishi et al., May 2026 revision
+
+[Analogy study](https://arxiv.org/html/2602.01992v5), v5. Reviewed main methods,
+limitations and appendices A-C/R-S; not reproduced.
+
+- Question: how do learned cross-category mappings emerge?
+- Method: entity/relation tokens, isomorphic categories; one-layer width-128
+  default, three seeds.
+- Result: optimization-sensitive, nonmonotonic generalization; rate sweeps
+  rescue deeper models.
+- Caveats: correlational mechanisms; unresolved batch-32 (main) versus batch-64
+  (Appendix A).
+- Difference: ours uses fresh KBs/shared characters and cross-grammar transfer,
+  not learned-ID mapping holdouts.
+
+Focused review, not exhaustive coverage.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -553,7 +570,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-eighteen relevant-paper methods/results reviews, with version distinctions recorded;
+nineteen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
