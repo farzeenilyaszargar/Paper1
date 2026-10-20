@@ -493,9 +493,11 @@ The strict individual verifier also passed on the actual completed 100K
 symbolic seed-1 baseline (all 14 contrasts, exact test IDs/golds, full history
 and checkpoint/prediction hashes); its source criterion remains false. This is
 not a completed matrix or global-family result. The full regression suite now
-passes all 55 tests. Latest retained training measurements are epoch 16 for the
-500K baseline and epoch 6 for both live calibration pilots. They still show
+passes all 55 tests. Latest retained training measurements are epoch 17 for the
+500K baseline and epoch 7 for both live calibration pilots. They still show
 constant-class answers and one-third balanced accuracy; no onset is claimed.
+At these latest epochs, all three predict unknown only: the full baseline scores
+33.33%, and each 2K-validation pilot scores its 34.25% majority baseline.
 
 Report the smallest **tested** capacity that passes the source-learning gate
 across all three final seeds. Then separately report the smallest capacity that
