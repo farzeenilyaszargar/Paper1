@@ -1,0 +1,55 @@
+{
+  "code_sha256": "d30ad95d52cfb2fa9a936df814cefdf2121e38d5b0430538ec6a7b90ec6e8727",
+  "depths": {
+    "p000": 0,
+    "p001": 0,
+    "p002": 1,
+    "p003": 2
+  },
+  "inputs": {
+    "english": {
+      "text": "Known: p000, p001. If p000 and p001, then p002. If p002, then p003. Query: p003.",
+      "tokens_including_boundaries": 82
+    },
+    "function": {
+      "text": "facts(p000,p001);rules(implies(and(p000,p001),p002);implies(p002,p003));query(p003)",
+      "tokens_including_boundaries": 85
+    },
+    "symbolic": {
+      "text": "FACTS: p000; p001. RULES: (p000 & p001) -> p002; p002 -> p003. QUERY: p003.",
+      "tokens_including_boundaries": 77
+    }
+  },
+  "minimum_rule_depth": 2,
+  "record": {
+    "metadata": {
+      "facts": [
+        "p000",
+        "p001"
+      ],
+      "query": "p003",
+      "rules": [
+        {
+          "antecedent": [
+            [
+              "p000",
+              "p001"
+            ]
+          ],
+          "conclusion": "p002"
+        },
+        {
+          "antecedent": [
+            [
+              "p002"
+            ]
+          ],
+          "conclusion": "p003"
+        }
+      ]
+    }
+  },
+  "renderer_sha256": "fdd8338f47e70760c34430e2509569fcfb383ae7e0563064ec558f0980e547b2",
+  "scope": "Fixed pedagogical toy, not a sampled benchmark record, training input or model result",
+  "solver_label": "entailed"
+}

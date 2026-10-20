@@ -50,6 +50,12 @@ for serial execution; changing worker count does not change corpus bytes.
 
 ## Task and semantics
 
+The solver-checked Figure 1 toy shows the same two-hop entailment in all three
+renderings: `graphs/task_illustration.png` (SVG and exact input JSON alongside).
+Regenerate it with `.venv/bin/python -m models.task_illustration`. It is a
+pedagogical example, not a sampled benchmark record or model result; unlike
+the benchmark, this minimal illustration omits balancing scaffolds/distractors.
+
 Inputs contain symbolic facts, implications, and a literal query:
 
 ```text

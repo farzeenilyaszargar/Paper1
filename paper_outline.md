@@ -35,6 +35,10 @@ Explain canonical deduplication and each holdout boundary; state what is not
 held out. Show one identical latent problem in all three representations.
 
 Figure 1: paired representation example and dependency graph.
+Completed illustrative draft: `graphs/task_illustration.png`/`.svg`, with exact
+renderer inputs and independent parser/classical-solver checks in the JSON.
+Label it a minimal pedagogical toy without benchmark distractors/scaffolds,
+not a sampled corpus item or a model prediction.
 Table 1: split counts, depth, symbol pools, structural constraints, input lengths.
 Measured draft: `graphs/dataset_characteristics.md`, derived from the audited
 full-corpus character counts; it also documents the unequal-length confound.
