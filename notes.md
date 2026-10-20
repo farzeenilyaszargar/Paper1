@@ -339,6 +339,10 @@ that every recent reasoning paper has been found or read.
    majority baseline exactly, with entailed and contradicted recalls both zero.
    Balanced accuracy is one third; this is not evidence of source learning.
    Nine scheduled epochs remain, and learning-rate selection is still pending.
+   At epoch 2 the LR 0.003 trial switches to constant contradicted predictions:
+   validation accuracy 34.00%, loss 1.100458, balanced accuracy one third. Its
+   worse validation loss leaves the epoch-1 checkpoint selected; eight epochs
+   remain. Changing constant answers is not inference learning.
    After all six 100K warmups finished, the freed one-thread CPU slot was used
    for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
    symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
@@ -565,5 +569,14 @@ work and must not be claimed as exact total physical compute. Resume invocation
 records retain the checkpoint starting epoch and full configuration. All three
 new processes were checked live after launch; stale suite state alone was not
 used as evidence of liveness. The 45-condition objective remains incomplete.
+The resumed 500K run subsequently completed epoch 15: validation accuracy
+33.34%, balanced accuracy one third, with every answer predicted entailed.
+Training continues to the scheduled 30 epochs; this observation is not a final
+500K result, a source-learning success or a capacity threshold.
+The resumed 1M pilot completed epoch 5: validation accuracy 34.25%, loss
+1.098922, balanced accuracy one third, with every answer predicted unknown.
+This equals its validation-prefix majority baseline and is not inference
+learning. Its remaining five scheduled epochs and other calibration rates
+are still pending; no 1M hyperparameter winner is selected yet.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.
