@@ -290,6 +290,25 @@ supplemental reduction implementations were not independently reproduced.
 The 20 October search adds this directly relevant methods review, not a claim
 that every recent reasoning paper has been found or read.
 
+### Shakhvalieva et al., September 2026
+
+[Recursive-model optimization study](https://arxiv.org/html/2609.39967v1),
+reviewed 20 October. Read main methods/ablations and appendices B/E/F;
+implementation not reproduced.
+
+- Question: what makes compact recurrent solvers train and generalize reliably?
+- Method: shared recurrent blocks, controlled gradient horizons and state
+  stabilization; six domains with domain-specific training settings.
+- Result: optimization strongly affects generalization; larger blocks and extra
+  computation do not help uniformly.
+- Caveats: ARC evaluation is transductive; the unsuccessful joint-training
+  diagnostic is single-seed and stopped early. The physical-batch/accumulation
+  ablation concerns recurrent Game of Life, not ordinary causal classifiers.
+- Difference: our parameter sweep uses nonrecurrent answer classifiers. Report
+  microbatch/accumulation separately; this study supplies no threshold for our task.
+
+This focused search adds one methods review, not an exhaustive-literature claim.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -494,7 +513,7 @@ symbolic seed-1 baseline (all 14 contrasts, exact test IDs/golds, full history
 and checkpoint/prediction hashes); its source criterion remains false. This is
 not a completed matrix or global-family result. The full regression suite now
 passes all 55 tests. Latest retained training measurements are epoch 17 for the
-500K baseline and epoch 7 for both live calibration pilots. They still show
+500K baseline, epoch 8 for the 100K calibration and epoch 7 for the 1M pilot. They still show
 constant-class answers and one-third balanced accuracy; no onset is claimed.
 At these latest epochs, all three predict unknown only: the full baseline scores
 33.33%, and each 2K-validation pilot scores its 34.25% majority baseline.
@@ -536,7 +555,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-sixteen relevant-paper methods/results reviews, with version distinctions recorded;
+seventeen relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only

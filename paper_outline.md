@@ -21,10 +21,12 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The sixteen reviewed references are collected in `references.bib`; screening and
+The seventeen reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
 Distinguish answer-only versus proof supervision and success-conditioned
 mechanistic case studies from unconditional multi-seed reliability.
+Include recurrent-model optimization as a distinct architectural comparison,
+not a parameter-threshold result for our nonrecurrent task.
 
 ## 3. Task and dataset
 
