@@ -104,6 +104,10 @@ record counts; call this exposure/adaptation, not zero-exposure transfer.
 Both 100K warmup arms are complete for seeds 1–3, with measured exposure curves.
 Their downstream matched supervised comparison is pending: LM loss is not a
 source-inference or transfer result, and differs across text distributions.
+The first no-warmup CPU reference has started under the fixed control budget.
+LR 0.003 was chosen only after all three validation-only calibration trials
+completed; none passed source mastery. Report the matched warmup-arm contrast
+separately from the lower-total-compute no-warmup reference.
 
 ## 7. Discussion and limitations
 

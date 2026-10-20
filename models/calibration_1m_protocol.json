@@ -1,6 +1,6 @@
 {
   "scope": "Exploratory 1M symbolic optimization pilot, separate from the fixed-budget baseline matrix and warmup comparisons",
-  "status": "LR 0.001 trial resumed from completed epoch 4 after a verified process stop; other rates pending; no rate selected",
+  "status": "LR 0.001 trial resumed from completed epoch 8 after a verified process stop; other rates pending; no rate selected",
   "size": "1m",
   "parameters": 1004547,
   "representation": "symbolic",

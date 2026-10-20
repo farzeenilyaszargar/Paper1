@@ -1,0 +1,61 @@
+{
+  "status": "completed_subset_calibration_selection",
+  "selected_learning_rate": 0.003,
+  "selected_run": "calibration_100k_symbolic_seed101_lr003",
+  "selection_rule": "Minimum selected source-validation cross-entropy after all three declared trials completed; exact ties retain declared rate order",
+  "protocol_sha256": "475f7ba85aafddb5eccccc94a0a41e99f352d6aed5037709b1011d4345262f0f",
+  "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "verified_common_configuration": {
+    "size": "100k",
+    "parameters": 99075,
+    "source": "symbolic",
+    "encoding": "characters",
+    "seed": 101,
+    "epochs": 10,
+    "train_examples": 20000,
+    "validation_examples": 2000,
+    "microbatch": 8,
+    "accumulation": 4,
+    "device": "cpu",
+    "threads": 1,
+    "validation_only": true
+  },
+  "validation_prefix_counts": {"entailed": 635, "contradicted": 680, "unknown": 685},
+  "verification": "All reports have validation_only_completed status and empty test evaluations; all ten epoch/step/example counters and common configurations match; selected validation losses agree with history minima within 1e-8; accuracy/recall/confusion match actual validation-prefix gold counts. Recorded checkpoint hashes identify artifacts without rerunning model inference.",
+  "trials": [
+    {
+      "run": "calibration_100k_symbolic_seed101_lr0003",
+      "learning_rate": 0.0003,
+      "selected_epoch": 10,
+      "validation_loss": 1.100378827571869,
+      "validation_accuracy": 0.3345,
+      "source_gate_passed": false,
+      "result_sha256": "b7e1b3479a18689f4053877e076cba2765107e63fa22ae4bc8b28ec36e3f941d",
+      "history_sha256": "139498177226dd23be2b014135bc459acb6d785bae1bce4d39fc76ed98869106",
+      "checkpoint_sha256": "00cba22197f08895873067f110b7e0ab1230e544587f56a0c235343651c29269"
+    },
+    {
+      "run": "calibration_100k_symbolic_seed101_lr001",
+      "learning_rate": 0.001,
+      "selected_epoch": 10,
+      "validation_loss": 1.0988805205821992,
+      "validation_accuracy": 0.3235,
+      "source_gate_passed": false,
+      "result_sha256": "1a129f961d845ed8a65fe8aa8237b19fbf381ef95a6bf29612c82bfedba989f0",
+      "history_sha256": "59f98b3952062c3603aaab516a41800804291c307ec6f8d0d41f17c4aa7f0430",
+      "checkpoint_sha256": "b95702828d741a408ee21b99498b93d1fecbc82a3bc810680908958c536fe1ad"
+    },
+    {
+      "run": "calibration_100k_symbolic_seed101_lr003",
+      "learning_rate": 0.003,
+      "selected_epoch": 10,
+      "validation_loss": 1.098089498758316,
+      "validation_accuracy": 0.3425,
+      "source_gate_passed": false,
+      "result_sha256": "b359a92897d11fe69b30bb5d643a4a41a8e323a8d712d43a2f2fcf3d0ecdf82f",
+      "history_sha256": "1ec5bb21109e933b66da792bc95e31d78b20b375f4437f0b3f1791aa63dc2584",
+      "checkpoint_sha256": "cbe8cf314f10c975ae72c384cb3268f063cf514a4e15013174873a8bbe157159"
+    }
+  ],
+  "interpretation": "No selected checkpoint passes source mastery. The chosen rate is a validation-only subset optimization setting for matched downstream controls, not a reasoning result or an optimal full-corpus/other-capacity rate. Calibration uses a different physical microbatch and smaller corpus prefix than the fixed downstream controls; all compared downstream arms share the same supervised settings. No test performance selected this rate."
+}

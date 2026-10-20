@@ -293,7 +293,7 @@ The separate warmup implementation is available for those controls:
 
 Both CPU warmup arms have completed for seeds 1, 2 and 3. Their verified exposure
 figures are `graphs/warmup_100k_symbolic_seed{1,2,3}.png`; downstream matched
-supervised comparisons are pending. These commands use protected output directories and will not
+supervised comparisons are not complete. These commands use protected output directories and will not
 overwrite completed runs. Do not start another accelerator job beside the queue.
 Both arms predict exactly 2,048,000 next tokens in 1,000 fixed-size updates by
 default. A tied LM projection adds no parameters and leaves the classifier head
@@ -314,6 +314,16 @@ interrupted stream is deterministically replayed to its saved position. Checkpoi
 files remain local. Matching token/update budgets does not match the number of
 latent problems or isolate character learning from richer unlabeled syntax.
 The planned comparison is recorded in `models/syntax_exposure_protocol.json`.
+All three 100K calibration trials are complete; their validation-only selection
+record is `models/calibration_100k_selection.json`. LR 0.003 has the lowest
+selected validation loss, but none of the trials learns the source task.
+The first full-corpus CPU no-warmup reference is now running at this rate,
+30 epochs, microbatch 16 × accumulation 2, with `--purpose control` so its
+results remain separate from primary baselines. Resume rejects changing purpose.
+The two warmed arms will use identical supervised settings and fresh optimizers.
+Their auxiliary LM budgets match each other; the no-warmup reference has less
+total training compute. A primary MPS run is not a matched CPU reference.
+This exploratory subset selection is not an optimal full-corpus calibration.
 
 Fresh trainer/warmup invocations check available storage before creating output
 directories, including an OS reserve and estimated checkpoint/prediction space.

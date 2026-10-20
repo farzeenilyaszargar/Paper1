@@ -1,6 +1,8 @@
 {
   "scope": "Initial 100K symbolic optimization pilot, separate from the 45-condition fixed-budget baseline",
-  "status": "LR 0.0003 and 0.001 completed without source mastery; final LR 0.003 trial launched; no rate selected",
+  "status": "All three trials completed; LR 0.003 selected by minimum source-validation loss; no trial achieved source mastery",
+  "selected_learning_rate": 0.003,
+  "selection_report": "models/calibration_100k_selection.json",
   "size": "100k",
   "parameters": 99075,
   "representation": "symbolic",

@@ -28,7 +28,7 @@
       "--resume"
     ],
     "name": "baseline_full_500k_symbolic_seed1",
-    "pid": 38758
+    "pid": 48920
   },
   "completed": [
     "baseline_full_100k_symbolic_seed1"
@@ -534,5 +534,5 @@
   "failed": [],
   "phase": "fixed-budget baseline; validation calibration/controls remain separate",
   "status": "running",
-  "supervisor_pid": 38743
+  "supervisor_pid": 48847
 }

@@ -328,44 +328,22 @@ This focused search adds one methods review, not an exhaustive-literature claim.
    The trainer now has a tested `--validation-only` path: calibration can end
    with the selected validation metrics and no test loading/evaluation. This
    prevents routine trainer test evaluation from becoming part of tuning.
-   First actual trial launched: 99,075 parameters, symbolic/characters, seed 101,
-   LR 0.0003, 20K train/2K validation, 10 epochs, effective batch 32, one CPU
-   thread, validation-only. The prespecified three-rate pilot is recorded in
-   `models/calibration_protocol.json`; LR 0.001 completed after LR 0.0003,
-   and LR 0.003 is now running. No winning rate or source-learning
-   success is claimed. This does
-   not replace the full-corpus baseline or calibrate all capacities/formats.
-   First-epoch observation only: 33.35% online training accuracy and 32.10%
-   source validation accuracy. The 2K validation prefix has class counts
-   635/680/685, so its majority-class baseline is 34.25%, not exactly one third.
-   Uniform-random expected accuracy is still one third. No final rate selection
-   is justified from one epoch or before the other planned rates complete.
-   The epoch-2 validation accuracy was 34.35%, but loss was worse than
-   at epoch 1 and entailed-class recall is zero. The minimum-validation-loss
-   checkpoint had therefore not improved at that point. At epoch 9, validation
-   accuracy was 32.50%. The first trial has now completed all 10 epochs:
-   the selected minimum-loss checkpoint is epoch 10, validation loss 1.100379,
-   accuracy 33.45%, balanced accuracy 32.72%, and entailed recall zero. Its
-   report has `validation_only_completed` status and no test evaluations.
-   No rate is selected before all three trials finish.
-   LR 0.001's first epoch gave validation loss 1.099865, accuracy
-   32.30%, balanced accuracy 31.48%, entailed recall zero. This is an early
-   observation. The trial has now completed all ten epochs: selected validation
-   loss 1.098881, accuracy 32.35%, balanced accuracy 31.56%, entailed recall zero.
-   It failed the source gate. Final LR 0.003 is running; no winner yet.
-   The LR 0.003 trial's first epoch scores 34.25% validation accuracy (loss
-   1.098402), predicting unknown for all 2,000 cases. This equals the prefix's
-   majority baseline exactly, with entailed and contradicted recalls both zero.
-   Balanced accuracy is one third; this is not evidence of source learning.
-   Nine scheduled epochs remain, and learning-rate selection is still pending.
-   At epoch 2 the LR 0.003 trial switches to constant contradicted predictions:
-   validation accuracy 34.00%, loss 1.100458, balanced accuracy one third. Its
-   worse validation loss leaves the epoch-1 checkpoint selected; eight epochs
-   remain. Changing constant answers is not inference learning.
-   Epoch 3 lowers validation loss to 1.098298, the minimum so far, while still
-   predicting contradicted for every case (34.00% accuracy, one-third balanced
-   accuracy). Checkpoint selection can improve without task learning; seven
-   scheduled epochs remain and the three-rate selection is not yet final.
+   The three-rate 100K pilot is complete: 99,075 parameters, symbolic/characters,
+   seed 101, 20K train/2K validation, ten epochs per rate, microbatch 8 with
+   accumulation 4, one CPU thread, validation-only. All three selected their
+   epoch-10 checkpoint. LR 0.0003 gives validation loss 1.100379 and 33.45%
+   accuracy; LR 0.001 gives 1.098881 and 32.35%; LR 0.003 gives 1.098089 and
+   34.25%. The recorded minimum-loss rule therefore selects **LR 0.003**.
+   None passes source mastery. The winning checkpoint predicts unknown only,
+   matching the validation-prefix majority baseline (635/680/685 labels).
+   A lower validation loss or a selected rate does not establish inference.
+   The audit checked completed validation-only status with empty test results,
+   all ten epoch/step/example counters, common configuration/fingerprint,
+   history loss minima, confusion-based metrics and referenced file hashes.
+   `models/calibration_100k_selection.json` records the choice and provenance;
+   histories/curves retain intermediate observations without treating them as
+   final results. This is subset calibration, not an optimum for all capacities,
+   full-corpus settings or representations. It does not replace the baseline.
    After all six 100K warmups finished, the freed one-thread CPU slot was used
    for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
    symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
@@ -512,11 +490,11 @@ The strict individual verifier also passed on the actual completed 100K
 symbolic seed-1 baseline (all 14 contrasts, exact test IDs/golds, full history
 and checkpoint/prediction hashes); its source criterion remains false. This is
 not a completed matrix or global-family result. The full regression suite now
-passes all 55 tests. Latest retained training measurements are epoch 17 for the
-500K baseline, epoch 8 for the 100K calibration and epoch 7 for the 1M pilot. They still show
-constant-class answers and one-third balanced accuracy; no onset is claimed.
-At these latest epochs, all three predict unknown only: the full baseline scores
-33.33%, and each 2K-validation pilot scores its 34.25% majority baseline.
+passes all 56 tests. Latest retained training measurements are epoch 18 for the
+500K baseline, completed epoch 10 for the 100K calibration and epoch 8 for the
+1M pilot. They still show constant-class answers and one-third balanced accuracy;
+no onset is claimed. At these latest epochs all predict unknown only: the full
+baseline scores 33.33%, and each 2K-validation pilot scores its 34.25% majority baseline.
 
 Report the smallest **tested** capacity that passes the source-learning gate
 across all three final seeds. Then separately report the smallest capacity that
@@ -560,8 +538,9 @@ the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison 
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
 trainer path and the first optimization pilot (LR 0.0003; no source mastery).
-The LR 0.001 pilot is complete without source mastery; the final LR 0.003 pilot
-is running and the three-rate calibration remains incomplete.
+All three 100K pilot rates are complete without source mastery. LR 0.003 is
+selected by the recorded validation-loss rule for the downstream controls;
+the separate 1M calibration is not yet complete.
 Also completed: full-corpus character-exposure diagnostic and measured matrix,
 which quantifies a raw-transfer confound without replacing its required control.
 Software completed additionally: TRAIN-only matched warmup arms, provenance-
@@ -593,6 +572,32 @@ The paired checkpoint/provenance/history checks pass for seed 3, and its measure
 figure is `graphs/warmup_100k_symbolic_seed3`. All six 100K warmups are done.
 Matched supervised comparisons are pending; warmup LM loss is not inference
 accuracy or task mastery.
+The downstream protocol is now fixed before any supervised-control result:
+99,075 parameters, symbolic source, seeds 1/2/3, full 100K train and 10K
+validation, 30 epochs, microbatch 16 × accumulation 2 (effective 32), 93,750
+supervised updates and 3M supervised examples per arm. The rate was left unset
+until all three original calibration trials finished; LR 0.003 is now selected
+only by minimum selected validation loss, with declared-order tie breaking.
+Reset optimizer state for supervision and retain the full original 21 test
+evaluations only after source-validation checkpoint choice. Run no-warmup,
+source-only warmup, then all-format warmup within each seed, on one CPU thread.
+The main contrast is between the two matched warmup budgets. No-warmup has
+the same supervised budget but less total training compute, so it is a secondary
+reference, not an equal-total-compute intervention. Reuse a primary baseline
+only if every supervised setting agrees, including physical microbatch and
+learning rate, device, thread count, optimizer, batching and learning-code
+provenance. The current MPS baseline is not reused as a matched CPU reference.
+This is an internal plan after existing diagnostics, not external preregistration.
+Subset calibration does not establish optimal full-corpus
+settings or mastery when every rate fails. These controls remain separate from
+the 45-condition matrix; current baseline budgets and model definitions are
+unchanged. The seed-1 no-warmup CPU reference is now training in
+`models/runs/exposure_full_100k_symbolic_seed1_no_warmup_lr003`; no completed
+supervised-control result exists yet, and the two warmup-supervised arms wait
+for their scheduled turn. `--purpose control` gives the no-warmup reference a
+separate result scope so it cannot merge into the primary baseline plots.
+Resume rejects changing a run's purpose; these additions do not alter optimizer
+calculations. The new small-fixture scope/resume tests are software-only.
 New process invocations have storage preflight/checkpoint guards. On 19 October,
 the Mac had approximately 3.6 GiB disk free and 8.8 GiB encrypted swap in use;
 the three existing scientific processes were live. No extra warmup workload was
@@ -603,8 +608,9 @@ In progress: 45-condition full-corpus baseline matrix, further
 literature screening, and source learning gate. The matrix uses 30 epochs,
 LR 0.001, and effective batch size 32; it is not called optimally calibrated.
 Also completed: the full length-matched corpus's independent audit and its first
-checkpoint evaluation/verified measured figure. The final 100K validation-only
-optimization trial is running; code and integration tests are not neural results.
+checkpoint evaluation/verified measured figure. The 100K rate selection is
+complete, and its first matched no-warmup reference is running. Code and
+integration tests are not neural results.
 
 ### Verified recovery on 20 October, approximately 18:26 IST
 
@@ -631,5 +637,22 @@ The resumed 1M pilot completed epoch 5: validation accuracy 34.25%, loss
 This equals its validation-prefix majority baseline and is not inference
 learning. Its remaining five scheduled epochs and other calibration rates
 are still pending; no 1M hyperparameter winner is selected yet.
+
+### Verified recovery and control launch after the interrupted turn
+
+At the next process-table inspection no suite or trainer was live, and the old
+audit/test session handle was missing. The cause is not inferred from the
+interruption message alone. The 500K checkpoint retained epoch 18 (epoch 19 had
+started), and the 1M pilot retained epoch 8. They were resumed from epochs 19
+and 9 respectively, preserving histories and optimizer state; lost partial
+work remains outside retained counters. New invocations record the new source
+hashes; the control-scope/resume-purpose changes do not alter optimizer math.
+The completed 100K calibration was not restarted. Its three reports were audited
+and LR 0.003 selected by validation loss only. The seed-1 no-warmup CPU reference
+then launched under the fixed downstream budget, separately labeled with
+`--purpose control`; its configuration and liveness were checked. All 56 tests
+pass, including no-warmup pilot/full scope and purpose-change resume rejection.
+The primary matrix is still incomplete, and no downstream control result or
+reasoning onset is claimed.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.

@@ -199,6 +199,8 @@ def run(args):
             raise ValueError("Resume accumulation mismatch")
         if old.get("validation_only",False) != args.validation_only:
             raise ValueError("Resume validation-only mode mismatch")
+        if old.get("purpose","experiment") != args.purpose:
+            raise ValueError("Resume experiment purpose mismatch")
         if old.get("initialization_sha256") != config["initialization_sha256"]:
             raise ValueError("Resume initialization mismatch")
         for key in ("size", "representation", "parameter_count", "seed", "dataset_manifest_sha256", "train_limit", "eval_limit", "batch_size", "lr"):
@@ -254,6 +256,9 @@ def run(args):
     results["selected_validation"] = selected_validation
     results["source_learning_gate_passed"] = selected_validation["accuracy"] >= 0.95 and all(
         value is not None and value >= 0.90 for value in selected_validation["recall"].values())
+    if args.purpose == "control":
+        results["scope"] = "no-warmup control pilot" if args.train_limit or args.eval_limit else "no-warmup full control"
+        results["interpretation"] = "Separate no-warmup reference, not a primary baseline. Match supervised settings/device to warmup arms; total training compute is lower without the auxiliary LM stage."
     if warmup is not None:
         results["scope"] = warmup["config"]["treatment"]+" warmup "+("pilot" if args.train_limit or args.eval_limit else "full control")
         results["interpretation"] = "Separate unlabeled-exposure treatment; compare matched source-only warmup, not just a no-warmup baseline. Not zero-exposure transfer."
@@ -305,7 +310,7 @@ def main():
     parser.add_argument("--eval-limit", type=int)
     parser.add_argument("--device", choices=("auto", "cpu", "mps"), default="auto")
     parser.add_argument("--threads", type=int, default=4)
-    parser.add_argument("--purpose", choices=("experiment", "pilot", "diagnostic", "smoke"), default="experiment")
+    parser.add_argument("--purpose", choices=("experiment", "pilot", "diagnostic", "smoke", "control"), default="experiment")
     parser.add_argument("--encoding", choices=("characters", "local_slots"), default="characters")
     parser.add_argument("--accumulation", type=int, default=1)
     parser.add_argument("--eval-batch-size",type=int)
