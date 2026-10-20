@@ -314,9 +314,13 @@ This focused search adds one methods review, not an exhaustive-literature claim.
 1. Establish source-format learning before interpreting transfer. Operational
    gate: at least 95% source validation accuracy, with all three class recalls
    at least 90%; confirm once on the independent IID test. Do not tune on tests.
-2. Main scales, per the updated objective: approximately 100K, 500K, 1M, 5M,
-   and 10M; record actual trainable parameter counts. The old 10K/3M presets
-   remain optional diagnostics, not required primary conditions. The 100K
+2. Main scales, aligned with the current goal on October 20: approximately 10K,
+   50K, 100K, 500K and 1M (11,491 / 50,771 / 99,075 / 457,251 / 1,004,547
+   actual parameters). The previous queue included 5M/10M; neither had trained.
+   These and 3M remain optional presets, not required primary conditions. This
+   correction follows the failed 100K result and an unfinished 500K run, and is
+   not externally preregistered. All existing architectures/data/budgets and
+   interpretation gates are unchanged. The 100K
    preset was adjusted after the software smoke test to about 99K parameters;
    the 89,763-parameter smoke checkpoint is not that final architecture.
 3. Train separately on symbolic, function syntax, and template English. Render
@@ -656,3 +660,51 @@ The primary matrix is still incomplete, and no downstream control result or
 reasoning onset is claimed.
 Pending: full multi-seed matrix, controls, final statistical comparisons, final
 graphs/tables, and one-sentence result-based conclusion. No final conclusion yet.
+
+### October 20: current capacity scope and lossless queue handover
+
+The active user goal specifies 10K, 50K, 100K, 500K and 1M, not the previous
+100K/500K/1M/5M/10M queue. The revised primary matrix retains 45 conditions
+(five sizes x three source formats x three seeds), 30 epochs, LR 0.001 and
+effective batch 32. The existing 10K preset has 11,491 parameters; the new
+50K preset has 50,771 (width 32, three layers, four heads, FF width 176).
+The other three primary architectures are unchanged. Larger presets remain
+available but are outside this matrix. This scope correction was made after
+the failed 100K baseline and while the 500K run was unfinished; it must not be
+described as an externally preregistered size selection or motivated by an
+observed favorable 10K/50K result (neither had been trained in the main matrix).
+
+The old supervisor alone was stopped, leaving its 500K accelerator child live
+at PID 48920 without interrupting an epoch or resetting its optimizer. The
+replacement supervisor uses `--drain-pid 48920`, holds the OS lock, verifies
+the same command while waiting, and checks accelerator exclusivity again
+before starting the corrected queue. Explicit CPU calibration/control jobs can
+coexist; automatic/MPS trainer overlap is rejected. The process parser handles
+unquoted unrelated application arguments without confusing them with trainers.
+The 500K run had completed epoch 26/30 at inspection; the no-warmup CPU control
+had completed epoch 3/30. Both remained near chance. These are interim counts,
+not completed scientific conditions or estimates of physical total compute.
+
+Adding a preset changes the transformer file hash without changing existing
+model computations. Final analysis now accepts only one explicitly pinned
+historical transformer revision when its per-size architecture and the entire
+non-registry computation AST match exactly. Unknown source hashes, changed
+computation and changed historical head/width/layer/FF settings are rejected.
+The actual completed 100K configuration passes this provenance check; tests
+cover both acceptance and rejection. Raw historical source hashes remain in
+the reports, rather than being rewritten to the new hash.
+
+The first 1M calibration trial (LR 0.001) completed all ten epochs with no test
+evaluation. Minimum validation loss was 1.098180 at epoch 9, accuracy 34.25%,
+with every answer unknown (balanced accuracy one third); epoch 10 accuracy
+was 34.0%, all contradicted. This is not source mastery. Its complete retained
+history, empty test-evaluation mapping and minimum-loss selection were checked.
+The second trial, LR 0.0003, is now running with the same 20K/2K subset,
+seed 101, CPU thread count, microbatch 4 and accumulation 8. LR 0.003 remains
+pending; no 1M rate is selected before all three trials finish.
+
+The revised final-analysis coverage report still records only 1/45 complete
+main conditions and refuses final statistics/onsets. Software validation has
+60 tests, including the requested capacities, exact parameter counts, matched
+effective batches, historical provenance checks and safe trainer handover.
+No claim of learned 2-hop inference or a capacity threshold is supported yet.

@@ -48,7 +48,8 @@ full-corpus character counts; it also documents the unequal-length confound.
 ## 4. Models and experimental design
 
 Describe causal decoder blocks, sinusoidal positions, shared character encoding,
-answer-only classification, exact parameter counts, optimization, checkpoints,
+answer-only classification, exact parameter counts (11,491; 50,771; 99,075;
+457,251; 1,004,547), optimization, checkpoints,
 seeds, and compute. These are transformers with a classifier, not pretrained LLMs.
 Specify source-learning gate, validation-only selection, held-out testing, pilot
 versus final conditions, and exposure/compute matching. Explain surface novelty

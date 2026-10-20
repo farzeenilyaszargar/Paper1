@@ -1,7 +1,8 @@
 {
   "status": "fixed-budget full-corpus baseline matrix queued; calibration and final interpretation incomplete",
-  "primary_sizes": ["100k", "500k", "1m", "5m", "10m"],
-  "actual_parameters": [99075, 457251, 1004547, 4961923, 9896643],
+  "primary_sizes": ["10k", "50k", "100k", "500k", "1m"],
+  "actual_parameters": [11491, 50771, 99075, 457251, 1004547],
+  "scope_revision": "2026-10-20: aligned with the current user goal (10K/50K/100K/500K/1M). Previous queue included 5M/10M, neither trained yet; these remain optional presets, not primary conditions. Revision follows a completed failed 100K baseline and an unfinished 500K run, so it is not an externally preregistered capacity sweep. Dataset, existing architectures, learning gates and per-condition budgets are unchanged.",
   "representations": ["symbolic", "function", "english"],
   "training_seeds": [1, 2, 3],
   "final_dataset": "datasets/default",
@@ -14,6 +15,6 @@
   "baseline_budget": {"epochs": 30, "learning_rate": 0.001, "effective_batch_size": 32, "conditions": 45},
   "budget_interpretation": "Initial prespecified baseline, not a claim of optimal training. Validation-only learning-rate calibration and syntax controls remain separate. Do not use test results to tune this matrix.",
   "required_controls": ["exact oracle", "surface-feature classifier", "parse-normalized transfer", "syntax exposure", "renaming", "statement order", "irrelevant facts", "premise removal", "depth versus context length"],
-  "syntax_exposure_status": "Full-corpus character-coverage audit completed. TRAIN-only LM exposure and matched source-only warmup are implemented separately in syntax_exposure_protocol.json but not scientifically run. Training/evaluation remain pending; raw transfer alone cannot isolate procedure failure.",
+  "syntax_exposure_status": "Full-corpus character-coverage audit and all six TRAIN-only LM warmups complete. Nine downstream supervised conditions are specified separately in syntax_exposure_protocol.json; the first no-warmup CPU reference is running, with no completed downstream result. Raw transfer alone cannot isolate procedure failure.",
   "onset_reporting": "Smallest actual tested capacity passing a specified gate across all three seeds; separate source learning from independent holdouts and raw transfer. No unobserved threshold interpolated."
 }

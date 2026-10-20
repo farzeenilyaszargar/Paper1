@@ -9,13 +9,13 @@ from torch.nn import functional as F
 from .representations import PAD, VOCAB_SIZE
 
 SIZES = {
-    "10k": (16, 3, 2), "100k": (48, 3, 4), "500k": (96, 4, 4),
+    "10k": (16, 3, 2), "50k": (32, 3, 4), "100k": (48, 3, 4), "500k": (96, 4, 4),
     "1m": (128, 5, 4), "3m": (192, 7, 6), "10m": (320, 8, 8),
     "5m": (256, 6, 8),
 }
 
-PRIMARY_SIZES = ("100k", "500k", "1m", "5m", "10m")
-FF_WIDTH = {"100k": 224, "5m": 1088}
+PRIMARY_SIZES = ("10k", "50k", "100k", "500k", "1m")
+FF_WIDTH = {"50k": 176, "100k": 224, "5m": 1088}
 
 
 def expected_parameter_count(size):

@@ -10,6 +10,8 @@ import json
 import os
 import subprocess
 import sys
+import shlex
+import time
 from pathlib import Path
 
 from synthetic_dataset_generator.generator import file_checksum, write_json
@@ -20,7 +22,7 @@ from synthetic_dataset_generator.generator import SPLITS
 
 def jobs(epochs):
     # Same effective batch size 32; smaller microbatches constrain attention RAM.
-    micro = {"100k": 16, "500k": 8, "1m": 8, "5m": 2, "10m": 2}
+    micro = {"10k": 16, "50k": 16, "100k": 16, "500k": 8, "1m": 8}
     conditions = [(s,"symbolic",1) for s in PRIMARY_SIZES]
     conditions += [(s,r,seed) for seed in (1,2,3) for r in REPRESENTATIONS for s in PRIMARY_SIZES
                    if (s,r,seed) not in conditions]
@@ -49,7 +51,49 @@ def completed(path, job, fingerprint):
                all(m["count"] == 10000 for m in result["evaluations"][r].values()) for r in REPRESENTATIONS)
 
 
-def run(data, epochs, include_pilot):
+def accelerator_trainer(command):
+    """Explicit CPU work can coexist; automatic/MPS trainers cannot overlap."""
+    if " -m models.train" not in " " + command:
+        return False
+    try:
+        args = shlex.split(command)
+    except ValueError:
+        # ps does not shell-quote arbitrary application arguments. Ignore other
+        # apps above; fail closed for an unparseable possible trainer command.
+        return True
+    if not any(args[i:i+2] == ["-m", "models.train"] for i in range(len(args)-1)):
+        return False
+    devices = [args[i+1] for i, value in enumerate(args[:-1]) if value == "--device"]
+    devices += [value.split("=",1)[1] for value in args if value.startswith("--device=")]
+    return not devices or devices[-1] != "cpu"
+
+
+def wait_for_trainer(pid):
+    """Drain one existing accelerator child without replaying partial epochs.
+
+    Its old supervisor must first be stopped. The replacement supervisor holds
+    the OS lock while waiting, and rechecks all accelerator processes afterward.
+    A reused PID with a different command is rejected rather than adopted.
+    """
+    identity = None
+    while True:
+        observed = subprocess.run(["ps", "-p", str(pid), "-o", "stat=", "-o", "args="],
+                                  capture_output=True, text=True)
+        line = observed.stdout.strip()
+        if observed.returncode or not line:
+            return
+        state, command = line.split(None, 1)
+        if state.startswith("Z"):
+            return
+        if not accelerator_trainer(command) or (identity is not None and command != identity):
+            raise RuntimeError("Drain PID is not the same accelerator trainer")
+        if identity is None:
+            identity = command
+            print(f"Waiting for existing trainer pid={pid} to finish without interruption",flush=True)
+        time.sleep(5)
+
+
+def run(data, epochs, include_pilot, drain_pid=None):
     planned = jobs(epochs)
     manifest = json.loads((data/"manifest.json").read_text())
     if manifest["config"]["train_count"] != 100000 or manifest["config"]["evaluation_count"] != 10000:
@@ -60,8 +104,17 @@ def run(data, epochs, include_pilot):
             fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
         except BlockingIOError:
             raise RuntimeError("Another suite supervisor holds the accelerator lock")
-        processes = subprocess.check_output(["ps","-axo","pid,args"],text=True)
-        if any(" -m models.train " in line for line in processes.splitlines()):
+        if drain_pid is not None:
+            if drain_pid <= 1 or drain_pid == os.getpid():
+                raise ValueError("Invalid trainer drain PID")
+            write_json(Path("models/suite_state.json"), {
+                "status":"draining_existing_trainer", "supervisor_pid":os.getpid(),
+                "drain_pid":drain_pid, "dataset_manifest_sha256":fingerprint,
+                "conditions":planned,
+                "interpretation":"Waiting for an existing accelerator job; PID liveness must be checked independently."})
+            wait_for_trainer(drain_pid)
+        processes = subprocess.check_output(["ps","-axo","args="],text=True)
+        if any(accelerator_trainer(line) for line in processes.splitlines() if line.strip()):
             raise RuntimeError("An existing trainer is live; inspect it before starting another accelerator run")
         Path("models/suite_logs").mkdir(parents=True,exist_ok=True)
         state_path = Path("models/suite_state.json")
@@ -117,7 +170,8 @@ if __name__ == "__main__":
     parser.add_argument("--data",type=Path,default=Path("datasets/default"))
     parser.add_argument("--epochs",type=int,default=30)
     parser.add_argument("--include-pilot",action="store_true")
+    parser.add_argument("--drain-pid",type=int,help="Wait for a verified existing accelerator trainer before starting the revised queue")
     args = parser.parse_args()
     if args.epochs < 1:
         parser.error("epochs must be positive")
-    run(args.data,args.epochs,args.include_pilot)
+    run(args.data,args.epochs,args.include_pilot,args.drain_pid)

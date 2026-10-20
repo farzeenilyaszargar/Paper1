@@ -1,39 +1,27 @@
 {
-  "active_job": {
-    "command": [
-      "/Users/fizzy/Documents/ChatGPT/ResearchPaper1/.venv/bin/python",
-      "-u",
-      "-m",
-      "models.train",
-      "--data",
-      "datasets/default",
-      "--output",
-      "models/runs/baseline_full_500k_symbolic_seed1",
-      "--size",
-      "500k",
-      "--representation",
-      "symbolic",
-      "--seed",
-      "1",
-      "--epochs",
-      "30",
-      "--batch-size",
-      "8",
-      "--accumulation",
-      "4",
-      "--lr",
-      "0.001",
-      "--device",
-      "mps",
-      "--resume"
-    ],
-    "name": "baseline_full_500k_symbolic_seed1",
-    "pid": 48920
-  },
-  "completed": [
-    "baseline_full_100k_symbolic_seed1"
-  ],
   "conditions": [
+    {
+      "accumulation": 2,
+      "batch_size": 16,
+      "epochs": 30,
+      "learning_rate": 0.001,
+      "name": "baseline_full_10k_symbolic_seed1",
+      "parameter_count": 11491,
+      "representation": "symbolic",
+      "seed": 1,
+      "size": "10k"
+    },
+    {
+      "accumulation": 2,
+      "batch_size": 16,
+      "epochs": 30,
+      "learning_rate": 0.001,
+      "name": "baseline_full_50k_symbolic_seed1",
+      "parameter_count": 50771,
+      "representation": "symbolic",
+      "seed": 1,
+      "size": "50k"
+    },
     {
       "accumulation": 2,
       "batch_size": 16,
@@ -68,26 +56,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_symbolic_seed1",
-      "parameter_count": 4961923,
-      "representation": "symbolic",
+      "name": "baseline_full_10k_function_seed1",
+      "parameter_count": 11491,
+      "representation": "function",
       "seed": 1,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_symbolic_seed1",
-      "parameter_count": 9896643,
-      "representation": "symbolic",
+      "name": "baseline_full_50k_function_seed1",
+      "parameter_count": 50771,
+      "representation": "function",
       "seed": 1,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -123,26 +111,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_function_seed1",
-      "parameter_count": 4961923,
-      "representation": "function",
+      "name": "baseline_full_10k_english_seed1",
+      "parameter_count": 11491,
+      "representation": "english",
       "seed": 1,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_function_seed1",
-      "parameter_count": 9896643,
-      "representation": "function",
+      "name": "baseline_full_50k_english_seed1",
+      "parameter_count": 50771,
+      "representation": "english",
       "seed": 1,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -178,26 +166,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_english_seed1",
-      "parameter_count": 4961923,
-      "representation": "english",
-      "seed": 1,
-      "size": "5m"
+      "name": "baseline_full_10k_symbolic_seed2",
+      "parameter_count": 11491,
+      "representation": "symbolic",
+      "seed": 2,
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_english_seed1",
-      "parameter_count": 9896643,
-      "representation": "english",
-      "seed": 1,
-      "size": "10m"
+      "name": "baseline_full_50k_symbolic_seed2",
+      "parameter_count": 50771,
+      "representation": "symbolic",
+      "seed": 2,
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -233,26 +221,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_symbolic_seed2",
-      "parameter_count": 4961923,
-      "representation": "symbolic",
+      "name": "baseline_full_10k_function_seed2",
+      "parameter_count": 11491,
+      "representation": "function",
       "seed": 2,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_symbolic_seed2",
-      "parameter_count": 9896643,
-      "representation": "symbolic",
+      "name": "baseline_full_50k_function_seed2",
+      "parameter_count": 50771,
+      "representation": "function",
       "seed": 2,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -288,26 +276,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_function_seed2",
-      "parameter_count": 4961923,
-      "representation": "function",
+      "name": "baseline_full_10k_english_seed2",
+      "parameter_count": 11491,
+      "representation": "english",
       "seed": 2,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_function_seed2",
-      "parameter_count": 9896643,
-      "representation": "function",
+      "name": "baseline_full_50k_english_seed2",
+      "parameter_count": 50771,
+      "representation": "english",
       "seed": 2,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -343,26 +331,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_english_seed2",
-      "parameter_count": 4961923,
-      "representation": "english",
-      "seed": 2,
-      "size": "5m"
+      "name": "baseline_full_10k_symbolic_seed3",
+      "parameter_count": 11491,
+      "representation": "symbolic",
+      "seed": 3,
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_english_seed2",
-      "parameter_count": 9896643,
-      "representation": "english",
-      "seed": 2,
-      "size": "10m"
+      "name": "baseline_full_50k_symbolic_seed3",
+      "parameter_count": 50771,
+      "representation": "symbolic",
+      "seed": 3,
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -398,26 +386,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_symbolic_seed3",
-      "parameter_count": 4961923,
-      "representation": "symbolic",
+      "name": "baseline_full_10k_function_seed3",
+      "parameter_count": 11491,
+      "representation": "function",
       "seed": 3,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_symbolic_seed3",
-      "parameter_count": 9896643,
-      "representation": "symbolic",
+      "name": "baseline_full_50k_function_seed3",
+      "parameter_count": 50771,
+      "representation": "function",
       "seed": 3,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -453,26 +441,26 @@
       "size": "1m"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_5m_function_seed3",
-      "parameter_count": 4961923,
-      "representation": "function",
+      "name": "baseline_full_10k_english_seed3",
+      "parameter_count": 11491,
+      "representation": "english",
       "seed": 3,
-      "size": "5m"
+      "size": "10k"
     },
     {
-      "accumulation": 16,
-      "batch_size": 2,
+      "accumulation": 2,
+      "batch_size": 16,
       "epochs": 30,
       "learning_rate": 0.001,
-      "name": "baseline_full_10m_function_seed3",
-      "parameter_count": 9896643,
-      "representation": "function",
+      "name": "baseline_full_50k_english_seed3",
+      "parameter_count": 50771,
+      "representation": "english",
       "seed": 3,
-      "size": "10m"
+      "size": "50k"
     },
     {
       "accumulation": 2,
@@ -506,33 +494,11 @@
       "representation": "english",
       "seed": 3,
       "size": "1m"
-    },
-    {
-      "accumulation": 16,
-      "batch_size": 2,
-      "epochs": 30,
-      "learning_rate": 0.001,
-      "name": "baseline_full_5m_english_seed3",
-      "parameter_count": 4961923,
-      "representation": "english",
-      "seed": 3,
-      "size": "5m"
-    },
-    {
-      "accumulation": 16,
-      "batch_size": 2,
-      "epochs": 30,
-      "learning_rate": 0.001,
-      "name": "baseline_full_10m_english_seed3",
-      "parameter_count": 9896643,
-      "representation": "english",
-      "seed": 3,
-      "size": "10m"
     }
   ],
   "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
-  "failed": [],
-  "phase": "fixed-budget baseline; validation calibration/controls remain separate",
-  "status": "running",
-  "supervisor_pid": 48847
+  "drain_pid": 48920,
+  "interpretation": "Waiting for an existing accelerator job; PID liveness must be checked independently.",
+  "status": "draining_existing_trainer",
+  "supervisor_pid": 63826
 }

@@ -33,7 +33,7 @@ Customize counts, seed, and output without editing code:
 ```
 
 Dataset size and model parameter count are independent. Use the same frozen
-corpus and evaluation splits for your 10K, 100K, and 500K parameter models so
+corpus and evaluation splits for your 10K, 50K, 100K, 500K, and 1M parameter models so
 capacity comparisons do not also change the data. `--train-count` controls only
 training examples; `--evaluation-count` applies separately to validation and
 each of the seven test files. Total records are therefore
@@ -204,11 +204,17 @@ The updated primary scaling conditions are:
 
 | Preset | Actual trainable parameters |
 | --- | ---: |
+| `10k` | 11,491 |
+| `50k` | 50,771 |
 | `100k` | 99,075 |
 | `500k` | 457,251 |
 | `1m` | 1,004,547 |
-| `5m` | 4,961,923 |
-| `10m` | 9,896,643 |
+
+The optional `3m`, `5m`, and `10m` presets are not in the current primary matrix.
+The capacity list was aligned with the current user goal on October 20, after
+the failed 100K baseline and during the unfinished 500K run; this is a documented
+scope revision, not an externally preregistered sweep. Existing model computations,
+data and training budgets are unchanged.
 
 These are causal transformers with a three-class answer head, sinusoidal
 positions, and shared character IDs, not pretrained language models. Their
@@ -406,10 +412,18 @@ while reducing microbatch memory for larger models. To run/resume its queue:
 .venv/bin/python -u -m models.suite --include-pilot
 ```
 
-The supervisor holds an OS lock, rejects overlapping live trainers, and records
+The supervisor holds an OS lock, rejects overlapping accelerator trainers, and records
 the active child in `models/suite_state.json`; logs are local in
 `models/suite_logs/`. Before restarting after an interruption, verify that the
 old supervisor and trainer are no longer live. Checkpoints are written atomically.
+Explicit CPU control/calibration jobs can coexist. To replace an old queue without
+interrupting its current accelerator child, stop only the verified old supervisor
+and start the replacement with `--drain-pid CHILD_PID`. It verifies and waits for
+that specific accelerator command to exit, then checks accelerator exclusivity
+again before dispatch. Never run both old and replacement supervisors.
+Historical transformer file hashes are accepted by final analysis only for a
+pinned prior revision with identical computation AST and identical per-size
+architecture; adding the 50K preset does not invalidate unchanged older models.
 Input lengths are padded to 128-token buckets to bound accelerator compilation
 cache shapes. `--eval-batch-size` controls evaluation separately from the training
 microbatch (default: at most four). This preserves all input tokens and EOS

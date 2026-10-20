@@ -48,7 +48,7 @@ class ModelTests(unittest.TestCase):
 
     def test_parameter_scaling(self):
         previous = 0
-        for size in ("10k", "100k", "500k", "1m", "3m", "5m", "10m"):
+        for size in ("10k", "50k", "100k", "500k", "1m", "3m", "5m", "10m"):
             count = TinyTransformer(size).parameter_count
             self.assertEqual(count,expected_parameter_count(size))
             self.assertGreater(count, previous)

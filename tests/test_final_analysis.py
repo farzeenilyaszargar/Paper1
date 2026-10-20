@@ -25,7 +25,7 @@ def software_reports():
     reports = []
     for job in jobs(30):
         source = job["representation"]
-        passed = job["size"] in ("1m","5m","10m") and not (job["size"] == "1m" and job["seed"] == 3)
+        passed = job["size"] in ("500k","1m") and not (job["size"] == "500k" and job["seed"] == 3)
         contrasts = [dict(run=job["name"],source=source,target=target,split=split,size=job["size"],seed=job["seed"],p_exact_mcnemar=1.0)
                      for target in REPRESENTATIONS if target != source for split in TESTS]
         reports.append({"run":job["name"],"source":source,"size":job["size"],"seed":job["seed"],
@@ -49,11 +49,11 @@ class FinalAnalysisTests(unittest.TestCase):
             metric_pass(actual,dict.fromkeys(LABELS,101))
 
     def test_descriptive_onset_does_not_assume_monotonicity(self):
-        result = onset({"100k":False,"500k":True,"1m":False,"5m":True,"10m":True})
+        result = onset({"10k":False,"50k":False,"100k":False,"500k":True,"1m":False})
         self.assertEqual(result["smallest_tested_passing_parameters"],457251)
         self.assertEqual(result["adjacent_tested_bracket"],[99075,457251])
         self.assertTrue(result["nonmonotone_successes"])
-        self.assertIsNone(onset(dict.fromkeys(("100k","500k","1m","5m","10m"),False))["smallest_tested_passing_size"])
+        self.assertIsNone(onset(dict.fromkeys(("10k","50k","100k","500k","1m"),False))["smallest_tested_passing_size"])
 
     def test_all_630_contrasts_and_all_three_seeds_are_required(self):
         reports = software_reports()
@@ -63,9 +63,9 @@ class FinalAnalysisTests(unittest.TestCase):
         self.assertEqual(result["family_size"],630)
         self.assertAlmostEqual(result["contrasts"][0]["p_holm_full_baseline_family"],630*p)
         self.assertEqual(len(result["behavioral_criteria"]),66)
-        self.assertEqual(result["behavioral_criteria"]["symbolic/source_learning"]["smallest_tested_passing_size"],"5m")
+        self.assertEqual(result["behavioral_criteria"]["symbolic/source_learning"]["smallest_tested_passing_size"],"1m")
         # A passing holdout cannot rescue failed source mastery in seed 3.
-        self.assertEqual(result["behavioral_criteria"]["symbolic->english/test_symbols"]["smallest_tested_passing_size"],"5m")
+        self.assertEqual(result["behavioral_criteria"]["symbolic->english/test_symbols"]["smallest_tested_passing_size"],"1m")
         with self.assertRaisesRegex(ValueError,"45 unique"):
             summarize(reports[:-1])
         altered = copy.deepcopy(reports)

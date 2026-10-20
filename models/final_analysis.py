@@ -10,6 +10,7 @@ from .paired_statistics import compare, holm, read_predictions, validate_metrics
 from .representations import LABELS, REPRESENTATIONS
 from .suite import completed, jobs
 from .transformer import PRIMARY_SIZES, expected_parameter_count
+from .architecture_provenance import verify_transformer_provenance
 
 TESTS = tuple(sorted(set(SPLITS)-{"train","validation"}))
 
@@ -44,7 +45,8 @@ def verified_run(directory, job, fingerprint, manifest, targets):
         raise ValueError("Primary condition lacks the complete 30-epoch retained training budget")
     for row in history:
         metric_pass(row["validation"],manifest["files"]["validation.jsonl"]["labels"])
-    for name in ("transformer.py","representations.py"):
+    verify_transformer_provenance(result["config"])
+    for name in ("representations.py",):
         if result["config"]["source_checksums"][name] != file_checksum(Path(__file__).with_name(name)):
             raise ValueError("Primary architecture/renderer provenance differs from analysis code")
     if result["config"].get("warmup") is not None or result["config"].get("initialization_sha256") is not None:
@@ -135,7 +137,7 @@ def export(data, runs, output):
     missing = [job["name"] for job in planned if job not in ready]
     provenance = {"dataset_manifest_sha256":fingerprint,"analysis_code_sha256":file_checksum(Path(__file__)),
                   "dependency_code_sha256":{name:file_checksum(Path(__file__).with_name(name))
-                                             for name in ("suite.py","paired_statistics.py","transformer.py","representations.py")}}
+                                             for name in ("suite.py","paired_statistics.py","transformer.py","representations.py","architecture_provenance.py")}}
     if missing:
         report = dict(provenance,status="incomplete_matrix_no_final_statistics",aggregate_complete_conditions=len(ready),
                       required_conditions=45,planned_paired_family_size=630,missing_or_incomplete=missing,
