@@ -343,6 +343,10 @@ that every recent reasoning paper has been found or read.
    validation accuracy 34.00%, loss 1.100458, balanced accuracy one third. Its
    worse validation loss leaves the epoch-1 checkpoint selected; eight epochs
    remain. Changing constant answers is not inference learning.
+   Epoch 3 lowers validation loss to 1.098298, the minimum so far, while still
+   predicting contradicted for every case (34.00% accuracy, one-third balanced
+   accuracy). Checkpoint selection can improve without task learning; seven
+   scheduled epochs remain and the three-rate selection is not yet final.
    After all six 100K warmups finished, the freed one-thread CPU slot was used
    for the first 1M validation-only pilot (1,004,547 parameters, seed 101,
    symbolic, LR 0.001, 20K train/2K validation, ten epochs, microbatch 4 with
