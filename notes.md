@@ -21,7 +21,7 @@ Only the two completed main rows count toward the **2/45 primary conditions**.
 | --- | --- | ---: | ---: | ---: |
 | 100K main, seed 1 | Complete; gate failed | 30/30 | 33.33% | 33.333% |
 | 500K main, seed 1 | Complete; gate failed | 30/30 | 33.34% | 33.333% |
-| 10K main, seed 1 | Training | 13/30 | 33.33% | 33.333% |
+| 10K main, seed 1 | Training | 14/30 | 33.34% | 33.333% |
 | 1M calibration, seed 101, LR 0.0003 | Training; validation only | 8/10 | 31.70% | 32.718% |
 | 100K no-warmup CPU control, seed 1 | Training; separate control | 7/30 | 33.34% | 33.333% |
 
