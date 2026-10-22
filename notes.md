@@ -21,14 +21,22 @@ Only the two completed main rows count toward the **2/45 primary conditions**.
 | --- | --- | ---: | ---: | ---: |
 | 100K main, seed 1 | Complete; gate failed | 30/30 | 33.33% | 33.333% |
 | 500K main, seed 1 | Complete; gate failed | 30/30 | 33.34% | 33.333% |
-| 10K main, seed 1 | Training | 18/30 | 33.61% | 33.613% |
-| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 9/10 | 34.25% | 33.333% |
+| 10K main, seed 1 | Training | 19/30 | 33.34% | 33.342% |
+| 1M calibration, seed 101, LR 0.0003 | Complete; validation only, gate failed | 10/10 | 34.25% | 33.333% |
 | 100K no-warmup CPU control, seed 1 | Training; separate control | 7/30 | 33.34% | 33.333% |
 
 <!-- checkpoint-snapshot-end -->
 
 Raw histories preserve every saved epoch. Neither these partial measurements
 nor constant-class agreement establish a reasoning procedure or capacity onset.
+
+The completed 1M LR 0.0003 trial selects epoch 5 by validation loss
+(1.09984914): accuracy 34.25%, balanced accuracy one third, all predictions
+unknown. Its final epoch instead scores 30.95%; do not substitute that for the
+selected checkpoint. All ten epochs retain 200K total presentations and 6,250
+updates, with no test evaluations. The two-trial selection snapshot verifies
+both completed trials and withholds a winner until LR 0.003 finishes. That last
+trial has started on the same CPU lane with unchanged budget and seed.
 
 The selection-only CLI `python -m models.calibration_selection --protocol
 models/calibration_1m_protocol.json --output NEW_REPORT.json` audits saved
@@ -651,7 +659,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-twenty-one relevant-paper methods/results reviews, with version distinctions recorded;
+twenty-two relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
