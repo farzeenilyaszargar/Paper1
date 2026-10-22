@@ -358,6 +358,20 @@ independently verified.
 - Difference: fresh-KB character inference does not satisfy these assumptions;
   do not change benchmark labels or require identity facts on this basis.
 
+### Hellwig et al., August 2026 revision
+
+[Copying study](https://arxiv.org/html/2604.06501v2), v2; methods/interventions
+and Appendices A/B reviewed; not reproduced.
+
+- Question: can copying/diversity improve analogy generalization?
+- Method: 3+3-layer encoder-decoder, fixed 26 letter IDs, permuted alphabet inputs.
+- Result: heterogeneous training helps held-out permutations; novel transformations
+  remain difficult.
+- Caveats: best-run frontier comparison; the 200-alphabet aggregate combines
+  two batching variants, five replications each.
+- Difference: alphabet permutations are not unseen-token IDs; our held-out names
+  use known characters and fresh logical KBs.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational
@@ -586,7 +600,7 @@ checkpoint/validation selection; smoke training/evaluation; graph exporter;
 full-corpus exact and superficial-feature baselines; five primary size presets;
 lossless text-only parsing audit; memorization and binding-normalized diagnostics.
 Completed additionally: the 30-epoch raw pilot and its recovered evaluation;
-twenty relevant-paper methods/results reviews, with version distinctions recorded;
+twenty-one relevant-paper methods/results reviews, with version distinctions recorded;
 the first full-corpus 100K symbolic seed-1 baseline; verified paired-comparison tooling.
 Also completed: full-IID behavioral interventions and retained-prediction audit
 for that checkpoint, with a measured robustness figure/table; tested validation-only
@@ -906,3 +920,19 @@ epoch 7. Unsaved partial work is replayed and remains outside retained counters.
 New process-table checks confirmed one MPS trainer, two single-threaded CPU
 trainers and their three supervisors, with the same recorded settings. Existing
 Finder metadata was left in place and ignored by Git, not deleted.
+
+### October 23: resumed 10K baseline checkpoint
+
+The 11,491-parameter symbolic seed-1 model saved epoch 9/30 after recovery:
+28,125 retained updates and 900K example presentations. Training accuracy is
+33.30%; full validation accuracy is 33.33%, loss 1.098636, balanced accuracy
+one third, with all answers unknown. Its epoch/update/example counts and
+confusion-derived metrics were checked against the audited validation labels.
+The measured learning curve was refreshed and visually inspected. This remains
+an in-progress source-learning failure, not a completed 10K test condition or
+evidence of a capacity onset. All three training processes remained live.
+
+The copying-study review above brings the bibliography to 21 unique entries.
+This targeted literature follow-up did not change the frozen corpus or training
+settings. The generic plot exporter contains six completed evaluated runs,
+including smoke/pilot/diagnostic runs; only two belong to the primary matrix.
