@@ -955,3 +955,10 @@ checked against the actual 2K validation prefix; no test predictions are loaded
 or produced by this calibration. Its measured curve was refreshed. The trial
 and third rate remain incomplete, so no 1M rate or final capacity conclusion
 is selected.
+
+Before this update finished, the 10K model saved epoch 11/30: 34,375 retained
+updates, 1.1M example presentations, 33.397% training accuracy and 33.33%
+validation accuracy (loss 1.098796). It now predicts contradicted only, with
+balanced accuracy one third. Retained budget and validation metrics were
+checked; the class switch is not reasoning progress. Its measured curve was
+refreshed. The run remains incomplete, with 2/45 primary conditions complete.
