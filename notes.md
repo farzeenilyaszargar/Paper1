@@ -8,6 +8,28 @@ The corpus has 100K training instances and eight 10K evaluation/validation split
 The logic fragment, minimum parallel-rule depth, and classical three-way labels
 are defined in the README. No model has yet met the learning gate below.
 
+### Checkpoint snapshot (23 October; not a live status feed)
+
+All rows use symbolic source inputs. Completed rows show validation-selected
+checkpoint metrics; active rows show the latest retained epoch, not final test
+results. Calibration uses 20K train/2K validation; the other rows use 100K/10K.
+Only the two completed main rows count toward the **2/45 primary conditions**.
+
+<!-- checkpoint-snapshot-start -->
+
+| Condition | State | Retained epochs | Validation accuracy | Balanced accuracy |
+| --- | --- | ---: | ---: | ---: |
+| 100K main, seed 1 | Complete; gate failed | 30/30 | 33.33% | 33.333% |
+| 500K main, seed 1 | Complete; gate failed | 30/30 | 33.34% | 33.333% |
+| 10K main, seed 1 | Training | 12/30 | 33.34% | 33.333% |
+| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 7/10 | 32.20% | 32.499% |
+| 100K no-warmup CPU control, seed 1 | Training; separate control | 6/30 | 33.33% | 33.333% |
+
+<!-- checkpoint-snapshot-end -->
+
+Raw histories preserve every saved epoch. Neither these partial measurements
+nor constant-class agreement establish a reasoning procedure or capacity onset.
+
 The first 89,763-parameter smoke run used only 300 training examples, two epochs,
 and 30 validation examples. Best-validation-loss selection produced 26.7%
 validation accuracy. This is a software check, not evidence of learned reasoning
@@ -962,3 +984,11 @@ validation accuracy (loss 1.098796). It now predicts contradicted only, with
 balanced accuracy one third. Retained budget and validation metrics were
 checked; the class switch is not reasoning progress. Its measured curve was
 refreshed. The run remains incomplete, with 2/45 primary conditions complete.
+
+The 10K baseline then saved epoch 12/30: 37,500 retained updates and 1.2M
+example presentations. Training accuracy is 33.543%; validation accuracy is
+33.34%, loss 1.098698, all answers entailed, balanced accuracy one third.
+Budget and confusion-derived metrics passed the validation-label check, and
+the measured curve was refreshed. The class switch again does not establish
+reasoning. The checkpoint snapshot above summarizes current retained evidence;
+all original history rows remain available for reproducibility.
