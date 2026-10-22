@@ -945,3 +945,13 @@ Retained budget and confusion-derived validation metrics were checked against
 the audited manifest, and the curve was refreshed and visually inspected.
 Epoch 11 is running. No full 10K test result, source mastery or capacity onset
 is claimed; the primary matrix remains 2/45 complete.
+
+The resumed 1M LR 0.0003 calibration then saved epoch 7/10 (4,375 retained
+updates, 140K example presentations): training accuracy 33.88%, validation
+accuracy 32.20%, loss 1.103336 and balanced accuracy 32.499%. Predictions now
+mix entailed and unknown, but contradicted recall remains zero. Nonconstant
+answers do not establish reasoning. The budget/confusion/recall counts were
+checked against the actual 2K validation prefix; no test predictions are loaded
+or produced by this calibration. Its measured curve was refreshed. The trial
+and third rate remain incomplete, so no 1M rate or final capacity conclusion
+is selected.
