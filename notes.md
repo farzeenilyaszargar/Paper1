@@ -407,6 +407,22 @@ and Appendices A/B reviewed; not reproduced.
 - Difference: alphabet permutations are not unseen-token IDs; our held-out names
   use known characters and fresh logical KBs.
 
+### Lopes et al., September 2026
+
+[The Geometry of Logic](https://arxiv.org/html/2609.32927v1).
+Reviewed main architecture, arithmetic experiments, Table 6 and selected
+Appendix D/F configurations; code and proofs not independently verified.
+Question: does separating value and control channels improve generalization?
+Method: STRAT constrains attention/gating with separate Data/Type streams;
+eleven dataset evaluations use ten base examples, task-specific augmentation
+and ten paired seeds. Result: reported mean accuracies favor STRAT.
+Difference: task-specific typed inputs are not our raw characters. SATBench/
+SATLIB verify given assignments with evaluated-literal inputs, not classical
+entailment or SAT search. Longer SATBench inputs repeat clauses, not inference
+steps. Ten base examples need not mean ten total training inputs. Finite
+baseline failures do not prove universal architectural impossibility or locate
+our parameter onset. This twenty-second review does not alter our baseline.
+
 ## Experimental protocol and interpretation gates
 
 1. Establish source-format learning before interpreting transfer. Operational

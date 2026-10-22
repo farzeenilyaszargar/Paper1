@@ -21,7 +21,7 @@ Cross-representation procedure generalization; tiny-model traces; implicit
 multi-hop reasoning; names versus tokens; structure/length generalization.
 Use the source-backed notes and explicitly distinguish architectural guarantees
 from empirical learning in ordinary transformers.
-The twenty-one reviewed references are collected in `references.bib`; screening and
+The twenty-two reviewed references are collected in `references.bib`; screening and
 additional relevant-paper review remain documented in `notes.md`.
 Distinguish answer-only versus proof supervision and success-conditioned
 mechanistic case studies from unconditional multi-seed reliability.
@@ -34,6 +34,7 @@ cross-format inference and universal capacity claims.
 Keep Xu et al.'s stylized identity-bridge assumptions separate from our
 in-context classical-entailment benchmark.
 Hellwig et al.'s alphabet permutations reuse IDs, unlike unseen vocabulary.
+Lopes et al.'s typed assignment verification differs from raw-text entailment.
 
 ## 3. Task and dataset
 
