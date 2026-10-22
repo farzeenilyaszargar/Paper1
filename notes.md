@@ -21,9 +21,9 @@ Only the two completed main rows count toward the **2/45 primary conditions**.
 | --- | --- | ---: | ---: | ---: |
 | 100K main, seed 1 | Complete; gate failed | 30/30 | 33.33% | 33.333% |
 | 500K main, seed 1 | Complete; gate failed | 30/30 | 33.34% | 33.333% |
-| 10K main, seed 1 | Training | 12/30 | 33.34% | 33.333% |
-| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 7/10 | 32.20% | 32.499% |
-| 100K no-warmup CPU control, seed 1 | Training; separate control | 6/30 | 33.33% | 33.333% |
+| 10K main, seed 1 | Training | 13/30 | 33.33% | 33.333% |
+| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 8/10 | 31.70% | 32.718% |
+| 100K no-warmup CPU control, seed 1 | Training; separate control | 7/30 | 33.34% | 33.333% |
 
 <!-- checkpoint-snapshot-end -->
 
@@ -992,3 +992,15 @@ Budget and confusion-derived metrics passed the validation-label check, and
 the measured curve was refreshed. The class switch again does not establish
 reasoning. The checkpoint snapshot above summarizes current retained evidence;
 all original history rows remain available for reproducibility.
+
+The next checked batch of snapshots contains 10K epoch 13 (40,625 retained
+updates, 1.3M example presentations), 1M calibration epoch 8 (5,000 updates,
+160K presentations), and no-warmup control epoch 7 (21,875 updates, 700K
+presentations). Validation metrics and budgets were checked against the actual
+2K calibration prefix or full audited 10K validation labels as appropriate.
+The 10K model predicts contradicted only; the CPU control predicts entailed
+only. The 1M trial still never predicts contradicted and scores 31.70%, with
+balanced accuracy 32.718%. All fail the observed source criterion. The
+checkpoint snapshot and measured curves were refreshed; complete raw histories
+retain the per-epoch losses/confusions and exposure counters. All jobs continue;
+no source mastery, selected 1M rate or final capacity conclusion is claimed.
