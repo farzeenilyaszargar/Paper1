@@ -1,4 +1,36 @@
 {
+  "active_job": {
+    "command": [
+      "/Users/fizzy/Documents/ChatGPT/ResearchPaper1/.venv/bin/python",
+      "-u",
+      "-m",
+      "models.train",
+      "--data",
+      "datasets/default",
+      "--output",
+      "models/runs/baseline_full_10k_symbolic_seed1",
+      "--size",
+      "10k",
+      "--representation",
+      "symbolic",
+      "--seed",
+      "1",
+      "--epochs",
+      "30",
+      "--batch-size",
+      "16",
+      "--accumulation",
+      "2",
+      "--lr",
+      "0.001",
+      "--device",
+      "mps",
+      "--resume"
+    ],
+    "name": "baseline_full_10k_symbolic_seed1",
+    "pid": 79389
+  },
+  "completed": [],
   "conditions": [
     {
       "accumulation": 2,
@@ -497,8 +529,8 @@
     }
   ],
   "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
-  "drain_pid": 48920,
-  "interpretation": "Waiting for an existing accelerator job; PID liveness must be checked independently.",
-  "status": "draining_existing_trainer",
-  "supervisor_pid": 63826
+  "failed": [],
+  "phase": "fixed-budget baseline; validation calibration/controls remain separate",
+  "status": "running",
+  "supervisor_pid": 79295
 }

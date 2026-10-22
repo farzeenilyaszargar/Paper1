@@ -220,6 +220,14 @@ These are causal transformers with a three-class answer head, sinusoidal
 positions, and shared character IDs, not pretrained language models. Their
 fixed 4096-token positional table is a buffer, not trainable parameters.
 
+Verified status, 23 October: **2/45 primary conditions are complete**, the 100K
+and 500K symbolic seed-1 baselines. Both fail source learning; the selected
+500K checkpoint predicts entailed only and scores 33.34% in all 21 original
+test groups. The 10K baseline and two CPU auxiliary jobs have resumed from
+retained checkpoints. This is not a reasoning-onset result. See `notes.md`,
+`graphs/results.md` and `graphs/final_baseline_analysis.json` for evidence and
+remaining coverage; later-checkpoint robustness/length controls are still pending.
+
 Example full-corpus run (choose a new output directory):
 
 ```sh

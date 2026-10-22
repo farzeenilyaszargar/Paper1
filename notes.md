@@ -1,4 +1,4 @@
-# Research notes - updated 20 October 2026
+# Research notes - updated 23 October 2026
 
 ## Question and current evidence
 
@@ -869,3 +869,40 @@ the source-learning gate still fails. These are interim validation measurements,
 not the selected final checkpoint's test results. The learning curve was
 refreshed from the retained history. Completion of training alone will not
 complete the condition: its 21 full test groups must finish afterward.
+
+### October 23: completed 500K result and verified checkpoint recovery
+
+The 457,251-parameter symbolic seed-1 baseline completed all 30 epochs and all
+21 original test groups. Minimum source-validation loss selects epoch 9
+(1.098615969), not the final epoch. The selected checkpoint predicts entailed
+only: source validation and each original test group score 33.34%, with balanced
+accuracy one third. Final online training accuracy was 33.43%; the last epoch's
+validation prediction was instead constant contradicted. Do not substitute
+last-epoch validation metrics for selected-checkpoint test measurements.
+
+The completed condition passed the strict individual verifier: all 30 retained
+epochs/update/example counts, architecture/renderer provenance, 21 prediction
+files, actual held-out IDs/gold labels and reported confusion matrices were
+checked. Test-file hashes match the frozen manifest. All 14 within-run paired
+representation contrasts have exact McNemar p=1; this is constant-answer
+agreement, not learned transfer. Both the validation and independent source-IID
+learning gates fail. These checks validate retained results/provenance; they do
+not rerun model inference or establish an internal reasoning procedure.
+
+The primary matrix now has 2/45 completed conditions (100K and 500K symbolic,
+seed 1), with 43 incomplete. No capacity onset is supported. The final-analysis
+coverage report continues to refuse global statistics/onsets; exploratory
+within-run paired comparisons remain separate from the final 630-contrast
+family. Follow-up robustness and length-matched evaluations of the 500K
+checkpoint remain pending and are not claimed complete.
+
+On inspection no trainer or supervisor process was live. The stale queue files
+were not treated as liveness evidence. The 10K run had retained epoch 8 and
+begun epoch 9; both the second 1M calibration trial and the no-warmup CPU
+reference retained epoch 6. Logs did not retain a terminal exception explaining
+the stop, so its cause is unknown. All queues were restarted, preserving files,
+optimizer state and histories: 10K resumes epoch 9; the two CPU jobs resume
+epoch 7. Unsaved partial work is replayed and remains outside retained counters.
+New process-table checks confirmed one MPS trainer, two single-threaded CPU
+trainers and their three supervisors, with the same recorded settings. Existing
+Finder metadata was left in place and ignored by Git, not deleted.

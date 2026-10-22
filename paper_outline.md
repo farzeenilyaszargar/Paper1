@@ -88,8 +88,16 @@ the behavioral smallest-tested-size criteria are descriptive, not mechanistic.
 Do not fill missing runs with estimated or synthetic measurements.
 The first full-corpus 99,075-parameter seed-1 symbolic baseline is complete:
 33.33% validation and IID accuracy, with a constant-class selected checkpoint.
-This single condition fails the source gate and does not determine an onset.
-Its full-IID interventions also retain the constant answer: 100% prediction
+That 100K condition fails the source gate and does not determine an onset.
+The second completed primary condition is the 457,251-parameter symbolic
+seed-1 model. Its epoch-9 validation-selected checkpoint scores 33.34% in all
+21 original test groups, predicting entailed only. Independent retained-file
+checks confirm IDs/golds/confusions and all 30 training epochs; source mastery
+fails again. The 0.01-percentage-point difference from the 100K condition is
+not evidence of increased reasoning capacity: the selected constant class and
+label-count imbalance differ. Only 2/45 primary conditions are complete; final
+multi-seed scaling and global statistics remain unavailable.
+The 100K checkpoint's full-IID interventions retain the constant answer: 100% prediction
 invariance, zero jointly correct pairs after query negation, and 0% accuracy
 after supporting-fact ablation. Use this measured example to explain why
 invariance must be accompanied by correctness and counterfactual sensitivity.

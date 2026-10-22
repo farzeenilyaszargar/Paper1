@@ -1,4 +1,41 @@
 {
+  "active_job": {
+    "command": [
+      "/Users/fizzy/Documents/ChatGPT/ResearchPaper1/.venv/bin/python",
+      "-u",
+      "-m",
+      "models.train",
+      "--data",
+      "datasets/default",
+      "--output",
+      "models/runs/exposure_full_100k_symbolic_seed1_no_warmup_lr003",
+      "--size",
+      "100k",
+      "--representation",
+      "symbolic",
+      "--seed",
+      "1",
+      "--epochs",
+      "30",
+      "--batch-size",
+      "16",
+      "--accumulation",
+      "2",
+      "--lr",
+      "0.003",
+      "--device",
+      "cpu",
+      "--threads",
+      "1",
+      "--purpose",
+      "control",
+      "--encoding",
+      "characters",
+      "--resume"
+    ],
+    "name": "exposure_full_100k_symbolic_seed1_no_warmup_lr003",
+    "pid": 79308
+  },
   "completed": [],
   "conditions": [
     {
@@ -165,10 +202,10 @@
     }
   ],
   "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
-  "drain_pid": 50388,
+  "drain_pid": null,
   "interpretation": "Auxiliary coverage only, not the primary matrix or final prediction audit",
   "lane": "syntax_supervision",
   "protocol_sha256": "37c16942501f81e0a8e81c1614195ff3cf7dfa55241b41b580e719fb4f825a41",
-  "status": "draining",
-  "supervisor_pid": 66357
+  "status": "running",
+  "supervisor_pid": 79298
 }
