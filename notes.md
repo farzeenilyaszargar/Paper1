@@ -21,14 +21,27 @@ Only the two completed main rows count toward the **2/45 primary conditions**.
 | --- | --- | ---: | ---: | ---: |
 | 100K main, seed 1 | Complete; gate failed | 30/30 | 33.33% | 33.333% |
 | 500K main, seed 1 | Complete; gate failed | 30/30 | 33.34% | 33.333% |
-| 10K main, seed 1 | Training | 14/30 | 33.34% | 33.333% |
-| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 8/10 | 31.70% | 32.718% |
+| 10K main, seed 1 | Training | 17/30 | 33.16% | 33.163% |
+| 1M calibration, seed 101, LR 0.0003 | Training; validation only | 9/10 | 34.25% | 33.333% |
 | 100K no-warmup CPU control, seed 1 | Training; separate control | 7/30 | 33.34% | 33.333% |
 
 <!-- checkpoint-snapshot-end -->
 
 Raw histories preserve every saved epoch. Neither these partial measurements
 nor constant-class agreement establish a reasoning procedure or capacity onset.
+
+The selection-only CLI `python -m models.calibration_selection --protocol
+models/calibration_1m_protocol.json --output NEW_REPORT.json` audits saved
+configuration, epoch/example/update budgets, validation-loss selection and absence
+of test evaluations using the auxiliary coverage checks. It requires a new output
+path to preserve frozen protocol dependencies. The 23 October snapshot finds only
+one of three 1M trials complete and therefore selects no rate. A read-only check
+of the completed 100K grid reproduces LR 0.003 without replacing its pinned
+selection record. These are saved-artifact checks, not independent inference
+replays or evidence that the selected setting learns reasoning.
+All 69 software tests pass after adding the selection CLI, including incomplete
+coverage, declared-order tie handling, invalid-trial propagation, test-selection
+rejection and preservation of an existing output record.
 
 The first 89,763-parameter smoke run used only 300 training examples, two epochs,
 and 30 validation examples. Best-validation-loss selection produced 26.7%

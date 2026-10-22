@@ -1,0 +1,60 @@
+{
+  "dataset_manifest_sha256": "4d3a5fc9bf87a6ef3901285f08afae5c52a272fe7c7ef964779dee53dd7565e1",
+  "interpretation": "Coverage and saved minimum-validation-loss audit; not independent inference replay or evidence of source mastery.",
+  "protocol_sha256": "01c5fb97d8fbba566bdce5120e67dd8851438a809884b932cd78dfea64c4abe5",
+  "selection_rule": "Minimum selected source-validation loss after all declared trials complete; exact ties retain declared rate order",
+  "status": "incomplete_grid_no_selection",
+  "trials": [
+    {
+      "checkpoint_sha256": "4e0d250518dfda9bdd5c83b7cf812a14547e2a3349da07f20d09616e17835d84",
+      "complete": true,
+      "history_sha256": "fdb4937f247c791336b3e51334e9cb3726277f21cf341c54c144300ad6fbd2bb",
+      "learning_rate": 0.001,
+      "results_sha256": "264d542b79974b5fbbd94373adca2936bd87800350777d21bddf120325556e37",
+      "run": "calibration_1m_symbolic_seed101_lr001",
+      "selected_validation": {
+        "accuracy": 0.3425,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            0,
+            0,
+            635
+          ],
+          [
+            0,
+            0,
+            680
+          ],
+          [
+            0,
+            0,
+            685
+          ]
+        ],
+        "correct": 685,
+        "count": 2000,
+        "loss": 1.09818035364151,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 0.0,
+          "unknown": 1.0
+        },
+        "wilson95": [
+          0.3220218095198641,
+          0.3635820825242975
+        ]
+      }
+    },
+    {
+      "complete": false,
+      "learning_rate": 0.0003,
+      "run": "calibration_1m_symbolic_seed101_lr0003"
+    },
+    {
+      "complete": false,
+      "learning_rate": 0.003,
+      "run": "calibration_1m_symbolic_seed101_lr003"
+    }
+  ]
+}
