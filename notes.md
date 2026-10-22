@@ -936,3 +936,12 @@ The copying-study review above brings the bibliography to 21 unique entries.
 This targeted literature follow-up did not change the frozen corpus or training
 settings. The generic plot exporter contains six completed evaluated runs,
 including smoke/pilot/diagnostic runs; only two belong to the primary matrix.
+
+The 10K baseline subsequently saved epoch 10/30: 31,250 retained optimizer
+updates and 1M example presentations of the same 100K training split, not 1M
+distinct problems. Training accuracy is 33.247%; validation accuracy is 33.33%,
+loss 1.098628, with every answer unknown and balanced accuracy one third.
+Retained budget and confusion-derived validation metrics were checked against
+the audited manifest, and the curve was refreshed and visually inspected.
+Epoch 11 is running. No full 10K test result, source mastery or capacity onset
+is claimed; the primary matrix remains 2/45 complete.
