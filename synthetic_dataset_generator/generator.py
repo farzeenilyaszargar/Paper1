@@ -51,6 +51,10 @@ class Config:
     familiar_symbols: int = 512
     heldout_symbols: int = 256
     max_attempts_per_example: int = 100
+    branch_max: int = 3
+    distractor_max: int = 3
+    fact_min: int = 8
+    fact_max: int = 12
 
     def __post_init__(self):
         if not isinstance(self.name, str) or not self.name or Path(self.name).name != self.name or self.name in (".", ".."):
@@ -60,6 +64,8 @@ class Config:
                 raise ValueError(f"{name} must be an integer")
         if min(self.train_count, self.evaluation_count, self.max_attempts_per_example) < 1:
             raise ValueError("Counts and attempt limit must be positive")
+        if min(self.branch_max, self.distractor_max) < 0 or not 1 <= self.fact_min <= self.fact_max:
+            raise ValueError("Invalid distractor/fact budget")
         if min(self.familiar_symbols, self.heldout_symbols) < 128:
             raise ValueError("Use at least 128 symbols per pool for constrained embeddings")
         if self.familiar_symbols + self.heldout_symbols > 1000:
@@ -139,11 +145,11 @@ def make_problem(config: Config, split: str, label: str, rng: random.Random, *, 
     core_nodes = node_count
     core_roots = list(roots)
     # Dangling branches require no extra fact and cannot shorten the query proof.
-    for _ in range(rng.randint(1, 3)):
+    for _ in range(rng.randint(1, config.branch_max) if config.branch_max else 0):
         parent = rng.randrange(core_nodes)
         child = node()
         clauses.append(([[parent]], child))
-    for _ in range(rng.randint(1, 3)):
+    for _ in range(rng.randint(1, config.distractor_max) if config.distractor_max else 0):
         chain(rng.randint(1, depth))
 
     # Both polarities of the queried atom have a proof path. Which roots are
@@ -166,7 +172,7 @@ def make_problem(config: Config, split: str, label: str, rng: random.Random, *, 
         use_alternative = query_opposite == (label == "entailed")
         inactive_roots = set(core_roots if use_alternative else [alternative_root])
 
-    fact_count = rng.randint(max(8, len(roots)), 12)
+    fact_count = rng.randint(max(config.fact_min, len(roots)), config.fact_max)
     fact_nodes = list(roots)
     while len(fact_nodes) < fact_count:
         fact_nodes.append(node())

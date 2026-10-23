@@ -2,6 +2,15 @@
 
 Working outline; fill numerical claims only from completed, verified experiments.
 
+Active scope is now the learning-first compact design in
+`COMPACT_EXPERIMENT.md`: 10K/50K/100K/500K, 5K training examples, at most
+20 epochs, one-seed screening after a separate successful 100K pilot. Two
+additional source-format runs follow only source mastery; confirmation seeds
+are deferred. The 45-run design and measured full-corpus failures described
+below are historical exploratory work, not requirements for the active study.
+Report this redesign transparently, keep old/new task variants separate, and
+do not claim a reliable parameter threshold from a single seed.
+
 ## Abstract
 
 State the question, controlled task, model scales, and independent evaluation

@@ -256,5 +256,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--lane",choices=LANES,required=True)
     parser.add_argument("--drain-pid",type=int)
+    parser.add_argument("--allow-legacy-large-sweep", action="store_true")
     args = parser.parse_args()
+    if not args.allow_legacy_large_sweep:
+        parser.error("Auxiliary queues deferred by compact redesign; legacy replay requires --allow-legacy-large-sweep")
     run(args.lane,args.drain_pid)

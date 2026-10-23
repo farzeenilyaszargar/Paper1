@@ -7,6 +7,9 @@ Smoke/pilot results are not final paper evidence. Confidence intervals describe 
 | baseline_full_100k_symbolic_seed1 | full corpus | 99075 | symbolic | symbolic | 0.3333 | 10000 |
 | baseline_full_100k_symbolic_seed1 | full corpus | 99075 | symbolic | function | 0.3333 | 10000 |
 | baseline_full_100k_symbolic_seed1 | full corpus | 99075 | symbolic | english | 0.3333 | 10000 |
+| baseline_full_10k_symbolic_seed1 | full corpus | 11491 | symbolic | symbolic | 0.3333 | 10000 |
+| baseline_full_10k_symbolic_seed1 | full corpus | 11491 | symbolic | function | 0.3333 | 10000 |
+| baseline_full_10k_symbolic_seed1 | full corpus | 11491 | symbolic | english | 0.3333 | 10000 |
 | baseline_full_500k_symbolic_seed1 | full corpus | 457251 | symbolic | symbolic | 0.3334 | 10000 |
 | baseline_full_500k_symbolic_seed1 | full corpus | 457251 | symbolic | function | 0.3334 | 10000 |
 | baseline_full_500k_symbolic_seed1 | full corpus | 457251 | symbolic | english | 0.3334 | 10000 |

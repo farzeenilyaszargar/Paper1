@@ -13,6 +13,7 @@ models/runs/*/*.tmp
 .suite.lock
 .auxiliary_*.lock
 .plots.lock
+.compact.lock
 models/suite_logs/
 models/warmups/*/*.pt
 models/warmups/*/*.tmp

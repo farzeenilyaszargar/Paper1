@@ -8,9 +8,9 @@
       "--data",
       "datasets/default",
       "--output",
-      "models/runs/baseline_full_10k_symbolic_seed1",
+      "models/runs/baseline_full_50k_symbolic_seed1",
       "--size",
-      "10k",
+      "50k",
       "--representation",
       "symbolic",
       "--seed",
@@ -24,13 +24,14 @@
       "--lr",
       "0.001",
       "--device",
-      "mps",
-      "--resume"
+      "mps"
     ],
-    "name": "baseline_full_10k_symbolic_seed1",
-    "pid": 79389
+    "name": "baseline_full_50k_symbolic_seed1",
+    "pid": 3905
   },
-  "completed": [],
+  "completed": [
+    "baseline_full_10k_symbolic_seed1"
+  ],
   "conditions": [
     {
       "accumulation": 2,

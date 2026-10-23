@@ -1,0 +1,13 @@
+{
+  "name": "compact",
+  "seed": 731,
+  "train_count": 5000,
+  "evaluation_count": 1000,
+  "familiar_symbols": 128,
+  "heldout_symbols": 128,
+  "max_attempts_per_example": 100,
+  "branch_max": 0,
+  "distractor_max": 0,
+  "fact_min": 3,
+  "fact_max": 6
+}

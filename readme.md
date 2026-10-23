@@ -2,6 +2,16 @@ If a small transformer learns a reasoning procedure in one representation, can i
 
 # Can Small Transformers Generalize Reasoning Across Representations?
 
+## Active experiment: compact, learning-first
+
+The 45-run sweep has been superseded by a user-approved smaller design:
+one gated learning pilot, four sizes (10K/50K/100K/500K), then two transfer
+follow-ups only if learning succeeds. Each run uses 5K training examples and
+at most 20 epochs. See [COMPACT_EXPERIMENT.md](COMPACT_EXPERIMENT.md) for the
+active protocol, commands and stopping rules. Old full-corpus results remain
+exploratory history; the large-matrix commands below require an explicit legacy
+override and are not the active plan. No reasoning onset has been established.
+
 This repository contains a reproducible reasoning dataset, paired symbolic,
 function-syntax and template-English renderers, and a from-scratch transformer
 experiment pipeline. Software smoke runs are complete; the main experiment is

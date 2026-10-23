@@ -2,13 +2,33 @@
 
 ## Question and current evidence
 
+**Active redesign, 23 October:** use `COMPACT_EXPERIMENT.md` and
+`models/compact_protocol.json`, not the historical 45-run plan below. The user
+approved a learning-first compact experiment and removed 1M from the active
+sizes. The independently audited compact corpus has 5K train/1K validation and
+seven 1K test splits. Only a 100K symbolic validation-only pilot launches first;
+screening is gated on 95% accuracy and 90% recall per class. Historical runs are
+preserved and are not combined with compact results. Six compact core runs
+(four symbolic sizes plus two follow-up sources) follow the separate pilot;
+additional seeds and broad controls are deferred. This is an exploratory change
+of dataset difficulty and budget after observed failures, not preregistration.
+
+Implementation verification: all 71 software tests pass. The compact full audit
+checks all 13,000 problems; its portable manifest, audit and measured lengths
+are retained in `models/compact_dataset_summary.json`. Mean training input
+lengths including BOS/EOS are 177.7154 symbolic, 251.809 function and 248.1568
+English tokens. A direct replay also reproduces the original full-corpus first
+training record exactly under the unchanged default sampling settings (a
+targeted compatibility check, not an independent full regeneration). Only
+`compact_pilot_100k_symbolic_seed1` is launched, without warmup or test evaluation.
+
 Can a transformer trained from scratch on 2-hop propositional inference apply
 that procedure under a change of representation, symbols, graph family, or depth?
 The corpus has 100K training instances and eight 10K evaluation/validation splits.
 The logic fragment, minimum parallel-rule depth, and classical three-way labels
 are defined in the README. No model has yet met the learning gate below.
 
-### Checkpoint snapshot (23 October; not a live status feed)
+### Legacy checkpoint snapshot (23 October; not a live status feed)
 
 All rows use symbolic source inputs. Completed rows show validation-selected
 checkpoint metrics; active rows show the latest retained epoch, not final test

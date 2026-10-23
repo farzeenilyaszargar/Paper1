@@ -170,8 +170,11 @@ if __name__ == "__main__":
     parser.add_argument("--data",type=Path,default=Path("datasets/default"))
     parser.add_argument("--epochs",type=int,default=30)
     parser.add_argument("--include-pilot",action="store_true")
+    parser.add_argument("--allow-legacy-large-sweep", action="store_true")
     parser.add_argument("--drain-pid",type=int,help="Wait for a verified existing accelerator trainer before starting the revised queue")
     args = parser.parse_args()
+    if not args.allow_legacy_large_sweep:
+        parser.error("Large sweep superseded. Use models.compact; legacy replay requires --allow-legacy-large-sweep")
     if args.epochs < 1:
         parser.error("epochs must be positive")
     run(args.data,args.epochs,args.include_pilot,args.drain_pid)

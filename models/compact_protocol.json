@@ -1,0 +1,27 @@
+{
+  "status": "Active replacement for the large sweep; pilot only initially",
+  "date": "2026-10-23",
+  "dataset": "datasets/compact",
+  "dataset_config": "synthetic_dataset_generator/configs/compact.json",
+  "train_examples": 5000,
+  "validation_examples": 1000,
+  "test_examples_per_split": 1000,
+  "epochs": 20,
+  "seed": 1,
+  "learning_rate": 0.003,
+  "batch_size": 16,
+  "accumulation": 2,
+  "pilot_size": "100k",
+  "screen_sizes": ["10k", "50k", "100k", "500k"],
+  "screen_source": "symbolic",
+  "learning_gate": {"accuracy": 0.95, "minimum_class_recall": 0.9},
+  "stages": [
+    "One validation-only pilot; diagnose rather than sweep if it fails",
+    "Four symbolic one-seed size-screen runs after pilot gate passes; require validation and independent source IID mastery before transfer interpretation",
+    "Two additional source-format runs at the smallest screened successful size; source mastery required for each",
+    "Additional seeds only for key successful conditions; separate approval/review before expansion"
+  ],
+  "selection": "Minimum validation loss within each run; smallest tested size passing validation and symbolic IID gate for transfer follow-up",
+  "interpretation": "Exploratory redesign after full-corpus failures. One-seed screening does not establish a reliable or universal threshold. Compact task changes distractor density and symbol pool, so old and new runs are not a controlled capacity comparison.",
+  "deferred": ["45-condition full-corpus matrix", "CPU optimization calibration queue", "nine supervised warmup controls", "extensive robustness sweeps"]
+}
