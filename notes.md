@@ -1,4 +1,4 @@
-# Research notes - updated 23 October 2026
+# Research notes - updated 26 October 2026
 
 ## Question and current evidence
 
@@ -21,6 +21,43 @@ English tokens. A direct replay also reproduces the original full-corpus first
 training record exactly under the unchanged default sampling settings (a
 targeted compatibility check, not an independent full regeneration). Only
 `compact_pilot_100k_symbolic_seed1` is launched, without warmup or test evaluation.
+
+### Compact pilot outcome — 26 October review
+
+The compact 100K symbolic pilot completed all 20 epochs (3,140 updates,
+100,000 presentations). Its recorded training-loop elapsed time is 291.59
+seconds, about 4.9 minutes, excluding setup and final selected-checkpoint replay.
+Minimum validation loss selects epoch 19: loss 1.09784073, accuracy 34.8%,
+balanced accuracy 34.782%, with recalls 52.695%/33.634%/18.018% for
+entailed/contradicted/unknown. Final online training accuracy is 33.42% and
+final-epoch validation accuracy is 33.4%; these are not the selected metrics.
+The validation-only completion report contains no test evaluations. The learning
+gate fails, so no capacity screen or transfer runs are launched.
+
+A bounded memorization diagnostic uses only the first 32 training examples,
+the first 32 validation examples, the same 100K architecture/LR/batch settings,
+and at most 100 single-update epochs (3,200 presentations). It is not a screen
+run or a representative generalization estimate. `models.compact_diagnostics`
+replays train/validation checkpoints without using any test outcomes; the
+diagnostic is intended to distinguish a broken fitting path from difficulty
+learning the full task. Do not treat partial fitting as reasoning evidence.
+
+The diagnostic completed 100 updates/3,200 presentations in 170.98 recorded
+training-loop seconds. Online training accuracy first reaches 100% at update
+40. Saved final-checkpoint replay also fits all 32 training examples, while its
+small held-out validation remains unreliable. The selected compact pilot
+checkpoint replays at 35.14% on all 5K training examples; its final checkpoint
+gets 33.34%. Thus this is failure to fit the full training set, not merely poor
+cross-format transfer. Memorization shows that learning is possible on this
+particular batch; it does not rule out all implementation/optimization issues.
+The diagnostic changes dataset size, repetition count and update budget, so it
+does not isolate a causal bottleneck or justify bypassing the pilot gate.
+`models/compact_diagnostic_results.json` records checkpoint/result hashes and
+actual train/validation replays, with no test evaluation or capacity screening.
+All 71 software tests pass after this diagnostic addition; both real checkpoint
+replays also pass the retained budget, architecture and validation-confusion
+checks. These verifications establish the reported measurements, not a universal
+claim that the implementation or optimization is free of other limitations.
 
 Can a transformer trained from scratch on 2-hop propositional inference apply
 that procedure under a change of representation, symbols, graph family, or depth?

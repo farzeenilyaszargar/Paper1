@@ -1,0 +1,223 @@
+{
+  "dataset_manifest_sha256": "21c670f5b93b9ab6f2bf817be47300ec904dd70a1dc6e28cfa1b18f709d144fa",
+  "device": "mps",
+  "diagnostic_code_sha256": "78ab930f75087707c1f2e82af6324bcffe32f8fad96ed135d50d8e6afcc21ae7",
+  "interpretation": "Training-set replay and validation-only checks, not independent test generalization. Memorizing 32 examples does not establish learning the full task. No capacity screen or transfer run is authorized by a failed pilot.",
+  "runs": {
+    "compact_diagnostic_overfit32_100k_seed1": {
+      "epochs": 100,
+      "final_checkpoint_train": {
+        "accuracy": 1.0,
+        "balanced_accuracy": 1.0,
+        "confusion": [
+          [
+            13,
+            0,
+            0
+          ],
+          [
+            0,
+            9,
+            0
+          ],
+          [
+            0,
+            0,
+            10
+          ]
+        ],
+        "correct": 32,
+        "count": 32,
+        "loss": 0.0015906625631032512,
+        "recall": {
+          "contradicted": 1.0,
+          "entailed": 1.0,
+          "unknown": 1.0
+        },
+        "wilson95": [
+          0.8928172849426366,
+          1.0
+        ]
+      },
+      "first_online_perfect_train_epoch": 40,
+      "last_checkpoint_sha256": "86741f51dc874a00db9e0ed95eb5038ba82e8f32469b7223ae77f4011d00b267",
+      "results_sha256": "a8d2b4f4b07ef13c60b530c2befadaaa66768239a4748ffa7a8df76b879b7f66",
+      "selected_checkpoint_sha256": "2f6a0cca1131484293b1e566f27f0e3b8758925b4d4193fdae59ad1f1854919b",
+      "selected_checkpoint_train": {
+        "accuracy": 0.4375,
+        "balanced_accuracy": 0.47008547008547,
+        "confusion": [
+          [
+            1,
+            1,
+            11
+          ],
+          [
+            0,
+            3,
+            6
+          ],
+          [
+            0,
+            0,
+            10
+          ]
+        ],
+        "correct": 14,
+        "count": 32,
+        "loss": 1.0281866565346718,
+        "recall": {
+          "contradicted": 0.3333333333333333,
+          "entailed": 0.07692307692307693,
+          "unknown": 1.0
+        },
+        "wilson95": [
+          0.2816508596944317,
+          0.6067469796877387
+        ]
+      },
+      "selected_validation_replay": {
+        "accuracy": 0.28125,
+        "balanced_accuracy": 0.3037037037037037,
+        "confusion": [
+          [
+            0,
+            1,
+            7
+          ],
+          [
+            0,
+            2,
+            13
+          ],
+          [
+            1,
+            1,
+            7
+          ]
+        ],
+        "correct": 9,
+        "count": 32,
+        "loss": 1.1269931346178055,
+        "recall": {
+          "contradicted": 0.13333333333333333,
+          "entailed": 0.0,
+          "unknown": 0.7777777777777778
+        },
+        "wilson95": [
+          0.15564406845647866,
+          0.4537483693811179
+        ]
+      },
+      "train_examples": 32
+    },
+    "compact_pilot_100k_symbolic_seed1": {
+      "epochs": 20,
+      "final_checkpoint_train": {
+        "accuracy": 0.3334,
+        "balanced_accuracy": 0.3333333333333333,
+        "confusion": [
+          [
+            1667,
+            0,
+            0
+          ],
+          [
+            1667,
+            0,
+            0
+          ],
+          [
+            1666,
+            0,
+            0
+          ]
+        ],
+        "correct": 1667,
+        "count": 5000,
+        "loss": 1.0990836686134338,
+        "recall": {
+          "contradicted": 0.0,
+          "entailed": 1.0,
+          "unknown": 0.0
+        },
+        "wilson95": [
+          0.320464974847381,
+          0.3465908328344609
+        ]
+      },
+      "first_online_perfect_train_epoch": null,
+      "last_checkpoint_sha256": "1f5489afb9f1750f4904a551c1ed6379bd4e555fa4bacd43793f5f014956eb9c",
+      "results_sha256": "d0e84cdaef9c74c60f4fbf86c54a4970f9a302482b1c17ec79b101f717288477",
+      "selected_checkpoint_sha256": "f92e3c88956c2b8ca8e5f71bcfdd654a4b2edea112719dc9490ff5f8bea14be5",
+      "selected_checkpoint_train": {
+        "accuracy": 0.3514,
+        "balanced_accuracy": 0.3513652611614532,
+        "confusion": [
+          [
+            872,
+            510,
+            285
+          ],
+          [
+            842,
+            589,
+            236
+          ],
+          [
+            902,
+            468,
+            296
+          ]
+        ],
+        "correct": 1757,
+        "count": 5000,
+        "loss": 1.0979202006340028,
+        "recall": {
+          "contradicted": 0.35332933413317336,
+          "entailed": 0.5230953809238152,
+          "unknown": 0.17767106842737096
+        },
+        "wilson95": [
+          0.33828560921845285,
+          0.3647425601784362
+        ]
+      },
+      "selected_validation_replay": {
+        "accuracy": 0.348,
+        "balanced_accuracy": 0.3478208747669826,
+        "confusion": [
+          [
+            176,
+            105,
+            53
+          ],
+          [
+            180,
+            112,
+            41
+          ],
+          [
+            173,
+            100,
+            60
+          ]
+        ],
+        "correct": 348,
+        "count": 1000,
+        "loss": 1.0978407335281373,
+        "recall": {
+          "contradicted": 0.33633633633633636,
+          "entailed": 0.5269461077844312,
+          "unknown": 0.18018018018018017
+        },
+        "wilson95": [
+          0.3191088817410635,
+          0.3780544954291993
+        ]
+      },
+      "train_examples": 5000
+    }
+  },
+  "status": "pilot_failed_no_screen"
+}

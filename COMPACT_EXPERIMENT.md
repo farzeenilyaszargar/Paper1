@@ -67,3 +67,17 @@ Legacy suite/auxiliary CLI entrypoints now require the deliberate
 report; its 45-run completion requirement is not the compact completion target.
 Existing plots are historical measurements, not compact results. Compact plots
 and conclusions must be generated from the new run folders and dataset hashes.
+
+## First pilot result
+
+The 26 October audit finds the pilot complete: validation-selected epoch 19
+scores 34.8%, below the learning gate; final training accuracy is 33.42%.
+The four-size screen therefore remains gated off. Recorded training-loop time
+was 291.59 seconds (not a guarantee for other runs or machines).
+One 32-example memorization diagnostic completed 100 updates and fits its final
+training batch perfectly on checkpoint replay. The selected full pilot fits
+only 35.14% of its 5K training examples. This establishes neither a complete bug
+diagnosis nor reasoning generalization; repetition and data-size effects are
+confounded. The diagnostic does not replace the failed pilot or unlock screening.
+Reproduce the train/validation-only replay with
+`python -m models.compact_diagnostics --device mps` (or `--device cpu`).

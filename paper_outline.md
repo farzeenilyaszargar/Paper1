@@ -11,6 +11,14 @@ below are historical exploratory work, not requirements for the active study.
 Report this redesign transparently, keep old/new task variants separate, and
 do not claim a reliable parameter threshold from a single seed.
 
+The first compact pilot completed 20 epochs but failed the source-learning gate:
+34.8% validation accuracy at epoch 19 (selected by validation loss), and 35.14%
+accuracy when that checkpoint is replayed on all 5K training examples. A separate
+32-example diagnostic memorizes its training batch perfectly at the final
+checkpoint; this does not establish task generalization or identify a unique
+failure mechanism. No compact capacity or transfer results exist yet. Present
+this as a failed learning pilot and bounded fitting check, not a reasoning onset.
+
 ## Abstract
 
 State the question, controlled task, model scales, and independent evaluation
